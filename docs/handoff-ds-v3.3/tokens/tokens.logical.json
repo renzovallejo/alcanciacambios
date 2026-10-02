@@ -1,0 +1,469 @@
+{
+   "canvasScale" : 3,
+   "note" : "dp/sp logical units. Line height ratios and weights are not divided. CSS px are web equivalents, not physical device pixels.",
+   "tokens" : {
+      "acento" : {
+         "sourceCanvasValue" : "#FF7F32",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#FF7F32"
+      },
+      "base" : {
+         "sourceCanvasValue" : "#FFFFFF",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#FFFFFF"
+      },
+      "borde" : {
+         "sourceCanvasValue" : "#E4E5EC",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#E4E5EC"
+      },
+      "ds-border-width" : {
+         "sourceCanvasValue" : 3,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 1
+      },
+      "ds-content-width" : {
+         "sourceCanvasValue" : 1062,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 354
+      },
+      "ds-control-height" : {
+         "sourceCanvasValue" : 144,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 48
+      },
+      "ds-focus-width" : {
+         "sourceCanvasValue" : 6,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 2
+      },
+      "ds-font-11" : {
+         "sourceCanvasValue" : 33,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 11
+      },
+      "ds-font-12" : {
+         "sourceCanvasValue" : 36,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 12
+      },
+      "ds-font-13" : {
+         "sourceCanvasValue" : 39,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 13
+      },
+      "ds-font-14" : {
+         "sourceCanvasValue" : 42,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 14
+      },
+      "ds-font-15" : {
+         "sourceCanvasValue" : 45,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 15
+      },
+      "ds-font-16" : {
+         "sourceCanvasValue" : 48,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 16
+      },
+      "ds-font-17" : {
+         "sourceCanvasValue" : 51,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 17
+      },
+      "ds-font-18" : {
+         "sourceCanvasValue" : 54,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 18
+      },
+      "ds-font-20" : {
+         "sourceCanvasValue" : 60,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 20
+      },
+      "ds-font-21" : {
+         "sourceCanvasValue" : 63,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 21
+      },
+      "ds-font-22" : {
+         "sourceCanvasValue" : 66,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 22
+      },
+      "ds-font-26" : {
+         "sourceCanvasValue" : 78,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 26
+      },
+      "ds-font-36" : {
+         "sourceCanvasValue" : 108,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 36
+      },
+      "ds-line-12" : {
+         "sourceCanvasValue" : 1.33333333333333,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.33333333333333
+      },
+      "ds-line-13" : {
+         "sourceCanvasValue" : 1.38461538461538,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.38461538461538
+      },
+      "ds-line-14" : {
+         "sourceCanvasValue" : 1.42857142857143,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.42857142857143
+      },
+      "ds-line-15" : {
+         "sourceCanvasValue" : 1.46666666666667,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.46666666666667
+      },
+      "ds-line-16" : {
+         "sourceCanvasValue" : 1.5,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.5
+      },
+      "ds-line-18" : {
+         "sourceCanvasValue" : 1.44444444444444,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.44444444444444
+      },
+      "ds-line-20" : {
+         "sourceCanvasValue" : 1.4,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.4
+      },
+      "ds-line-22" : {
+         "sourceCanvasValue" : 1.36363636363636,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.36363636363636
+      },
+      "ds-line-26" : {
+         "sourceCanvasValue" : 1.30769230769231,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.30769230769231
+      },
+      "ds-line-36" : {
+         "sourceCanvasValue" : 1.22222222222222,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.22222222222222
+      },
+      "ds-line-body" : {
+         "sourceCanvasValue" : 1.5,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.5
+      },
+      "ds-line-compact" : {
+         "sourceCanvasValue" : 1.4,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.4
+      },
+      "ds-line-title" : {
+         "sourceCanvasValue" : 1.3,
+         "type" : "number",
+         "unit" : "",
+         "value" : 1.3
+      },
+      "ds-page-margin" : {
+         "sourceCanvasValue" : 72,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 24
+      },
+      "ds-radius-10" : {
+         "sourceCanvasValue" : 30,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 10
+      },
+      "ds-radius-12" : {
+         "sourceCanvasValue" : 36,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 12
+      },
+      "ds-radius-14" : {
+         "sourceCanvasValue" : 42,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 14
+      },
+      "ds-radius-16" : {
+         "sourceCanvasValue" : 48,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 16
+      },
+      "ds-space-10" : {
+         "sourceCanvasValue" : 30,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 10
+      },
+      "ds-space-12" : {
+         "sourceCanvasValue" : 36,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 12
+      },
+      "ds-space-14" : {
+         "sourceCanvasValue" : 42,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 14
+      },
+      "ds-space-16" : {
+         "sourceCanvasValue" : 48,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 16
+      },
+      "ds-space-18" : {
+         "sourceCanvasValue" : 54,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 18
+      },
+      "ds-space-20" : {
+         "sourceCanvasValue" : 60,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 20
+      },
+      "ds-space-24" : {
+         "sourceCanvasValue" : 72,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 24
+      },
+      "ds-space-32" : {
+         "sourceCanvasValue" : 96,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 32
+      },
+      "ds-space-4" : {
+         "sourceCanvasValue" : 12,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 4
+      },
+      "ds-space-6" : {
+         "sourceCanvasValue" : 18,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 6
+      },
+      "ds-space-7" : {
+         "sourceCanvasValue" : 21,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 7
+      },
+      "ds-space-8" : {
+         "sourceCanvasValue" : 24,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 8
+      },
+      "ds-touch-min" : {
+         "sourceCanvasValue" : 132,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 44
+      },
+      "ds-weight-medium" : {
+         "sourceCanvasValue" : "500",
+         "type" : "string",
+         "unit" : "",
+         "value" : "500"
+      },
+      "ds-weight-regular" : {
+         "sourceCanvasValue" : "400",
+         "type" : "string",
+         "unit" : "",
+         "value" : "400"
+      },
+      "ds-weight-semibold" : {
+         "sourceCanvasValue" : "600",
+         "type" : "string",
+         "unit" : "",
+         "value" : "600"
+      },
+      "fondo-azul" : {
+         "sourceCanvasValue" : "#F5F7FE",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#F5F7FE"
+      },
+      "fondo-naranja" : {
+         "sourceCanvasValue" : "#FFF8F3",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#FFF8F3"
+      },
+      "fondo-rojo" : {
+         "sourceCanvasValue" : "#FFF4F4",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#FFF4F4"
+      },
+      "fondo-verde" : {
+         "sourceCanvasValue" : "#F1FBF6",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#F1FBF6"
+      },
+      "fondo-violeta" : {
+         "sourceCanvasValue" : "#FAF6FF",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#FAF6FF"
+      },
+      "principal" : {
+         "sourceCanvasValue" : "#141C7A",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#141C7A"
+      },
+      "secundario" : {
+         "sourceCanvasValue" : "#7B24C5",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#7B24C5"
+      },
+      "texto" : {
+         "sourceCanvasValue" : "#0A0D29",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#0A0D29"
+      },
+      "texto-secundario" : {
+         "sourceCanvasValue" : "#5B6080",
+         "type" : "color",
+         "unit" : "",
+         "value" : "#5B6080"
+      },
+      "ui-body" : {
+         "sourceCanvasValue" : 48,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 16
+      },
+      "ui-caption" : {
+         "sourceCanvasValue" : 36,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 12
+      },
+      "ui-control-height" : {
+         "sourceCanvasValue" : 144,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 48
+      },
+      "ui-font" : {
+         "sourceCanvasValue" : "Inter",
+         "type" : "string",
+         "unit" : "",
+         "value" : "Inter"
+      },
+      "ui-label" : {
+         "sourceCanvasValue" : 42,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 14
+      },
+      "ui-radius-card" : {
+         "sourceCanvasValue" : 48,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 16
+      },
+      "ui-section" : {
+         "sourceCanvasValue" : 60,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 20
+      },
+      "ui-space-1" : {
+         "sourceCanvasValue" : 12,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 4
+      },
+      "ui-space-2" : {
+         "sourceCanvasValue" : 24,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 8
+      },
+      "ui-space-3" : {
+         "sourceCanvasValue" : 36,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 12
+      },
+      "ui-space-4" : {
+         "sourceCanvasValue" : 48,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 16
+      },
+      "ui-space-6" : {
+         "sourceCanvasValue" : 72,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 24
+      },
+      "ui-stroke" : {
+         "sourceCanvasValue" : 3,
+         "type" : "number",
+         "unit" : "dp",
+         "value" : 1
+      },
+      "ui-title" : {
+         "sourceCanvasValue" : 78,
+         "type" : "number",
+         "unit" : "sp",
+         "value" : 26
+      }
+   },
+   "version" : "3.3"
+}

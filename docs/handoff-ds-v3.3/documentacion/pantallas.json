@@ -1,0 +1,1126 @@
+[
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "f1ldqf",
+      "instancias_directas" : [
+         {
+            "componente" : "H0zs3c",
+            "id" : "AyTxS",
+            "nombre" : "Agregar primer saldo",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Agregar primer saldo"
+               }
+            }
+         },
+         {
+            "componente" : "Qls8U",
+            "id" : "YGA7n",
+            "nombre" : "Crear primera meta",
+            "overrides" : {
+               "elxu8" : {
+                  "content" : "Crear primera meta"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "sDtHA",
+            "nombre" : "Navegación inferior",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : []
+               },
+               "X0lNM" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "XEkuK" : {
+                  "fill" : "$texto-secundario"
+               },
+               "XIvbV" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "cEGYF" : {
+                  "fill" : []
+               },
+               "czExr" : {
+                  "fill" : "$principal"
+               },
+               "hwGgk" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "mIo1q" : {
+                  "fill" : "$texto-secundario"
+               },
+               "mkaxE" : {
+                  "fill" : "$fondo-azul"
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "01 · Alcancía · Primer día",
+      "referencia" : "referencias/pantallas/f1ldqf.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "SXi8C",
+      "instancias_directas" : [
+         {
+            "componente" : "H0zs3c",
+            "id" : "SF4OD",
+            "nombre" : "Agregar saldo",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Agregar saldo"
+               }
+            }
+         },
+         {
+            "componente" : "Qls8U",
+            "id" : "NptIf",
+            "nombre" : "Registrar salida",
+            "overrides" : {
+               "elxu8" : {
+                  "content" : "Registrar salida",
+                  "fontSize" : 45
+               }
+            }
+         },
+         {
+            "componente" : "AFmEZ",
+            "id" : "D5tTGw",
+            "nombre" : "Ver todas las cuatro metas",
+            "overrides" : {
+               "uPNPB" : {
+                  "content" : "Ver todas (4)"
+               }
+            }
+         },
+         {
+            "componente" : "AFmEZ",
+            "id" : "F2Szjh",
+            "nombre" : "Abrir historial",
+            "overrides" : {
+               "uPNPB" : {
+                  "content" : "Ver todos"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "e5ghR4",
+            "nombre" : "Navegación inferior",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : []
+               },
+               "X0lNM" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "XEkuK" : {
+                  "fill" : "$texto-secundario"
+               },
+               "XIvbV" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "cEGYF" : {
+                  "fill" : []
+               },
+               "czExr" : {
+                  "fill" : "$principal"
+               },
+               "hwGgk" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "mIo1q" : {
+                  "fill" : "$texto-secundario"
+               },
+               "mkaxE" : {
+                  "fill" : "$fondo-azul"
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "01 · Alcancía · UX v3",
+      "referencia" : "referencias/pantallas/SXi8C.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "P4my2J",
+      "instancias_directas" : [
+         {
+            "componente" : "H0zs3c",
+            "id" : "EcNqf",
+            "nombre" : "Conocer primera actividad",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Conocer la actividad"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "c33j0E",
+            "nombre" : "Navegación · Aprender",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : "$fondo-azul"
+               },
+               "X0lNM" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "XEkuK" : {
+                  "fill" : "$principal"
+               },
+               "XIvbV" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "cEGYF" : {
+                  "fill" : []
+               },
+               "czExr" : {
+                  "fill" : "$texto-secundario"
+               },
+               "hwGgk" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "mIo1q" : {
+                  "fill" : "$texto-secundario"
+               },
+               "mkaxE" : {
+                  "fill" : []
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Aprender · Momento cero · Explorar",
+      "referencia" : "referencias/pantallas/P4my2J.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "LV06M",
+      "instancias_directas" : [
+         {
+            "componente" : "H0zs3c",
+            "id" : "Iy0RG",
+            "nombre" : "Continuar actividad",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Continuar actividad"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "N3GLEo",
+            "nombre" : "Navegación · Aprender",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : "$fondo-azul"
+               },
+               "X0lNM" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "XEkuK" : {
+                  "fill" : "$principal"
+               },
+               "XIvbV" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "cEGYF" : {
+                  "fill" : []
+               },
+               "czExr" : {
+                  "fill" : "$texto-secundario"
+               },
+               "hwGgk" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "mIo1q" : {
+                  "fill" : "$texto-secundario"
+               },
+               "mkaxE" : {
+                  "fill" : []
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Aprender · Después de empezar",
+      "referencia" : "referencias/pantallas/LV06M.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "DlIAN",
+      "instancias_directas" : [
+         {
+            "componente" : "M2n4qL",
+            "id" : "Adxum",
+            "nombre" : "Formatos de biblioteca",
+            "overrides" : {
+               "B2osp" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "500"
+               },
+               "CjnnT" : {
+                  "fill" : []
+               },
+               "NLawp" : {
+                  "fill" : "$principal"
+               },
+               "ivRCa" : {
+                  "fill" : "$base",
+                  "fontWeight" : "600"
+               },
+               "jC9v9" : {
+                  "fill" : []
+               },
+               "uWvik" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "500"
+               }
+            }
+         },
+         {
+            "componente" : "H0zs3c",
+            "id" : "e6jxrd",
+            "nombre" : "Escuchar en la alcancía",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Escuchar en la alcancía"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "W7znW",
+            "nombre" : "Planifica y ahorra para una meta",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Planifica y ahorra para una meta"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-violeta"
+               },
+               "btcTw" : {
+                  "content" : "Ahorrar · 5 min"
+               },
+               "xG80y" : {
+                  "fill" : "$secundario",
+                  "icon" : "book-open"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "N56PA",
+            "nombre" : "Separa el ahorro del gasto",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Separa el ahorro del gasto"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-violeta"
+               },
+               "btcTw" : {
+                  "content" : "Ahorrar · 7 min"
+               },
+               "xG80y" : {
+                  "fill" : "$secundario",
+                  "icon" : "book-open"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "LXj20",
+            "nombre" : "Lleva control de lo que gastas",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Lleva control de lo que gastas"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-violeta"
+               },
+               "btcTw" : {
+                  "content" : "Gastar bien · cuento"
+               },
+               "xG80y" : {
+                  "fill" : "$secundario",
+                  "icon" : "book-open"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "wfmZS",
+            "nombre" : "Navegación · Aprender",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : "$fondo-azul"
+               },
+               "X0lNM" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "XEkuK" : {
+                  "fill" : "$principal"
+               },
+               "XIvbV" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "cEGYF" : {
+                  "fill" : []
+               },
+               "czExr" : {
+                  "fill" : "$texto-secundario"
+               },
+               "hwGgk" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "mIo1q" : {
+                  "fill" : "$texto-secundario"
+               },
+               "mkaxE" : {
+                  "fill" : []
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Biblioteca · Cuentos",
+      "referencia" : "referencias/pantallas/DlIAN.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "DrR6M",
+      "instancias_directas" : [
+         {
+            "componente" : "M2n4qL",
+            "id" : "qUR04",
+            "nombre" : "Formatos de biblioteca",
+            "overrides" : {
+               "B2osp" : {
+                  "fill" : "$base",
+                  "fontWeight" : "600"
+               },
+               "CjnnT" : {
+                  "fill" : "$principal"
+               },
+               "NLawp" : {
+                  "fill" : []
+               },
+               "ivRCa" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "500"
+               },
+               "jC9v9" : {
+                  "fill" : []
+               },
+               "uWvik" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "500"
+               }
+            }
+         },
+         {
+            "componente" : "H0zs3c",
+            "id" : "f0JpT",
+            "nombre" : "Ver misión",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Ver misión"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "tWumm",
+            "nombre" : "Separa tus monedas",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Separa tus monedas"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-verde"
+               },
+               "btcTw" : {
+                  "content" : "Ahorrar · en familia"
+               },
+               "xG80y" : {
+                  "fill" : "$principal",
+                  "icon" : "flag"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "k2Otdd",
+            "nombre" : "Compara antes de elegir",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Compara antes de elegir"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-verde"
+               },
+               "btcTw" : {
+                  "content" : "Gastar bien · en familia"
+               },
+               "xG80y" : {
+                  "fill" : "$principal",
+                  "icon" : "flag"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "aYt1D",
+            "nombre" : "Elige algo para compartir",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Elige algo para compartir"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-verde"
+               },
+               "btcTw" : {
+                  "content" : "Compartir · en familia"
+               },
+               "xG80y" : {
+                  "fill" : "$principal",
+                  "icon" : "flag"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "wQeJJ",
+            "nombre" : "Navegación · Aprender",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : "$fondo-azul"
+               },
+               "X0lNM" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "XEkuK" : {
+                  "fill" : "$principal"
+               },
+               "XIvbV" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "cEGYF" : {
+                  "fill" : []
+               },
+               "czExr" : {
+                  "fill" : "$texto-secundario"
+               },
+               "hwGgk" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "mIo1q" : {
+                  "fill" : "$texto-secundario"
+               },
+               "mkaxE" : {
+                  "fill" : []
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Biblioteca · Misiones",
+      "referencia" : "referencias/pantallas/DrR6M.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "KL3wo",
+      "instancias_directas" : [
+         {
+            "componente" : "M2n4qL",
+            "id" : "cT2h9",
+            "nombre" : "Formatos de biblioteca",
+            "overrides" : {
+               "B2osp" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "500"
+               },
+               "CjnnT" : {
+                  "fill" : []
+               },
+               "NLawp" : {
+                  "fill" : []
+               },
+               "ivRCa" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "500"
+               },
+               "jC9v9" : {
+                  "fill" : "$principal"
+               },
+               "uWvik" : {
+                  "fill" : "$base",
+                  "fontWeight" : "600"
+               }
+            }
+         },
+         {
+            "componente" : "H0zs3c",
+            "id" : "E5E7hd",
+            "nombre" : "Ver juego",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Ver juego"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "ck2J9",
+            "nombre" : "¿Lo necesito o lo quiero?",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "¿Lo necesito o lo quiero?"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-naranja"
+               },
+               "btcTw" : {
+                  "content" : "Gastar bien · dos personas"
+               },
+               "xG80y" : {
+                  "fill" : "$principal",
+                  "icon" : "messages-square"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "ClRge",
+            "nombre" : "Un regalo entre todos",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Un regalo entre todos"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-naranja"
+               },
+               "btcTw" : {
+                  "content" : "Compartir · en familia"
+               },
+               "xG80y" : {
+                  "fill" : "$principal",
+                  "icon" : "messages-square"
+               }
+            }
+         },
+         {
+            "componente" : "Is3ae",
+            "id" : "nQVZn",
+            "nombre" : "Mi primer pequeño negocio",
+            "overrides" : {
+               "NCqrG" : {
+                  "content" : "Mi primer pequeño negocio"
+               },
+               "TCZLG" : {
+                  "fill" : "$fondo-naranja"
+               },
+               "btcTw" : {
+                  "content" : "Ganar · dos personas"
+               },
+               "xG80y" : {
+                  "fill" : "$principal",
+                  "icon" : "messages-square"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "mf6ne",
+            "nombre" : "Navegación · Aprender",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : "$fondo-azul"
+               },
+               "X0lNM" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "XEkuK" : {
+                  "fill" : "$principal"
+               },
+               "XIvbV" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "cEGYF" : {
+                  "fill" : []
+               },
+               "czExr" : {
+                  "fill" : "$texto-secundario"
+               },
+               "hwGgk" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "normal"
+               },
+               "mIo1q" : {
+                  "fill" : "$texto-secundario"
+               },
+               "mkaxE" : {
+                  "fill" : []
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Biblioteca · Juegos de rol",
+      "referencia" : "referencias/pantallas/KL3wo.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "cti8f",
+      "instancias_directas" : [
+         {
+            "componente" : "huyVV",
+            "id" : "CO8z2",
+            "nombre" : "Encabezado · Progreso",
+            "overrides" : {
+               "MoSYT" : {
+                  "content" : "Progreso"
+               }
+            }
+         },
+         {
+            "componente" : "H69s5J",
+            "id" : "j5ppK",
+            "nombre" : "Contexto · Sofía",
+            "overrides" : {
+               "Z0bbN" : {
+                  "content" : "Sin notas ni comparaciones",
+                  "fontSize" : "$ds-font-13",
+                  "lineHeight" : "$ds-line-13",
+                  "name" : "Acompañamiento sin notas",
+                  "textGrowth" : "fixed-width",
+                  "width" : "fill_container"
+               },
+               "fLo9z" : {
+                  "enabled" : false
+               }
+            }
+         },
+         {
+            "componente" : "E9m3W",
+            "id" : "tP8dc",
+            "nombre" : "Chanchito · SVG original",
+            "overrides" : {}
+         },
+         {
+            "componente" : "AFmEZ",
+            "id" : "fpVxO",
+            "nombre" : "Ver momento destacado",
+            "overrides" : {
+               "uPNPB" : {
+                  "content" : "Ver momento →",
+                  "fontSize" : "$ds-font-14"
+               }
+            }
+         },
+         {
+            "componente" : "AFmEZ",
+            "id" : "wpPwk",
+            "nombre" : "Ver todos los avances",
+            "overrides" : {
+               "uPNPB" : {
+                  "content" : "Ver avances →",
+                  "fontSize" : "$ds-font-14"
+               }
+            }
+         },
+         {
+            "componente" : "H0zs3c",
+            "id" : "XwUQg",
+            "nombre" : "Explorar actividad sugerida",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Explorar actividad"
+               }
+            }
+         },
+         {
+            "componente" : "xzJwy",
+            "id" : "wXMJQ",
+            "nombre" : "Navegación · Progreso activo",
+            "overrides" : {
+               "Ct2T0" : {
+                  "fill" : []
+               },
+               "X0lNM" : {
+                  "fill" : "$principal",
+                  "fontWeight" : "600"
+               },
+               "XEkuK" : {
+                  "fill" : "$texto-secundario"
+               },
+               "XIvbV" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "400"
+               },
+               "cEGYF" : {
+                  "fill" : "$fondo-azul"
+               },
+               "czExr" : {
+                  "fill" : "$texto-secundario"
+               },
+               "hwGgk" : {
+                  "fill" : "$texto-secundario",
+                  "fontWeight" : "400"
+               },
+               "mIo1q" : {
+                  "fill" : "$principal"
+               },
+               "mkaxE" : {
+                  "fill" : []
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Progreso · Lo que Sofía va descubriendo",
+      "referencia" : "referencias/pantallas/cti8f.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "PjYZn",
+      "instancias_directas" : [
+         {
+            "componente" : "BpEqk",
+            "id" : "K3I9K",
+            "nombre" : "Importe editable",
+            "overrides" : {
+               "BxvhR" : {
+                  "fill" : "$base",
+                  "height" : 252
+               },
+               "cemrN" : {
+                  "content" : "Toca el importe para cambiarlo.",
+                  "fontSize" : "$ds-font-13",
+                  "lineHeight" : "$ds-line-13"
+               },
+               "cssmG" : {
+                  "content" : "Monto a agregar",
+                  "fontSize" : "$ds-font-16",
+                  "lineHeight" : "$ds-line-16"
+               },
+               "kxf9n" : {
+                  "content" : "S/ 10.00",
+                  "fontSize" : "$ds-font-36",
+                  "fontWeight" : "600"
+               }
+            }
+         },
+         {
+            "componente" : "H0zs3c",
+            "id" : "mDUjb",
+            "nombre" : "Continuar",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Continuar"
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Agregar saldo · 01 Importe · DS v3.2",
+      "referencia" : "referencias/pantallas/PjYZn.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "JMkTk",
+      "instancias_directas" : [
+         {
+            "componente" : "H0zs3c",
+            "id" : "Pj0A0",
+            "nombre" : "Continuar",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Continuar"
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Agregar saldo · 02 Motivo y destino · DS v3.2",
+      "referencia" : "referencias/pantallas/JMkTk.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "jBSms",
+      "instancias_directas" : [
+         {
+            "componente" : "E9m3W",
+            "id" : "F8koVJ",
+            "nombre" : "Chanchito · SVG original",
+            "overrides" : {}
+         },
+         {
+            "componente" : "H0zs3c",
+            "id" : "WWVYe",
+            "nombre" : "Reintentar conexión",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Reintentar conexión"
+               }
+            }
+         },
+         {
+            "componente" : "uoHQj",
+            "id" : "m144a5",
+            "nombre" : "Batería y energía",
+            "overrides" : {
+               "E4PQPJ" : {
+                  "fill" : "$fondo-azul"
+               },
+               "EwZCJ" : {
+                  "content" : "Batería y energía",
+                  "fontSize" : "$ds-font-16",
+                  "lineHeight" : "$ds-line-16"
+               },
+               "FFyZ3" : {
+                  "icon" : "battery-medium"
+               },
+               "iYiyY" : {
+                  "content" : "52% · Último dato recibido",
+                  "fontSize" : "$ds-font-13",
+                  "lineHeight" : "$ds-line-13"
+               }
+            }
+         },
+         {
+            "componente" : "uoHQj",
+            "id" : "D0bBY9",
+            "nombre" : "Red WiFi",
+            "overrides" : {
+               "E4PQPJ" : {
+                  "fill" : "$fondo-azul"
+               },
+               "EwZCJ" : {
+                  "content" : "Red WiFi",
+                  "fontSize" : "$ds-font-16",
+                  "lineHeight" : "$ds-line-16"
+               },
+               "FFyZ3" : {
+                  "icon" : "wifi"
+               },
+               "iYiyY" : {
+                  "content" : "CREMA VOLTEADA 2.4G · guardada",
+                  "fontSize" : "$ds-font-13",
+                  "lineHeight" : "$ds-line-13"
+               }
+            }
+         },
+         {
+            "componente" : "uoHQj",
+            "id" : "mljB9",
+            "nombre" : "Voz y sonido",
+            "overrides" : {
+               "E4PQPJ" : {
+                  "fill" : "$fondo-azul"
+               },
+               "EwZCJ" : {
+                  "content" : "Voz y sonido",
+                  "fontSize" : "$ds-font-16",
+                  "lineHeight" : "$ds-line-16"
+               },
+               "FFyZ3" : {
+                  "icon" : "volume-2"
+               },
+               "iYiyY" : {
+                  "content" : "Volumen 10% · Último ajuste conocido",
+                  "fontSize" : "$ds-font-13",
+                  "lineHeight" : "$ds-line-13"
+               }
+            }
+         },
+         {
+            "componente" : "uoHQj",
+            "id" : "qMUn8",
+            "nombre" : "Emparejar este celular",
+            "overrides" : {
+               "E4PQPJ" : {
+                  "fill" : "$fondo-azul"
+               },
+               "EwZCJ" : {
+                  "content" : "Emparejar este celular",
+                  "fontSize" : "$ds-font-16",
+                  "lineHeight" : "$ds-line-16"
+               },
+               "FFyZ3" : {
+                  "icon" : "bluetooth"
+               },
+               "iYiyY" : {
+                  "content" : "Para usarla desde este celular.",
+                  "fontSize" : "$ds-font-13",
+                  "lineHeight" : "$ds-line-13"
+               }
+            }
+         },
+         {
+            "componente" : "uoHQj",
+            "id" : "qetJK",
+            "nombre" : "Perfil de Sofía",
+            "overrides" : {
+               "E4PQPJ" : {
+                  "fill" : "$fondo-azul"
+               },
+               "EwZCJ" : {
+                  "content" : "Perfil de Sofía",
+                  "fontSize" : "$ds-font-16",
+                  "lineHeight" : "$ds-line-16"
+               },
+               "FFyZ3" : {
+                  "icon" : "user-round"
+               },
+               "iYiyY" : {
+                  "content" : "Nombre y datos del perfil",
+                  "fontSize" : "$ds-font-13",
+                  "lineHeight" : "$ds-line-13"
+               }
+            }
+         },
+         {
+            "componente" : "AFmEZ",
+            "id" : "ApfYR",
+            "nombre" : "Cerrar sesión",
+            "overrides" : {
+               "uPNPB" : {
+                  "content" : "Cerrar sesión"
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "El chanchito · Ajustes y conexión · DS v3.2",
+      "referencia" : "referencias/pantallas/jBSms.png"
+   },
+   {
+      "canvas" : {
+         "height" : 2622,
+         "width" : 1206
+      },
+      "id" : "diQk4",
+      "instancias_directas" : [
+         {
+            "componente" : "H0zs3c",
+            "id" : "ogZNw",
+            "nombre" : "Ver guía y preguntas",
+            "overrides" : {
+               "NaojH" : {
+                  "content" : "Ver guía y preguntas"
+               }
+            }
+         },
+         {
+            "componente" : "AFmEZ",
+            "id" : "CHm0D",
+            "nombre" : "Seguir otro día",
+            "overrides" : {
+               "uPNPB" : {
+                  "content" : "Seguir otro día"
+               }
+            }
+         }
+      ],
+      "logico" : {
+         "height" : 874,
+         "width" : 402
+      },
+      "nombre" : "Cuento · Compara precios antes de comprar · DS v3.2",
+      "referencia" : "referencias/pantallas/diQk4.png"
+   }
+]

@@ -1,0 +1,541 @@
+{
+   "acento" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#FF7F32",
+      "unit" : "",
+      "value" : "#FF7F32"
+   },
+   "base" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#FFFFFF",
+      "unit" : "",
+      "value" : "#FFFFFF"
+   },
+   "borde" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#E4E5EC",
+      "unit" : "",
+      "value" : "#E4E5EC"
+   },
+   "ds-border-width" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 3,
+      "unit" : "dp",
+      "value" : 1
+   },
+   "ds-content-width" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 1062,
+      "unit" : "dp",
+      "value" : 354
+   },
+   "ds-control-height" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 144,
+      "unit" : "dp",
+      "value" : 48
+   },
+   "ds-focus-width" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 6,
+      "unit" : "dp",
+      "value" : 2
+   },
+   "ds-font-11" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 33,
+      "unit" : "sp",
+      "value" : 11
+   },
+   "ds-font-12" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 36,
+      "unit" : "sp",
+      "value" : 12
+   },
+   "ds-font-13" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 39,
+      "unit" : "sp",
+      "value" : 13
+   },
+   "ds-font-14" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 42,
+      "unit" : "sp",
+      "value" : 14
+   },
+   "ds-font-15" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 45,
+      "unit" : "sp",
+      "value" : 15
+   },
+   "ds-font-16" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 48,
+      "unit" : "sp",
+      "value" : 16
+   },
+   "ds-font-17" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 51,
+      "unit" : "sp",
+      "value" : 17
+   },
+   "ds-font-18" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 54,
+      "unit" : "sp",
+      "value" : 18
+   },
+   "ds-font-20" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 60,
+      "unit" : "sp",
+      "value" : 20
+   },
+   "ds-font-21" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 63,
+      "unit" : "sp",
+      "value" : 21
+   },
+   "ds-font-22" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 66,
+      "unit" : "sp",
+      "value" : 22
+   },
+   "ds-font-26" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 78,
+      "unit" : "sp",
+      "value" : 26
+   },
+   "ds-font-36" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 108,
+      "unit" : "sp",
+      "value" : 36
+   },
+   "ds-line-12" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.33333333333333,
+      "unit" : "ratio",
+      "value" : 1.33333333333333
+   },
+   "ds-line-13" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.38461538461538,
+      "unit" : "ratio",
+      "value" : 1.38461538461538
+   },
+   "ds-line-14" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.42857142857143,
+      "unit" : "ratio",
+      "value" : 1.42857142857143
+   },
+   "ds-line-15" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.46666666666667,
+      "unit" : "ratio",
+      "value" : 1.46666666666667
+   },
+   "ds-line-16" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.5,
+      "unit" : "ratio",
+      "value" : 1.5
+   },
+   "ds-line-18" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.44444444444444,
+      "unit" : "ratio",
+      "value" : 1.44444444444444
+   },
+   "ds-line-20" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.4,
+      "unit" : "ratio",
+      "value" : 1.4
+   },
+   "ds-line-22" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.36363636363636,
+      "unit" : "ratio",
+      "value" : 1.36363636363636
+   },
+   "ds-line-26" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.30769230769231,
+      "unit" : "ratio",
+      "value" : 1.30769230769231
+   },
+   "ds-line-36" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.22222222222222,
+      "unit" : "ratio",
+      "value" : 1.22222222222222
+   },
+   "ds-line-body" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.5,
+      "unit" : "ratio",
+      "value" : 1.5
+   },
+   "ds-line-compact" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.4,
+      "unit" : "ratio",
+      "value" : 1.4
+   },
+   "ds-line-title" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : 1.3,
+      "unit" : "ratio",
+      "value" : 1.3
+   },
+   "ds-page-margin" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 72,
+      "unit" : "dp",
+      "value" : 24
+   },
+   "ds-radius-10" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 30,
+      "unit" : "dp",
+      "value" : 10
+   },
+   "ds-radius-12" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 36,
+      "unit" : "dp",
+      "value" : 12
+   },
+   "ds-radius-14" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 42,
+      "unit" : "dp",
+      "value" : 14
+   },
+   "ds-radius-16" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 48,
+      "unit" : "dp",
+      "value" : 16
+   },
+   "ds-space-10" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 30,
+      "unit" : "dp",
+      "value" : 10
+   },
+   "ds-space-12" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 36,
+      "unit" : "dp",
+      "value" : 12
+   },
+   "ds-space-14" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 42,
+      "unit" : "dp",
+      "value" : 14
+   },
+   "ds-space-16" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 48,
+      "unit" : "dp",
+      "value" : 16
+   },
+   "ds-space-18" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 54,
+      "unit" : "dp",
+      "value" : 18
+   },
+   "ds-space-20" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 60,
+      "unit" : "dp",
+      "value" : 20
+   },
+   "ds-space-24" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 72,
+      "unit" : "dp",
+      "value" : 24
+   },
+   "ds-space-32" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 96,
+      "unit" : "dp",
+      "value" : 32
+   },
+   "ds-space-4" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 12,
+      "unit" : "dp",
+      "value" : 4
+   },
+   "ds-space-6" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 18,
+      "unit" : "dp",
+      "value" : 6
+   },
+   "ds-space-7" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 21,
+      "unit" : "dp",
+      "value" : 7
+   },
+   "ds-space-8" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 24,
+      "unit" : "dp",
+      "value" : 8
+   },
+   "ds-touch-min" : {
+      "legacy" : false,
+      "sourceScale" : 3,
+      "sourceValue" : 132,
+      "unit" : "dp",
+      "value" : 44
+   },
+   "ds-weight-medium" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "500",
+      "unit" : "",
+      "value" : "500"
+   },
+   "ds-weight-regular" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "400",
+      "unit" : "",
+      "value" : "400"
+   },
+   "ds-weight-semibold" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "600",
+      "unit" : "",
+      "value" : "600"
+   },
+   "fondo-azul" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#F5F7FE",
+      "unit" : "",
+      "value" : "#F5F7FE"
+   },
+   "fondo-naranja" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#FFF8F3",
+      "unit" : "",
+      "value" : "#FFF8F3"
+   },
+   "fondo-rojo" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#FFF4F4",
+      "unit" : "",
+      "value" : "#FFF4F4"
+   },
+   "fondo-verde" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#F1FBF6",
+      "unit" : "",
+      "value" : "#F1FBF6"
+   },
+   "fondo-violeta" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#FAF6FF",
+      "unit" : "",
+      "value" : "#FAF6FF"
+   },
+   "principal" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#141C7A",
+      "unit" : "",
+      "value" : "#141C7A"
+   },
+   "secundario" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#7B24C5",
+      "unit" : "",
+      "value" : "#7B24C5"
+   },
+   "texto" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#0A0D29",
+      "unit" : "",
+      "value" : "#0A0D29"
+   },
+   "texto-secundario" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "#5B6080",
+      "unit" : "",
+      "value" : "#5B6080"
+   },
+   "ui-body" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 48,
+      "unit" : "sp",
+      "value" : 16
+   },
+   "ui-caption" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 36,
+      "unit" : "sp",
+      "value" : 12
+   },
+   "ui-control-height" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 144,
+      "unit" : "dp",
+      "value" : 48
+   },
+   "ui-font" : {
+      "legacy" : false,
+      "sourceScale" : 1,
+      "sourceValue" : "Inter",
+      "unit" : "",
+      "value" : "Inter"
+   },
+   "ui-label" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 42,
+      "unit" : "sp",
+      "value" : 14
+   },
+   "ui-radius-card" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 48,
+      "unit" : "dp",
+      "value" : 16
+   },
+   "ui-section" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 60,
+      "unit" : "sp",
+      "value" : 20
+   },
+   "ui-space-1" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 12,
+      "unit" : "dp",
+      "value" : 4
+   },
+   "ui-space-2" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 24,
+      "unit" : "dp",
+      "value" : 8
+   },
+   "ui-space-3" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 36,
+      "unit" : "dp",
+      "value" : 12
+   },
+   "ui-space-4" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 48,
+      "unit" : "dp",
+      "value" : 16
+   },
+   "ui-space-6" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 72,
+      "unit" : "dp",
+      "value" : 24
+   },
+   "ui-stroke" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 3,
+      "unit" : "dp",
+      "value" : 1
+   },
+   "ui-title" : {
+      "legacy" : true,
+      "sourceScale" : 3,
+      "sourceValue" : 78,
+      "unit" : "sp",
+      "value" : 26
+   }
+}

@@ -1,0 +1,37 @@
+ALCANCÍA — HANDOFF DEL SISTEMA DE DISEÑO v3.3
+
+EMPEZAR: abrir ABRIR-AQUI.html en un navegador. Funciona sin conexión.
+
+CONTENIDO
+- editable/alcancia-ds-v3.3.pen: 12 pantallas, 4 paneles DS y dependencias de componentes. Copia independiente; no reemplaza el documento de trabajo.
+- referencias/pantallas/: 12 PNG a 402 × 874 px (1×).
+- referencias/sistema/: cuatro paneles PNG y PDF de cuatro páginas.
+- tokens/: variables originales del canvas, JSON a 1×, CSS y TypeScript.
+- documentacion/: inventario de maestros, mapa de instancias/overrides por pantalla y guía de implementación/QA.
+- assets/mascota/: PNG 1×, 2× y 3× del chanchito original. Los vectores se conservan editables en el .pen (E9m3W); no se entrega una reconstrucción SVG aproximada.
+- assets/fuentes/: Inter variable normal y licencia SIL OFL.
+- assets/iconos/: SVG Lucide por nombre, inventario y licencia (lucide-static 1.49.0). Incluye iconos usados mediante overrides de instancias.
+- contratos/dominio.ts: contratos propuestos de datos; no endpoints ni backend implementados.
+- manifest.sha256: comprobación de integridad.
+
+UNIDADES
+El diseño trabaja a 3×: 1206 × 2622 equivale a 402 × 874 dp.
+Dimensiones se dividen por 3. Font sizes -> sp en móvil; dp para espacios.
+Interlineados son ratios (p. ej. 1.5), no dimensiones: NO dividir.
+Pesos, colores y proporciones tampoco se dividen. Los tokens CSS ya están a 1×.
+No usar los números del JSON de componentes directamente como dp: son medidas del canvas a 3×.
+No fijar alturas de pantalla ni safe areas; permitir contenido desplazable y texto ampliado.
+
+ALCANCE
+No es una app implementada ni una biblioteca React/Flutter/Swift. El equipo elige tecnología y conecta interacción, audio, permisos, red, persistencia y hardware.
+Las pantallas mantienen sus nombres de versión originales; el sistema de entrega es v3.3.
+Las capturas son referencias visuales, no controles ni imágenes para sustituir la UI.
+Algunas capas de pantalla no están migradas a instancias; priorizar maestros y tokens vigentes.
+Los datos de niños, autoría, importes y duración del cuento son ejemplos.
+No hay archivos de audio, credenciales, endpoints ni datos reales.
+Etapas 3/4 del flujo de saldo y validación con usuarios quedan pendientes.
+Revisar derechos de la mascota aportada por el usuario. Las licencias de terceros incluidas deben conservarse.
+
+VALIDACIÓN
+Se comprueban dependencias del editable, referencias locales, PNG, conversión de tokens e integridad del ZIP.
+No equivale a pruebas funcionales, certificación de accesibilidad ni validación del hardware.
