@@ -4,6 +4,7 @@ import { BackBar, Button } from '../components/ui';
 import { ActionFooter } from './Saldo';
 import { newId, useStore } from '../lib/store';
 import { parseAmount } from '../lib/money';
+import { t } from '../i18n';
 
 export default function NuevaMeta() {
   const { state, dispatch } = useStore();
@@ -26,17 +27,17 @@ export default function NuevaMeta() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar icon="x" title={first ? 'Su primera meta' : 'Otra meta'} />
-        <h1 className="title">¿Para qué quiere ahorrar {state.childName}?</h1>
-        <p className="muted">Un juguete, un libro o algo que le guste mucho.</p>
-        <label htmlFor="meta-nombre" className="field-label">¿Qué quiere?</label>
-        <input id="meta-nombre" className="text-field" placeholder="Por ejemplo: una pelota" maxLength={40} value={name} onChange={(e) => setName(e.target.value)} />
-        {touched && !name.trim() && <p className="small error" role="alert">Escribe qué quiere.</p>}
-        <label htmlFor="meta-monto" className="field-label">¿Cuánto cuesta más o menos? (S/)</label>
+        <BackBar icon="x" title={t(first ? 'nuevaMeta.tituloPrimera' : 'nuevaMeta.tituloOtra')} />
+        <h1 className="title">{t('nuevaMeta.pregunta', { nombre: state.childName })}</h1>
+        <p className="muted">{t('nuevaMeta.ayuda')}</p>
+        <label htmlFor="meta-nombre" className="field-label">{t('nuevaMeta.nombre')}</label>
+        <input id="meta-nombre" className="text-field" placeholder={t('nuevaMeta.nombreEjemplo')} maxLength={40} value={name} onChange={(e) => setName(e.target.value)} />
+        {touched && !name.trim() && <p className="small error" role="alert">{t('nuevaMeta.nombreError')}</p>}
+        <label htmlFor="meta-monto" className="field-label">{t('nuevaMeta.costo')}</label>
         <input id="meta-monto" className="text-field" inputMode="decimal" value={target} onChange={(e) => setTarget(e.target.value)} />
         {touched && !parsed.ok && <p className="small error" role="alert">{parsed.error}</p>}
       </div>
-      <ActionFooter><Button block onClick={save}>Guardar meta</Button></ActionFooter>
+      <ActionFooter><Button block onClick={save}>{t('nuevaMeta.guardar')}</Button></ActionFooter>
     </div>
   );
 }

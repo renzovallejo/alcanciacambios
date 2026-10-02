@@ -5,18 +5,19 @@ import { ActionFooter } from './Saldo';
 import { ACTIVITIES, TOPIC_LABEL, findGame, findMission, findStory } from '../lib/content';
 import { newId, useStore } from '../lib/store';
 import type { AudioState, Topic } from '../domain';
+import { t } from '../i18n';
 
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 const clamp = (v: number, max: number) => Math.min(Math.max(v, 0), max);
 
 function NotFound({ to, label }: { to: string; label: string }) {
-  return (<div className="task"><div className="task-scroll"><BackBar title={label} to={to} /><p className="muted">No encontramos esto. Puede que ya no esté.</p></div></div>);
+  return (<div className="task"><div className="task-scroll"><BackBar title={label} to={to} /><p className="muted">{t('comun.noEncontradoContenido')}</p></div></div>);
 }
 
 function stepLabel(topic: Topic | null, p: string | null): string | null {
   if (!topic || !p) return null;
   const act = ACTIVITIES[topic];
-  return act ? `PASO ${p} DE ${act.steps.length}` : null;
+  return act ? t('actividad.paso', { actual: p, total: act.steps.length }) : null;
 }
 
 /** Cuento con reproductor. El audio no se entrega con el handoff: sin fuente, error recuperable y texto legible. */
@@ -30,7 +31,7 @@ export function Cuento() {
   const [pos, setPos] = useState(0);
   const [dur, setDur] = useState(0);
   useEffect(() => () => { audio.current?.pause(); }, []);
-  if (!story) return <NotFound to="/biblioteca" label="Cuento" />;
+  if (!story) return <NotFound to="/biblioteca" label={t('cuento.titulo')} />;
 
   const audioSource: string | null = null; // sin archivo de audio en el handoff
   const hasAudio = !!audioSource;
@@ -55,39 +56,39 @@ export function Cuento() {
   };
   const seek = (d: number) => { const a = audio.current; if (!a) return; a.currentTime = clamp(a.currentTime + d, duration); setPos(a.currentTime); };
   const errMsg = device
-    ? 'El chanchito no está conectado, así que no se puede escuchar ahí. Pero pueden leer el cuento juntos.'
-    : 'El audio todavía no está listo. Pero pueden leer el cuento juntos.';
+    ? t('cuento.errorChanchito')
+    : t('cuento.errorAudio');
 
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title="Aprender juntos" />
+        <BackBar title={t('cuento.barra')} />
         <div className="eyebrow violet">{TOPIC_LABEL[story.topic].toUpperCase()}{label ? ` · ${label}` : ''}</div>
         <h1 className="title">{story.title}</h1>
-        <p className="muted">Un cuento para escuchar juntos.</p>
+        <p className="muted">{t('cuento.sub')}</p>
         <section className="card card-violet story">
-          <div className="eyebrow violet"><Icon name="book-open" size={18} /> EL CUENTO</div>
+          <div className="eyebrow violet"><Icon name="book-open" size={18} /> {t('cuento.ceja')}</div>
           <p>{story.text}</p>
         </section>
 
-        <p className="muted">{device ? 'Escuchar en el chanchito' : 'Escuchar en este celular'}</p>
-        <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={duration} aria-valuenow={pos} aria-label="Posición del audio">
+        <p className="muted">{t(device ? 'cuento.enChanchito' : 'cuento.enCelular')}</p>
+        <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={duration} aria-valuenow={pos} aria-label={t('cuento.posicion')}>
           <div style={{ width: duration ? `${(pos / duration) * 100}%` : 0 }} />
         </div>
         <div className="times muted small"><span>{fmt(pos)}</span><span>{fmt(duration)}</span></div>
         <div className="player">
-          <button className="skip" disabled={!hasAudio} onClick={() => seek(-10)} aria-label="Retroceder 10 segundos"><Icon name="rotate-ccw" size={24} /><span>10 s</span></button>
-          <button className="play" onClick={toggle} aria-label={audioState === 'playing' ? 'Pausar' : 'Reproducir'} aria-busy={audioState === 'loading'}>
+          <button className="skip" disabled={!hasAudio} onClick={() => seek(-10)} aria-label={t('cuento.atras')}><Icon name="rotate-ccw" size={24} /><span>{t('cuento.diezSegundos')}</span></button>
+          <button className="play" onClick={toggle} aria-label={t(audioState === 'playing' ? 'cuento.pausar' : 'cuento.reproducir')} aria-busy={audioState === 'loading'}>
             <Icon name={audioState === 'playing' ? 'pause' : 'play'} size={28} />
           </button>
-          <button className="skip" disabled={!hasAudio} onClick={() => seek(10)} aria-label="Adelantar 10 segundos"><Icon name="rotate-cw" size={24} /><span>10 s</span></button>
+          <button className="skip" disabled={!hasAudio} onClick={() => seek(10)} aria-label={t('cuento.adelante')}><Icon name="rotate-cw" size={24} /><span>{t('cuento.diezSegundos')}</span></button>
         </div>
         {audioState === 'error' && <p className="alert-box appear" role="alert">{errMsg}</p>}
-        <p className="talk"><Icon name="messages-square" size={22} />Después, conversen: {story.questions[0].charAt(0).toLowerCase() + story.questions[0].slice(1)}</p>
+        <p className="talk"><Icon name="messages-square" size={22} />{t('cuento.despues', { pregunta: story.questions[0].charAt(0).toLowerCase() + story.questions[0].slice(1) })}</p>
       </div>
       <ActionFooter>
-        <LinkButton to={`/guia/${story.id}`} block>Ver preguntas para conversar</LinkButton>
-        <LinkButton to="/aprender" variant="tertiary" block>Seguir otro día</LinkButton>
+        <LinkButton to={`/guia/${story.id}`} block>{t('cuento.verPreguntas')}</LinkButton>
+        <LinkButton to="/aprender" variant="tertiary" block>{t('cuento.otroDia')}</LinkButton>
       </ActionFooter>
       <span className="sr-only">{state.childName}</span>
     </div>
@@ -100,7 +101,7 @@ export function Guia() {
   const story = findStory(id);
   const { dispatch } = useStore();
   const [saved, setSaved] = useState(false);
-  if (!story) return <NotFound to="/aprender" label="Guía" />;
+  if (!story) return <NotFound to="/aprender" label={t('guia.titulo')} />;
   const save = () => {
     if (saved) return;
     dispatch({ type: 'addConversation', conversation: { id: newId('c'), title: story.title, recordedAt: new Date().toISOString() } });
@@ -109,24 +110,24 @@ export function Guia() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title="Para conversar" />
+        <BackBar title={t('guia.titulo')} />
         <div className="eyebrow violet">{TOPIC_LABEL[story.topic].toUpperCase()}</div>
         <h1 className="title">{story.title}</h1>
-        <h2 className="section-title">Pregúntale</h2>
+        <h2 className="section-title">{t('guia.pregunta')}</h2>
         <ul className="plain stack-8">
           {story.questions.map((q) => (<li key={q} className="card card-violet talk"><Icon name="messages-square" size={22} />{q}</li>))}
         </ul>
-        <h2 className="section-title">Unos consejos para ti</h2>
+        <h2 className="section-title">{t('guia.consejos')}</h2>
         <ul className="bullets">
-          <li>Escucha primero. Aquí no hay respuestas buenas ni malas.</li>
-          <li>Pregunta «¿y por qué?» con curiosidad, sin corregir.</li>
-          <li>Si no es el momento, lo dejan para otro día. No pasa nada.</li>
+          <li>{t('guia.consejo1')}</li>
+          <li>{t('guia.consejo2')}</li>
+          <li>{t('guia.consejo3')}</li>
         </ul>
-        {saved && <p className="alert-box ok appear" role="status">¡Anotado! Gracias por darte el tiempo.</p>}
+        {saved && <p className="alert-box ok appear" role="status">{t('guia.anotado')}</p>}
       </div>
-      <ActionFooter helper="Anotarlo es opcional. No es una nota para nadie.">
-        <Button block variant={saved ? 'secondary' : 'primary'} onClick={save} disabled={saved}>{saved ? '¡Anotado!' : 'Ya lo conversamos'}</Button>
-        <LinkButton to="/aprender" variant="tertiary" block>Volver a Aprender</LinkButton>
+      <ActionFooter helper={t('guia.pie')}>
+        <Button block variant={saved ? 'secondary' : 'primary'} onClick={save} disabled={saved}>{t(saved ? 'guia.anotadoCorto' : 'guia.yaConversamos')}</Button>
+        <LinkButton to="/aprender" variant="tertiary" block>{t('guia.volverAprender')}</LinkButton>
       </ActionFooter>
     </div>
   );
@@ -136,20 +137,20 @@ export function Mision() {
   const { id = '' } = useParams();
   const m = findMission(id);
   const [checked, setChecked] = useState<Record<number, boolean>>({});
-  if (!m) return <NotFound to="/biblioteca" label="Misión" />;
+  if (!m) return <NotFound to="/biblioteca" label={t('mision.titulo')} />;
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title="Misión" />
+        <BackBar title={t('mision.titulo')} />
         <section className="card card-mint feature">
-          <div className="eyebrow">PARA HACER EN CASA · {TOPIC_LABEL[m.topic].toUpperCase()}</div>
+          <div className="eyebrow">{t('mision.ceja', { tema: TOPIC_LABEL[m.topic].toUpperCase() })}</div>
           <h1 className="feature-title">{m.title}</h1>
           <p className="body">{m.summary}</p>
         </section>
-        <h2 className="section-title">Van a necesitar</h2>
+        <h2 className="section-title">{t('mision.necesitan')}</h2>
         <ul className="bullets">{m.materials.map((x) => <li key={x}>{x}</li>)}</ul>
-        <h2 className="section-title">Cómo se hace</h2>
-        <p className="muted small">Marquen lo que van haciendo. No es tarea.</p>
+        <h2 className="section-title">{t('mision.comoSeHace')}</h2>
+        <p className="muted small">{t('mision.noEsTarea')}</p>
         <ul className="plain list">
           {m.steps.map((st, i) => (
             <li key={st}>
@@ -161,9 +162,9 @@ export function Mision() {
           ))}
         </ul>
       </div>
-      <ActionFooter helper="Si quieren, anoten cómo les fue.">
-        <LinkButton to={`/momento/nuevo?tema=${m.topic}`} block>Anotar cómo les fue</LinkButton>
-        <LinkButton to="/biblioteca" variant="tertiary" block>Volver a Biblioteca</LinkButton>
+      <ActionFooter helper={t('mision.pie')}>
+        <LinkButton to={`/momento/nuevo?tema=${m.topic}`} block>{t('mision.anotar')}</LinkButton>
+        <LinkButton to="/biblioteca" variant="tertiary" block>{t('mision.volverBiblioteca')}</LinkButton>
       </ActionFooter>
     </div>
   );
@@ -174,7 +175,7 @@ export function Juego() {
   const g = findGame(id);
   const { dispatch } = useStore();
   const [saved, setSaved] = useState(false);
-  if (!g) return <NotFound to="/biblioteca" label="Juego" />;
+  if (!g) return <NotFound to="/biblioteca" label={t('juego.titulo')} />;
   const save = () => {
     if (saved) return;
     dispatch({ type: 'addConversation', conversation: { id: newId('c'), title: g.title, recordedAt: new Date().toISOString() } });
@@ -183,21 +184,21 @@ export function Juego() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title="Juego" />
+        <BackBar title={t('juego.titulo')} />
         <section className="card card-cream feature">
-          <div className="eyebrow">IMAGINEN Y CONVERSEN · {g.players.toUpperCase()}</div>
+          <div className="eyebrow">{t('juego.ceja', { jugadores: g.players.toUpperCase() })}</div>
           <h1 className="feature-title">{g.title}</h1>
           <p className="body">{g.scenario}</p>
         </section>
-        <h2 className="section-title">Quién hace qué</h2>
+        <h2 className="section-title">{t('juego.roles')}</h2>
         <ul className="bullets">{g.roles.map((x) => <li key={x}>{x}</li>)}</ul>
-        <h2 className="section-title">Para conversar después</h2>
+        <h2 className="section-title">{t('juego.despues')}</h2>
         <ul className="plain stack-8">{g.questions.map((q) => (<li key={q} className="card card-cream talk"><Icon name="messages-square" size={22} />{q}</li>))}</ul>
-        {saved && <p className="alert-box ok appear" role="status">¡Anotado!</p>}
+        {saved && <p className="alert-box ok appear" role="status">{t('guia.anotadoCorto')}</p>}
       </div>
-      <ActionFooter helper="Anotarlo es opcional. No es una nota para nadie.">
-        <Button block onClick={save} disabled={saved}>{saved ? '¡Anotado!' : 'Ya lo conversamos'}</Button>
-        <LinkButton to="/biblioteca" variant="tertiary" block>Volver a Biblioteca</LinkButton>
+      <ActionFooter helper={t('guia.pie')}>
+        <Button block onClick={save} disabled={saved}>{t(saved ? 'guia.anotadoCorto' : 'guia.yaConversamos')}</Button>
+        <LinkButton to="/biblioteca" variant="tertiary" block>{t('mision.volverBiblioteca')}</LinkButton>
       </ActionFooter>
     </div>
   );

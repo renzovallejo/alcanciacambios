@@ -1,6 +1,8 @@
 import type { Topic } from '../domain';
+import { t } from '../i18n';
 
-export const TOPIC_LABEL: Record<Topic, string> = { ahorrar: 'Ahorrar', 'gastar-bien': 'Gastar bien', compartir: 'Compartir', ganar: 'Ganar' };
+/** Nombre visible del tema (catálogo de textos). */
+export const TOPIC_LABEL = new Proxy({} as Record<Topic, string>, { get: (_, k: string) => t(`temas.${k}`) });
 export const TOPIC_ICON: Record<Topic, string> = { ahorrar: 'wallet', 'gastar-bien': 'shopping-cart', compartir: 'hand-heart', ganar: 'briefcase-business' };
 export const TOPIC_ORDER: Topic[] = ['ahorrar', 'gastar-bien', 'compartir', 'ganar'];
 

@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Icon } from './ui';
+import { t } from '../i18n';
 
 const TABS = [
-  { to: '/', label: 'Alcancía', icon: 'piggy-bank', end: true },
-  { to: '/aprender', label: 'Aprender', icon: 'book-open', end: false },
-  { to: '/progreso', label: 'Progreso', icon: 'chart-no-axes-combined', end: false },
+  { to: '/', label: 'nav.alcancia', icon: 'piggy-bank', end: true },
+  { to: '/aprender', label: 'nav.aprender', icon: 'book-open', end: false },
+  { to: '/progreso', label: 'nav.progreso', icon: 'chart-no-axes-combined', end: false },
 ];
 
 /** Qué pestaña queda activa para cada ruta (Biblioteca pertenece a Aprender). */
@@ -24,7 +25,7 @@ function useRouteChange() {
   useEffect(() => {
     window.scrollTo(0, 0);
     const h1 = document.querySelector<HTMLElement>('main h1, .task h1');
-    document.title = h1?.textContent ? `${h1.textContent} · Alcancía` : 'Alcancía';
+    document.title = h1?.textContent ? t('comun.tituloPestana', { titulo: h1.textContent }) : t('comun.app');
     if (firstRender) { firstRender = false; return; }
     if (h1) {
       h1.setAttribute('tabindex', '-1');
@@ -40,13 +41,13 @@ export default function Layout() {
   return (
     <div className="app">
       <main className="page page-enter" key={pathname}><Outlet /></main>
-      <nav className="tabbar" aria-label="Navegación principal" style={{ ['--i' as string]: active }}>
+      <nav className="tabbar" aria-label={t('nav.etiqueta')} style={{ ['--i' as string]: active }}>
         {active >= 0 && <span className="tab-pill" aria-hidden="true" />}
-        {TABS.map((t, i) => (
-          <NavLink key={t.to} to={t.to} end={t.end}
+        {TABS.map((tab, i) => (
+          <NavLink key={tab.to} to={tab.to} end={tab.end}
             className={`tab ${i === active ? 'active' : ''}`} aria-current={i === active ? 'page' : undefined}>
-            <Icon name={t.icon} size={24} />
-            <span>{t.label}</span>
+            <Icon name={tab.icon} size={24} />
+            <span>{t(tab.label)}</span>
           </NavLink>
         ))}
       </nav>

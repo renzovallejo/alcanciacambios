@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChildContext, ConnectionStatus, Icon, IconTile, LinkButton, Mascota, ScreenHeader, useCountUp } from '../components/ui';
 import { useStore, type Goal, type Movement } from '../lib/store';
 import { friendlyDate } from '../lib/dates';
+import { t } from '../i18n';
 import { formatMoney, percent } from '../lib/money';
 
 // Último estado visto en esta sesión, para animar solo lo que cambió.
@@ -30,40 +31,40 @@ export default function Home() {
 
   return (
     <>
-      <ScreenHeader title="Alcancía" />
+      <ScreenHeader title={t('nav.alcancia')} />
       <ChildContext name={childName} status={<ConnectionStatus />} />
 
-      <section className={`balance ${changed ? 'changed' : ''}`} aria-label={`Lo que ${childName} lleva ahorrado`}>
+      <section className={`balance ${changed ? 'changed' : ''}`} aria-label={t('alcancia.etiquetaSaldo', { nombre: childName })}>
         <Mascota size={64} className={changed ? 'hop' : ''} />
         <div>
-          <div className="eyebrow on-dark">LLEVA AHORRADO</div>
+          <div className="eyebrow on-dark">{t('alcancia.llevaAhorrado')}</div>
           <div className="amount" aria-hidden="true">{formatMoney(shown)}</div>
           <span className="sr-only" aria-live="polite">{formatMoney(balanceMinor)}</span>
-          <div className="balance-sub">Según lo que han anotado</div>
+          <div className="balance-sub">{t('alcancia.segunAnotado')}</div>
         </div>
       </section>
 
       {firstDay ? (
-        <LinkButton to="/saldo/importe" block>Anotar su primera plata</LinkButton>
+        <LinkButton to="/saldo/importe" block>{t('alcancia.primeraPlata')}</LinkButton>
       ) : (
         <div className="btn-pair">
-          <LinkButton to="/saldo/importe">Agregar plata</LinkButton>
-          <LinkButton to="/salida/importe" variant="secondary">Sacar plata</LinkButton>
+          <LinkButton to="/saldo/importe">{t('alcancia.agregarPlata')}</LinkButton>
+          <LinkButton to="/salida/importe" variant="secondary">{t('alcancia.sacarPlata')}</LinkButton>
         </div>
       )}
 
       <div className="section-head">
-        <h2>Sus metas</h2>
-        {goals.length > 0 && <Link to="/metas" className="link">Ver todas ({goals.length})</Link>}
+        <h2>{t('alcancia.susMetas')}</h2>
+        {goals.length > 0 && <Link to="/metas" className="link">{t('comun.verTodas', { count: goals.length })}</Link>}
       </div>
       {goals.length === 0 ? (
         <section className="card card-cream empty-goal">
           <div className="empty-goal-top">
             <IconTile icon="target" tone="naranja" size={40} />
-            <h3>¿Para qué quiere ahorrar {childName}?</h3>
+            <h3>{t('alcancia.metaVaciaTitulo', { nombre: childName })}</h3>
           </div>
-          <p className="muted">Un juguete, un libro o algo que le guste mucho. Escójanlo juntos.</p>
-          <LinkButton to="/meta/nueva" variant="secondary" block>Poner su primera meta</LinkButton>
+          <p className="muted">{t('alcancia.metaVaciaTexto')}</p>
+          <LinkButton to="/meta/nueva" variant="secondary" block>{t('alcancia.metaVaciaBoton')}</LinkButton>
         </section>
       ) : (
         <ul className="stack-8 plain">
@@ -74,15 +75,15 @@ export default function Home() {
       )}
 
       <div className="section-head">
-        <h2>Lo último que anotaron</h2>
-        {movements.length > 0 && <Link to="/movimientos" className="link">Ver todos</Link>}
+        <h2>{t('alcancia.loUltimo')}</h2>
+        {movements.length > 0 && <Link to="/movimientos" className="link">{t('comun.verTodos')}</Link>}
       </div>
       {movements.length === 0 ? (
         <div className="row static">
           <IconTile icon="list" tone="azul" />
           <span className="row-text">
-            <strong>Todavía no hay nada anotado</strong>
-            <span className="muted">Cuando agreguen o saquen plata, aparecerá aquí.</span>
+            <strong>{t('alcancia.vacioTitulo')}</strong>
+            <span className="muted">{t('alcancia.vacioTexto')}</span>
           </span>
         </div>
       ) : (
@@ -102,11 +103,11 @@ export function GoalCard({ g }: { g: Goal }) {
       <IconTile icon={reached ? 'circle-check' : g.icon} tone={reached ? 'verde' : g.icon === 'puzzle' ? 'naranja' : 'azul'} size={36} />
       <div className="goal-body">
         <strong>{g.name}</strong>
-        <span className="meta">{formatMoney(g.savedMinor)} de {formatMoney(g.targetMinor)}</span>
+        <span className="meta">{t('meta.deObjetivo', { guardado: formatMoney(g.savedMinor), objetivo: formatMoney(g.targetMinor) })}</span>
       </div>
-      <span className="pct">{reached ? '¡Logrado!' : `${pct}%`}</span>
+      <span className="pct">{reached ? t('meta.logrado') : `${pct}%`}</span>
       <Icon name="chevron-right" size={16} className="muted" />
-      <div className="bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`Avance de ${g.name}: ${pct}%`}>
+      <div className="bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={t('meta.avance', { meta: g.name, porcentaje: pct })}>
         <div style={{ width: `${pct}%` }} />
       </div>
     </Link>
@@ -121,7 +122,7 @@ export function MovementRow({ m, isNew = false }: { m: Movement; isNew?: boolean
       <Link to={`/movimiento/${m.id}`} className={`row ${isNew ? 'is-new' : ''}`}>
         <span className={out ? "out-ic" : ""}><IconTile icon="arrow-up" tone={out ? "naranja" : "verde"} /></span>
         <span className="row-text">
-          <strong>{m.label}</strong>
+          <strong>{t(`movimientos.${m.kind}`)}</strong>
           <span className="muted small">{m.author}{when ? ` · ${when}` : ''}{m.reason ? ` · ${m.reason}` : ''}</span>
         </span>
         <strong className="money-in">{out ? '−' : '+'}{formatMoney(Math.abs(m.amountMinor))}</strong>

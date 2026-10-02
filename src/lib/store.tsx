@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, type ReactNode } from 'react';
 import type { Id, Observation, Topic } from '../domain';
+import { hasKey, t } from '../i18n';
 
 /** Observación con título opcional (dato editable según el DS). */
 export type Moment = Observation & { title?: string };
@@ -113,12 +114,8 @@ type Action =
   | { type: 'advanceStep'; topic: Topic; total: number }
   | { type: 'reset'; state: AppState };
 
-export const REASON_LABELS: Record<string, string> = {
-  // En Perú «propina» es también la plata semanal; aquí «mesada» se muestra como «Su propina de la semana».
-  propina: 'Le dieron propina', 'ayuda-en-casa': 'Ayudó en casa', cumpleanos: 'Por su cumple', mesada: 'Su propina de la semana', 'buen-comportamiento': 'Se portó bien', otro: 'Otra cosa',
-  compra: 'Se compró algo', regalo: 'Hizo un regalo', compartir: 'Lo compartió',
-};
-export const reasonLabel = (r: FlowReason): string => (r.reason === 'otro' && r.detail ? r.detail : REASON_LABELS[r.reason] ?? r.reason);
+/** Texto visible del motivo; los ids no cambian (ver contratos). */
+export const reasonLabel = (r: FlowReason): string => (r.reason === 'otro' && r.detail ? r.detail : hasKey(`motivos.${r.reason}`) ? t(`motivos.${r.reason}`) : r.reason);
 
 function reducer(s: AppState, a: Action): AppState {
   switch (a.type) {
@@ -130,7 +127,7 @@ function reducer(s: AppState, a: Action): AppState {
       const goal = s.goals.find((g) => g.id === a.goalId);
       const goals = s.goals.map((g) => (g.id === a.goalId ? { ...g, savedMinor: Math.max(0, g.savedMinor + sign * a.amountMinor) } : g));
       const movement: Movement = {
-        id: `m${Date.now()}`, kind: s.draft.kind, label: s.draft.kind === 'in' ? 'Guardó plata' : 'Sacó plata', author: a.author,
+        id: `m${Date.now()}`, kind: s.draft.kind, label: t(`movimientos.${s.draft.kind}`), author: a.author,
         at: new Date().toISOString(), amountMinor: sign * a.amountMinor, reason: reasonLabel(a.reason), goalId: goal?.id, goalName: goal?.name,
       };
       return { ...s, balanceMinor: s.balanceMinor + sign * a.amountMinor, goals, movements: [movement, ...s.movements], draft: emptyDraft() };

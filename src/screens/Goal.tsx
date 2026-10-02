@@ -3,6 +3,7 @@ import { BackBar, Button, Icon, IconTile } from '../components/ui';
 import { useStore } from '../lib/store';
 import { formatMoney, percent } from '../lib/money';
 import { MovementRow } from './Home';
+import { t } from '../i18n';
 
 /** Detalle de meta: avance = acumulado / objetivo; la barra nunca va sola. */
 export default function GoalDetail() {
@@ -10,7 +11,7 @@ export default function GoalDetail() {
   const { state, dispatch } = useStore();
   const nav = useNavigate();
   const g = state.goals.find((x) => x.id === id);
-  if (!g) return (<><BackBar label="Sus metas" to="/metas" /><h1 className="title">No encontramos esta meta</h1><p className="muted">Puede que se hayan borrado los datos.</p></>);
+  if (!g) return (<><BackBar label={t('meta.detalleVolver')} to="/metas" /><h1 className="title">{t('meta.noEncontradaTitulo')}</h1><p className="muted">{t('meta.noEncontradaTexto')}</p></>);
   const pct = percent(g.savedMinor, g.targetMinor);
   const reached = g.savedMinor >= g.targetMinor;
   const missing = Math.max(0, g.targetMinor - g.savedMinor);
@@ -24,26 +25,26 @@ export default function GoalDetail() {
 
   return (
     <>
-      <BackBar label="Sus metas" to="/metas" />
+      <BackBar label={t('meta.detalleVolver')} to="/metas" />
       <div className="tema-head"><IconTile icon={reached ? 'circle-check' : g.icon} tone={reached ? 'verde' : 'azul'} size={48} /><h1 className="title">{g.name}</h1></div>
       <section className={`card goal-hero ${reached ? 'card-mint' : ''}`}>
         <div className="goal-hero-top">
           <span className="amount-sm">{formatMoney(g.savedMinor)}</span>
-          <span className="muted">de {formatMoney(g.targetMinor)}</span>
+          <span className="muted">{t('meta.detalleDe', { objetivo: formatMoney(g.targetMinor) })}</span>
         </div>
-        <div className="bar big" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`Avance: ${pct}%`}><div style={{ width: `${pct}%` }} /></div>
+        <div className="bar big" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={t('meta.detalleAvance', { porcentaje: pct })}><div style={{ width: `${pct}%` }} /></div>
         <p className="body">
           {reached
-            ? <><Icon name="party-popper" size={18} /> ¡Lo lograron! Conversen juntos qué hacer ahora.</>
-            : <>Va {pct}% · Le faltan {formatMoney(missing)}</>}
+            ? <><Icon name="party-popper" size={18} /> {t('meta.lograda')}</>
+            : <>{t('meta.faltan', { porcentaje: pct, monto: formatMoney(missing) })}</>}
         </p>
       </section>
-      {!reached && <Button block onClick={add}>Agregar plata a esta meta</Button>}
-      <h2 className="section-title">Lo que han guardado para esta meta</h2>
+      {!reached && <Button block onClick={add}>{t('meta.agregar')}</Button>}
+      <h2 className="section-title">{t('meta.movimientosTitulo')}</h2>
       {moves.length === 0
-        ? <p className="muted">Todavía no han guardado plata para esta meta.</p>
+        ? <p className="muted">{t('meta.movimientosVacio')}</p>
         : <ul className="plain list">{moves.map((m) => <MovementRow key={m.id} m={m} />)}</ul>}
-      <p className="note"><Icon name="info" size={18} />Es solo para llevar la cuenta: la app no mueve plata de verdad.</p>
+      <p className="note"><Icon name="info" size={18} />{t('comun.soloCuenta')}</p>
     </>
   );
 }

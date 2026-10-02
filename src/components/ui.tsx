@@ -1,6 +1,7 @@
 import { useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Link, useNavigate, type LinkProps } from 'react-router-dom';
 import { isConnected } from '../lib/device';
+import { t } from '../i18n';
 import mascota1 from '../assets/mascota/mascota-1x.png';
 import mascota2 from '../assets/mascota/mascota-2x.png';
 import mascota3 from '../assets/mascota/mascota-3x.png';
@@ -29,7 +30,7 @@ export function Button({ variant = 'primary', loading, block, disabled, children
   return (
     <button {...rest} disabled={disabled || loading} aria-busy={loading || undefined}
       className={`btn btn-${variant} ${block ? 'btn-block' : ''} ${className}`}>
-      {loading ? <><span className="spinner" aria-hidden="true" />Un ratito…</> : children}
+      {loading ? <><span className="spinner" aria-hidden="true" />{t('comun.unRatito')}</> : children}
     </button>
   );
 }
@@ -59,7 +60,7 @@ export function AccessRow({ to, icon, tone, title, description }: { to: string; 
 
 export function SettingsLink() {
   return (
-    <Link to="/chanchito" className="settings-btn" aria-label="Ajustes del chanchito">
+    <Link to="/chanchito" className="settings-btn" aria-label={t('comun.ajustesChanchito')}>
       <Icon name="settings" size={22} />
     </Link>
   );
@@ -77,7 +78,7 @@ export function ScreenHeader({ title, action = true }: { title: string; action?:
 export function ChildContext({ name, status }: { name: string; status?: ReactNode }) {
   return (
     <div className="context">
-      <Link to="/perfiles" className="context-name" aria-label={`Estás viendo a ${name}. Cambiar`}>{name}<Icon name="chevron-down" size={16} /></Link>
+      <Link to="/perfiles" className="context-name" aria-label={t('comun.estasViendo', { nombre: name })}>{name}<Icon name="chevron-down" size={16} /></Link>
       {status}
     </div>
   );
@@ -87,8 +88,8 @@ export function ChildContext({ name, status }: { name: string; status?: ReactNod
 export function ConnectionStatus() {
   const on = isConnected();
   return (
-    <Link to="/chanchito" className={`conn ${on ? '' : 'off'}`} aria-label={`Chanchito: ${on ? 'conectado' : 'sin conexión'}. Ver ajustes`}>
-      <Icon name="wifi" size={16} />{on ? 'Conectado' : 'Sin conexión'}
+    <Link to="/chanchito" className={`conn ${on ? '' : 'off'}`} aria-label={t('conexion.etiqueta', { estado: t(on ? 'conexion.estadoConectado' : 'conexion.estadoSinConexion') })}>
+      <Icon name="wifi" size={16} />{t(on ? 'conexion.conectado' : 'conexion.sinConexion')}
     </Link>
   );
 }
@@ -104,7 +105,7 @@ export function BackBar({ label, to, icon = 'arrow-left', title, onBack, heading
   }
   return (
     <div className="task-bar">
-      <button className="icon-btn" onClick={go} aria-label={icon === 'x' ? 'Cerrar' : 'Volver'}><Icon name={icon} size={22} /></button>
+      <button className="icon-btn" onClick={go} aria-label={t(icon === 'x' ? 'comun.cerrar' : 'comun.volver')}><Icon name={icon} size={22} /></button>
       {heading ? <h1 className="task-title">{title}</h1> : <span>{title}</span>}
     </div>
   );

@@ -1,4 +1,5 @@
 import type { Money } from '../domain';
+import { t } from '../i18n';
 
 export const pen = (minorUnits: number): Money => ({ currency: 'PEN', minorUnits });
 
@@ -19,17 +20,17 @@ export type ParseResult =
 /** Valida texto de importe: positivo, hasta 2 decimales, sin NaN ni separadores ambiguos. Sin coma flotante. */
 export function parseAmount(input: string): ParseResult {
   const text = input.trim().replace(/^S\/\s*/i, '');
-  if (text === '') return { ok: false, error: 'Escribe cuánto.' };
-  if (/[,]/.test(text) && /\./.test(text)) return { ok: false, error: 'Usa solo un punto para los céntimos.' };
+  if (text === '') return { ok: false, error: t('dinero.errorVacio') };
+  if (/[,]/.test(text) && /\./.test(text)) return { ok: false, error: t('dinero.errorSeparador') };
   const normalized = text.replace(',', '.');
   if (!/^\d+(\.\d{0,2})?$/.test(normalized)) {
-    if (/^\d+\.\d{3,}$/.test(normalized)) return { ok: false, error: 'Pon máximo dos números para los céntimos.' };
-    return { ok: false, error: 'Escribe un monto como 10 o 10.50.' };
+    if (/^\d+\.\d{3,}$/.test(normalized)) return { ok: false, error: t('dinero.errorDecimales') };
+    return { ok: false, error: t('dinero.errorFormato') };
   }
   const [whole, frac = ''] = normalized.split('.');
   const minor = Number(whole) * 100 + Number(frac.padEnd(2, '0'));
-  if (minor <= 0) return { ok: false, error: 'Tiene que ser más de S/ 0.' };
-  if (minor > MAX_AMOUNT_MINOR) return { ok: false, error: `Lo máximo que puedes anotar es ${formatMoney(MAX_AMOUNT_MINOR)}.` };
+  if (minor <= 0) return { ok: false, error: t('dinero.errorCero') };
+  if (minor > MAX_AMOUNT_MINOR) return { ok: false, error: t('dinero.errorMaximo', { monto: formatMoney(MAX_AMOUNT_MINOR) }) };
   return { ok: true, money: pen(minor) };
 }
 
