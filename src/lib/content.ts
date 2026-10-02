@@ -33,10 +33,10 @@ export const MISSIONS: MissionItem[] = [
   { id: 'm-monedas', title: 'Separa tus monedas', topic: 'ahorrar', summary: 'Practiquen separar las monedas: unas para guardar y otras para gastar.',
     materials: ['Dos tarritos o cajitas', 'Unas cuantas monedas'],
     steps: ['Pónganle nombre a cada tarrito: «Guardar» y «Gastar».', 'Repartan las monedas como quieran.', 'Conversen por qué las repartieron así.'] },
-  { id: 'm-compara', title: 'Compara antes de elegir', topic: 'gastar-bien', summary: 'Busquen la misma cosa en dos sitios y comparen precios.',
+  { id: 'm-compara', title: 'Compara antes de escoger', topic: 'gastar-bien', summary: 'Busquen la misma cosa en dos sitios y comparen precios.',
     materials: ['Un catálogo, una visita a la bodega o al mercado'],
     steps: ['Escojan algo chiquito que quieran comprar.', 'Pregunten cuánto cuesta en dos sitios.', 'Conversen cuál escogerían y por qué.'] },
-  { id: 'm-compartir', title: 'Elige algo para compartir', topic: 'compartir', summary: 'Piensen en algo que puedan compartir con otra persona.',
+  { id: 'm-compartir', title: 'Escoge algo para compartir', topic: 'compartir', summary: 'Piensen en algo que puedan compartir con otra persona.',
     materials: ['Nada, solo ganas'],
     steps: ['Piensen en alguien a quien les gustaría alegrar.', 'Escojan qué podrían compartir: su tiempo, un juguete, un dibujo.', 'Conversen cómo se sintieron.'] },
 ];
@@ -68,8 +68,8 @@ export const ACTIVITIES: Record<Topic, Activity> = {
     steps: [{ kind: 'story', id: 's-planifica', title: 'Un cuento para conversar' }, { kind: 'mission', id: 'm-monedas', title: 'Separar las monedas en tarritos' }, { kind: 'action', id: 'meta', title: 'Crear la meta juntos', to: '/meta/nueva?volver=/actividad/ahorrar' }] },
   'gastar-bien': { topic: 'gastar-bien', title: 'Comparar antes de comprar', blurb: 'Descubran por qué conviene comparar antes de comprar.',
     steps: [{ kind: 'story', id: 's-compara', title: 'Un cuento para conversar' }, { kind: 'game', id: 'g-necesito', title: 'Juego: ¿lo necesito o lo quiero?' }, { kind: 'mission', id: 'm-compara', title: 'Comparar en dos lugares' }] },
-  compartir: { topic: 'compartir', title: 'Elegir algo para compartir', blurb: 'Piensen juntos qué les gustaría compartir.',
-    steps: [{ kind: 'game', id: 'g-regalo', title: 'Juego: un regalo entre todos' }, { kind: 'mission', id: 'm-compartir', title: 'Elegir algo para compartir' }] },
+  compartir: { topic: 'compartir', title: 'Escoger algo para compartir', blurb: 'Piensen juntos qué les gustaría compartir.',
+    steps: [{ kind: 'game', id: 'g-regalo', title: 'Juego: un regalo entre todos' }, { kind: 'mission', id: 'm-compartir', title: 'Escoger algo para compartir' }] },
   ganar: { topic: 'ganar', title: 'Imaginar un negocito', blurb: 'Conversen cómo se puede ganar plata con un trabajito.',
     steps: [{ kind: 'game', id: 'g-negocio', title: 'Juego: mi primer negocito' }, { kind: 'story', id: 's-separa', title: 'Un cuento sobre el ahorro y el gasto' }] },
 };

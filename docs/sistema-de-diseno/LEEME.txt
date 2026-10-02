@@ -1,0 +1,40 @@
+ALCANCÍA — SISTEMA DE DISEÑO v3.4
+
+EMPEZAR: abrir ABRIR-AQUI.html en un navegador. Funciona sin conexión.
+Novedades de esta versión: CAMBIOS.md. Cómo escribir textos: documentacion/lenguaje.md.
+
+QUÉ CAMBIÓ EN v3.4
+Todos los textos pasan a español peruano familiar («plata», «propina», «Agregar plata»,
+«¿De dónde salió esta plata?», «Lo contó Mamá»…). La guía de lenguaje es ahora parte
+del sistema: si un texto no la cumple, se corrige el texto.
+Colores, tipografía, espacios, radios, componentes y tokens NO cambian.
+
+CONTENIDO
+- editable/alcancia-ds-v3.4.pen: 12 pantallas, 4 paneles DS y componentes, con los textos v3.4.
+- documentacion/lenguaje.md: voz, tono, glosario «usar / evitar», palabras de Perú y patrones por componente.
+- documentacion/componentes.json y pantallas.json: inventario de maestros e instancias (textos v3.4).
+- documentacion/implementacion.html: guía de implementación y QA.
+- referencias/app-v3.4/: capturas de la app implementada con los textos v3.4 (402 dp, 2×).
+- referencias/pantallas-v3.3/ y sistema-v3.3/: renders originales del editable. Muestran los textos
+  anteriores; sirven para medidas y composición, no para copiar textos.
+- tokens/: variables originales del canvas, JSON a 1×, CSS y TypeScript (sin cambios).
+- assets/mascota/, assets/fuentes/, assets/iconos/: mascota, Inter y SVG Lucide con licencias.
+- contratos/dominio.ts: contratos propuestos de datos. Los ids no cambian; solo los textos visibles.
+
+UNIDADES
+El diseño trabaja a 3×: 1206 × 2622 equivale a 402 × 874 dp.
+Dimensiones se dividen por 3. Font sizes -> sp en móvil; dp para espacios.
+Interlineados son ratios (p. ej. 1.5), no dimensiones: NO dividir.
+Pesos, colores y proporciones tampoco se dividen. Los tokens CSS ya están a 1×.
+No usar los números del JSON de componentes directamente como dp: son medidas del canvas a 3×.
+No fijar alturas de pantalla ni safe areas; permitir contenido desplazable y texto ampliado.
+
+TEXTOS MÁS LARGOS EN EL EDITABLE
+Algunos textos v3.4 son más largos que los anteriores. Los nodos de texto crecen en alto, pero conviene
+revisar en Pencil las pantallas PjYZn, JMkTk y jBSms por si algún bloque necesita más espacio.
+
+ALCANCE
+La app de referencia está en el repositorio (src/). Sigue sin haber audio, hardware, cuentas ni backend.
+Los datos de niños, autoría, importes y duración del cuento son ejemplos.
+Revisar derechos de la mascota aportada por el usuario. Las licencias de terceros incluidas deben conservarse.
+Validar los textos con familias peruanas de distintas regiones antes del lanzamiento.

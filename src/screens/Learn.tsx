@@ -60,17 +60,17 @@ const CONTENT: Record<Format, {
 }> = {
   cuentos: {
     sub: 'Escojan lo que quieran, en el orden que quieran.', tone: 'violeta', card: 'card-violet', eyebrow: 'EL CUENTO DEL CHANCHITO',
-    title: 'Cómo nació tu alcancía', cta: 'Escuchar en el chanchito', icon: 'book-open', to: '/cuento/s-chanchito',
+    title: STORIES.find((x) => x.id === 's-chanchito')!.title, cta: 'Escuchar en el chanchito', icon: 'book-open', to: '/cuento/s-chanchito',
     items: LIB_STORIES.map((id) => STORIES.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, meta: `${topicName(x.topic)} · ${x.minutes} min`, topic: topicName(x.topic), to: `/cuento/${x.id}` })),
   },
   misiones: {
     sub: 'Cositas para hacer juntos en casa.', tone: 'verde', card: 'card-mint', eyebrow: 'PARA HACER EN CASA',
-    title: 'Una meta en familia', cta: 'Ver misión', icon: 'flag', to: '/mision/m-meta-familia',
+    title: MISSIONS.find((x) => x.id === 'm-meta-familia')!.title, cta: 'Ver misión', icon: 'flag', to: '/mision/m-meta-familia',
     items: LIB_MISSIONS.map((id) => MISSIONS.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, meta: `${topicName(x.topic)} · en familia`, topic: topicName(x.topic), to: `/mision/${x.id}` })),
   },
   juegos: {
     sub: 'Jueguen a ser otros y conversen.', tone: 'naranja', card: 'card-cream', eyebrow: 'IMAGINEN Y CONVERSEN',
-    title: 'La tienda de casa', cta: 'Ver juego', icon: 'messages-square', to: '/juego/g-tienda',
+    title: GAMES.find((x) => x.id === 'g-tienda')!.title, cta: 'Ver juego', icon: 'messages-square', to: '/juego/g-tienda',
     items: LIB_GAMES.map((id) => GAMES.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, meta: `${topicName(x.topic)} · ${x.players}`, topic: topicName(x.topic), to: `/juego/${x.id}` })),
   },
 };

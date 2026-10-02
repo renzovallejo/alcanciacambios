@@ -28,7 +28,7 @@
             {
                "children" : [
                   {
-                     "content" : "Aún no hay movimientos",
+                     "content" : "Todavía no hay nada anotado",
                      "fill" : "$texto",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-16",
@@ -41,7 +41,7 @@
                      "width" : "fill_container"
                   },
                   {
-                     "content" : "Cuando agregues saldo o registres una salida, lo verás aquí.",
+                     "content" : "Cuando agreguen o saquen plata, aparecerá aquí.",
                      "fill" : "$texto-secundario",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-14",
@@ -98,7 +98,7 @@
                            "width" : "fill_container"
                         },
                         {
-                           "content" : "La tienda de casa",
+                           "content" : "La bodeguita de la casa",
                            "fill" : "$texto",
                            "fontFamily" : "$ui-font",
                            "fontSize" : "$ds-font-21",
@@ -308,7 +308,7 @@
       "definicion_canvas_3x" : {
          "children" : [
             {
-               "content" : "Monto de la recarga",
+               "content" : "Cuánto",
                "fill" : "$texto",
                "fontFamily" : "$ui-font",
                "fontSize" : 42,
@@ -324,7 +324,7 @@
                "alignItems" : "center",
                "children" : [
                   {
-                     "content" : "S/. 10.00",
+                     "content" : "S/ 10.00",
                      "fill" : "$texto",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ui-body",
@@ -349,7 +349,7 @@
                "width" : "fill_container"
             },
             {
-               "content" : "Ingresa un monto mayor a cero.",
+               "content" : "Tiene que ser más de S/ 0.",
                "fill" : "$texto-secundario",
                "fontFamily" : "$ui-font",
                "fontSize" : 36,
@@ -2556,7 +2556,7 @@
             {
                "children" : [
                   {
-                     "content" : "Ingreso registrado",
+                     "content" : "Guardó plata",
                      "fill" : "$texto",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-15",
@@ -4768,7 +4768,7 @@
             {
                "children" : [
                   {
-                     "content" : "DINERO AHORRADO",
+                     "content" : "LLEVA AHORRADO",
                      "fill" : "$base",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ui-caption",
@@ -4891,7 +4891,7 @@
                      "width" : 42
                   },
                   {
-                     "content" : "Conectada · hace 2 min",
+                     "content" : "Conectado · hace 2 min",
                      "fill" : "$texto-secundario",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-12",
@@ -5055,7 +5055,7 @@
                "width" : "fill_container"
             },
             {
-               "content" : "Sofía quería un cuaderno. En la primera tienda costaba mucho; pero como buena detective, buscó en dos más… ¡y encontró el mismo cuaderno más barato! Con lo que ahorró, le alcanzó para un lápiz. ¡Caso cerrado!",
+               "content" : "Sofía quería un cuaderno. En la primera librería estaba carísimo; pero como buena detective, preguntó en dos más… ¡y encontró el mismo cuaderno más barato! Con lo que se ahorró, le alcanzó para un lápiz. ¡Caso cerrado!",
                "fill" : "$texto",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-16",
@@ -5134,7 +5134,7 @@
                "alignItems" : "center",
                "children" : [
                   {
-                     "content" : "Juegos de rol",
+                     "content" : "Juegos",
                      "fill" : "$principal",
                      "fontFamily" : "$ui-font",
                      "fontSize" : 39,
@@ -5174,7 +5174,7 @@
          "alignItems" : "center",
          "children" : [
             {
-               "content" : "1 momento · 1 conversación",
+               "content" : "1 cosa anotada · 1 conversación",
                "fill" : "$texto-secundario",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-12",
@@ -5189,7 +5189,7 @@
             {
                "descendants" : {
                   "uPNPB" : {
-                     "content" : "Ver avances →",
+                     "content" : "Ver todo →",
                      "fontSize" : "$ds-font-14"
                   }
                },
@@ -5252,7 +5252,7 @@
                "alignItems" : "center",
                "children" : [
                   {
-                     "content" : "Actividad iniciada",
+                     "content" : "Ya empezaron",
                      "fill" : "$principal",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-12",
@@ -5517,7 +5517,7 @@
                "width" : "fill_container"
             },
             {
-               "content" : "Un juguete, un libro o algo que le haga ilusión. Elijan juntos su primera meta.",
+               "content" : "Un juguete, un libro o algo que le guste mucho. Escójanlo juntos.",
                "fill" : "$texto-secundario",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-15",
@@ -5532,7 +5532,7 @@
             {
                "descendants" : {
                   "elxu8" : {
-                     "content" : "Crear primera meta"
+                     "content" : "Poner su primera meta"
                   }
                },
                "id" : "WLl9D",
@@ -5758,7 +5758,7 @@
                "width" : 60
             },
             {
-               "content" : "Propina",
+               "content" : "Le dieron propina",
                "fill" : "$principal",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-14",
@@ -5806,7 +5806,7 @@
             {
                "children" : [
                   {
-                     "content" : "Sin meta",
+                     "content" : "Ninguna meta en especial",
                      "fill" : "$texto",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-16",
@@ -5819,7 +5819,7 @@
                      "width" : "fill_container"
                   },
                   {
-                     "content" : "Se suma al saldo de práctica.",
+                     "content" : "Se suma a lo que ya tiene ahorrado.",
                      "fill" : "$texto-secundario",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-13",
@@ -8051,7 +8051,7 @@
             {
                "descendants" : {
                   "NaojH" : {
-                     "content" : "Conocer la actividad"
+                     "content" : "Ver de qué se trata"
                   }
                },
                "id" : "jdfHr",
@@ -8147,7 +8147,7 @@
                "alignItems" : "center",
                "children" : [
                   {
-                     "content" : "Observado por Mamá · 1 oct",
+                     "content" : "Lo contó Mamá · 1 oct",
                      "fill" : "$texto-secundario",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-12",
@@ -8162,7 +8162,7 @@
                   {
                      "descendants" : {
                         "uPNPB" : {
-                           "content" : "Ver momento →",
+                           "content" : "Ver más →",
                            "fontSize" : "$ds-font-14"
                         }
                      },
@@ -10542,7 +10542,7 @@
             {
                "descendants" : {
                   "NaojH" : {
-                     "content" : "Escuchar en la alcancía"
+                     "content" : "Escuchar en el chanchito"
                   }
                },
                "id" : "kc4pM",
@@ -10581,7 +10581,7 @@
                            "content" : "Ahorrar"
                         },
                         "vTrOb" : {
-                           "content" : "Actividad iniciada",
+                           "content" : "Ya empezaron",
                            "fill" : "$principal"
                         }
                      },
@@ -10602,7 +10602,7 @@
                            "content" : "Gastar bien"
                         },
                         "vTrOb" : {
-                           "content" : "Por explorar",
+                           "content" : "Todavía no empiezan",
                            "fill" : "$texto-secundario"
                         }
                      },
@@ -10632,7 +10632,7 @@
                            "content" : "Compartir"
                         },
                         "vTrOb" : {
-                           "content" : "Por explorar",
+                           "content" : "Todavía no empiezan",
                            "fill" : "$texto-secundario"
                         }
                      },
@@ -10653,7 +10653,7 @@
                            "content" : "Ganar"
                         },
                         "vTrOb" : {
-                           "content" : "Por explorar",
+                           "content" : "Todavía no empiezan",
                            "fill" : "$texto-secundario"
                         }
                      },
@@ -10687,7 +10687,7 @@
       "definicion_canvas_3x" : {
          "children" : [
             {
-               "content" : "¿Qué pueden descubrir ahora?",
+               "content" : "¿Qué pueden hacer ahora?",
                "fill" : "$texto",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-18",
@@ -10700,7 +10700,7 @@
                "width" : "fill_container"
             },
             {
-               "content" : "Conversen cómo acercarse a esa primera meta.",
+               "content" : "Conversen cómo pueden llegar a esa primera meta.",
                "fill" : "$texto-secundario",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-14",
@@ -10715,7 +10715,7 @@
             {
                "descendants" : {
                   "NaojH" : {
-                     "content" : "Explorar actividad"
+                     "content" : "Ver la actividad"
                   }
                },
                "id" : "uQT4k",
@@ -10764,7 +10764,7 @@
                            "width" : "fill_container"
                         },
                         {
-                           "content" : "Enciéndela y revisa la red WiFi.",
+                           "content" : "Préndelo y revisa el WiFi de la casa.",
                            "fill" : "$texto-secundario",
                            "fontFamily" : "$ui-font",
                            "fontSize" : "$ds-font-14",
@@ -10794,7 +10794,7 @@
             {
                "descendants" : {
                   "NaojH" : {
-                     "content" : "Reintentar conexión"
+                     "content" : "Intentar otra vez"
                   }
                },
                "height" : 144,
@@ -10823,7 +10823,7 @@
       "definicion_canvas_3x" : {
          "children" : [
             {
-               "content" : "Paso 1 de 4 · Importe",
+               "content" : "Paso 1 de 4 · Cuánto",
                "fill" : "$texto-secundario",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-13",
@@ -10909,7 +10909,7 @@
                "width" : "fill_container"
             },
             {
-               "content" : "Aún no se agregará el saldo.",
+               "content" : "Todavía no se anota nada.",
                "fill" : "$texto-secundario",
                "fontFamily" : "$ui-font",
                "fontSize" : "$ds-font-12",
@@ -10987,7 +10987,7 @@
                      "width" : "fill_container"
                   },
                   {
-                     "content" : "Cuentos, misiones y juegos de rol.",
+                     "content" : "Cuentos, misiones y juegos.",
                      "fill" : "$texto-secundario",
                      "fontFamily" : "$ui-font",
                      "fontSize" : "$ds-font-13",
@@ -13260,7 +13260,7 @@
             {
                "descendants" : {
                   "NaojH" : {
-                     "content" : "Continuar actividad"
+                     "content" : "Seguir con la actividad"
                   }
                },
                "id" : "cu45d",

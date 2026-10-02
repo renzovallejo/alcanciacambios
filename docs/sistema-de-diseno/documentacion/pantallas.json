@@ -12,7 +12,7 @@
             "nombre" : "Agregar primer saldo",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Agregar primer saldo"
+                  "content" : "Anotar su primera plata"
                }
             }
          },
@@ -22,7 +22,7 @@
             "nombre" : "Crear primera meta",
             "overrides" : {
                "elxu8" : {
-                  "content" : "Crear primera meta"
+                  "content" : "Poner su primera meta"
                }
             }
          },
@@ -84,7 +84,7 @@
             "nombre" : "Agregar saldo",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Agregar saldo"
+                  "content" : "Agregar plata"
                }
             }
          },
@@ -94,7 +94,7 @@
             "nombre" : "Registrar salida",
             "overrides" : {
                "elxu8" : {
-                  "content" : "Registrar salida",
+                  "content" : "Sacar plata",
                   "fontSize" : 45
                }
             }
@@ -177,7 +177,7 @@
             "nombre" : "Conocer primera actividad",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Conocer la actividad"
+                  "content" : "Ver de qué se trata"
                }
             }
          },
@@ -239,7 +239,7 @@
             "nombre" : "Continuar actividad",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Continuar actividad"
+                  "content" : "Seguir con la actividad"
                }
             }
          },
@@ -329,7 +329,7 @@
             "nombre" : "Escuchar en la alcancía",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Escuchar en la alcancía"
+                  "content" : "Escuchar en el chanchito"
                }
             }
          },
@@ -509,7 +509,7 @@
             "nombre" : "Compara antes de elegir",
             "overrides" : {
                "NCqrG" : {
-                  "content" : "Compara antes de elegir"
+                  "content" : "Compara antes de escoger"
                },
                "TCZLG" : {
                   "fill" : "$fondo-verde"
@@ -529,7 +529,7 @@
             "nombre" : "Elige algo para compartir",
             "overrides" : {
                "NCqrG" : {
-                  "content" : "Elige algo para compartir"
+                  "content" : "Escoge algo para compartir"
                },
                "TCZLG" : {
                   "fill" : "$fondo-verde"
@@ -645,7 +645,7 @@
                   "fill" : "$fondo-naranja"
                },
                "btcTw" : {
-                  "content" : "Gastar bien · dos personas"
+                  "content" : "Gastar bien · para dos"
                },
                "xG80y" : {
                   "fill" : "$principal",
@@ -679,13 +679,13 @@
             "nombre" : "Mi primer pequeño negocio",
             "overrides" : {
                "NCqrG" : {
-                  "content" : "Mi primer pequeño negocio"
+                  "content" : "Mi primer negocito"
                },
                "TCZLG" : {
                   "fill" : "$fondo-naranja"
                },
                "btcTw" : {
-                  "content" : "Ganar · dos personas"
+                  "content" : "Ganar · para dos"
                },
                "xG80y" : {
                   "fill" : "$principal",
@@ -761,7 +761,7 @@
             "nombre" : "Contexto · Sofía",
             "overrides" : {
                "Z0bbN" : {
-                  "content" : "Sin notas ni comparaciones",
+                  "content" : "Sin notas ni comparar con nadie",
                   "fontSize" : "$ds-font-13",
                   "lineHeight" : "$ds-line-13",
                   "name" : "Acompañamiento sin notas",
@@ -785,7 +785,7 @@
             "nombre" : "Ver momento destacado",
             "overrides" : {
                "uPNPB" : {
-                  "content" : "Ver momento →",
+                  "content" : "Ver más →",
                   "fontSize" : "$ds-font-14"
                }
             }
@@ -796,7 +796,7 @@
             "nombre" : "Ver todos los avances",
             "overrides" : {
                "uPNPB" : {
-                  "content" : "Ver avances →",
+                  "content" : "Ver todo →",
                   "fontSize" : "$ds-font-14"
                }
             }
@@ -807,7 +807,7 @@
             "nombre" : "Explorar actividad sugerida",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Explorar actividad"
+                  "content" : "Ver la actividad"
                }
             }
          },
@@ -873,12 +873,12 @@
                   "height" : 252
                },
                "cemrN" : {
-                  "content" : "Toca el importe para cambiarlo.",
+                  "content" : "Toca el monto para cambiarlo.",
                   "fontSize" : "$ds-font-13",
                   "lineHeight" : "$ds-line-13"
                },
                "cssmG" : {
-                  "content" : "Monto a agregar",
+                  "content" : "Cuánto",
                   "fontSize" : "$ds-font-16",
                   "lineHeight" : "$ds-line-16"
                },
@@ -951,7 +951,7 @@
             "nombre" : "Reintentar conexión",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Reintentar conexión"
+                  "content" : "Intentar otra vez"
                }
             }
          },
@@ -964,7 +964,7 @@
                   "fill" : "$fondo-azul"
                },
                "EwZCJ" : {
-                  "content" : "Batería y energía",
+                  "content" : "Batería",
                   "fontSize" : "$ds-font-16",
                   "lineHeight" : "$ds-line-16"
                },
@@ -972,7 +972,7 @@
                   "icon" : "battery-medium"
                },
                "iYiyY" : {
-                  "content" : "52% · Último dato recibido",
+                  "content" : "52% · lo último que sabemos",
                   "fontSize" : "$ds-font-13",
                   "lineHeight" : "$ds-line-13"
                }
@@ -995,7 +995,7 @@
                   "icon" : "wifi"
                },
                "iYiyY" : {
-                  "content" : "CREMA VOLTEADA 2.4G · guardada",
+                  "content" : "CREMA VOLTEADA 2.4G · la que tiene guardada",
                   "fontSize" : "$ds-font-13",
                   "lineHeight" : "$ds-line-13"
                }
@@ -1010,7 +1010,7 @@
                   "fill" : "$fondo-azul"
                },
                "EwZCJ" : {
-                  "content" : "Voz y sonido",
+                  "content" : "Volumen",
                   "fontSize" : "$ds-font-16",
                   "lineHeight" : "$ds-line-16"
                },
@@ -1018,7 +1018,7 @@
                   "icon" : "volume-2"
                },
                "iYiyY" : {
-                  "content" : "Volumen 10% · Último ajuste conocido",
+                  "content" : "10% · lo último que sabemos",
                   "fontSize" : "$ds-font-13",
                   "lineHeight" : "$ds-line-13"
                }
@@ -1033,7 +1033,7 @@
                   "fill" : "$fondo-azul"
                },
                "EwZCJ" : {
-                  "content" : "Emparejar este celular",
+                  "content" : "Conectar este celular",
                   "fontSize" : "$ds-font-16",
                   "lineHeight" : "$ds-line-16"
                },
@@ -1041,7 +1041,7 @@
                   "icon" : "bluetooth"
                },
                "iYiyY" : {
-                  "content" : "Para usarla desde este celular.",
+                  "content" : "Para manejar el chanchito desde aquí.",
                   "fontSize" : "$ds-font-13",
                   "lineHeight" : "$ds-line-13"
                }
@@ -1064,7 +1064,7 @@
                   "icon" : "user-round"
                },
                "iYiyY" : {
-                  "content" : "Nombre y datos del perfil",
+                  "content" : "Su nombre",
                   "fontSize" : "$ds-font-13",
                   "lineHeight" : "$ds-line-13"
                }
@@ -1101,7 +1101,7 @@
             "nombre" : "Ver guía y preguntas",
             "overrides" : {
                "NaojH" : {
-                  "content" : "Ver guía y preguntas"
+                  "content" : "Ver preguntas para conversar"
                }
             }
          },

@@ -13,6 +13,8 @@ export interface Observation {
   authorDisplayName: string; recordedAt: IsoDateTime; topic?: Topic;
 }
 export interface PracticeBalance { childId: Id; amount: Money; mode: 'practice' }
+// Textos visibles (v3.4, ver documentacion/lenguaje.md): mesada → «Su propina de la semana», propina → «Le dieron propina»,
+// cumpleanos → «Por su cumple», buen-comportamiento → «Se portó bien», otro → «Otra cosa». Los ids no cambian.
 export type Reason = 'propina' | 'ayuda-en-casa' | 'cumpleanos' | 'mesada' | 'buen-comportamiento' | 'otro';
 export type BalanceReason = { reason: Exclude<Reason, 'otro'> } | { reason: 'otro'; detail: string };
 export interface BalanceDraft {
