@@ -45,7 +45,7 @@ Hola 👋 Este paquete trae todo lo necesario para llevar a la **app Android e i
 
 1. **Dinero en céntimos enteros** (`Int`), nunca `Double`/`Float`. S/ 10.50 = 1050.
 2. **Ningún texto escrito a mano** en el código: todo sale de `strings.xml` / `Localizable.strings`. Si un texto cambia, se cambia en `es.json` y se regenera (ver abajo).
-3. **Honestidad**: la app no mueve plata real, no simula conexión con el chanchito y no evalúa al niño. Ver `02-especificacion/reglas-de-negocio.md`.
+3. **Honestidad**: la app no simula conexión con el chanchito ni evalúa al niño. (Que no mueve plata de verdad ya lo saben las familias: no se explica en pantalla.) Ver `02-especificacion/reglas-de-negocio.md`.
 
 ## Una sola fuente de verdad
 

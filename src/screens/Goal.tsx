@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { BackBar, Button, HonestyNote, Icon, IconTile, LinkButton } from '../components/ui';
+import { BackBar, Button, Icon, IconTile, LinkButton } from '../components/ui';
 import { useToast } from '../components/Toast';
 import { goalAchieved, goalUsed, useStore } from '../lib/store';
 import { formatMoney, percent } from '../lib/money';
@@ -68,7 +68,6 @@ export default function GoalDetail() {
         <LinkButton to={`/meta/${g.id}/editar`} variant="secondary"><Icon name="pencil" size={18} />{t('meta.editar')}</LinkButton>
         <Button variant="tertiary" className="danger" onClick={remove}><Icon name="trash-2" size={18} />{t('meta.borrar')}</Button>
       </div>
-      <HonestyNote />
     </>
   );
 }

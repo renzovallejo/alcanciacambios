@@ -72,7 +72,7 @@ object QuienEnvia {
 /** Quien usa el celular. relation = id de QuienEnvia (sin «otro»). */
 @Serializable data class Acompanante(val name: String, val relation: String? = null)
 
-/** Lo último anotado por tipo: se precarga al empezar y alimenta «Repetir». */
+/** Lo último anotado por tipo: se precarga al empezar un flujo. */
 @Serializable data class UltimoRegistro(
     val amountMinor: Centimos,
     val reason: MotivoElegido,
@@ -128,8 +128,8 @@ object QuienEnvia {
     val propinaDay: Int? = null,
     /** El chanchito se conectó alguna vez. Si no, invitar a conectarlo en vez de «Sin conexión». */
     val devicePaired: Boolean = false,
-    /** Ya vio el aviso completo de honestidad. */
-    val seenHonesty: Boolean = false,
+    /** Conectado ahora (lo confirma el dispositivo). En la semilla «semana» viene en true. */
+    val deviceOnline: Boolean = false,
     /** Claves "in" / "out". */
     val last: Map<String, UltimoRegistro> = emptyMap(),
 )

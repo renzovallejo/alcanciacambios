@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BackBar, Button, HonestyNote, Icon, LinkButton } from '../components/ui';
+import { BackBar, Button, Icon, LinkButton } from '../components/ui';
 import { useToast } from '../components/Toast';
 import { SENDERS, goalAchieved, goalUsed, movementReason, previewMovementUpdate, senderLabel, useStore, wouldBeNegative, type FlowReason, type Movement } from '../lib/store';
 import { formatMoney, parseAmount } from '../lib/money';
@@ -64,7 +64,6 @@ export function AllMovements() {
           </section>
         );
       })}
-      <HonestyNote />
     </>
   );
 }
@@ -109,7 +108,6 @@ export function MovementDetail() {
         <LinkButton to={`/movimiento/${m.id}/editar`} variant="secondary"><Icon name="pencil" size={18} />{t('movimientos.corregir')}</LinkButton>
         <Button variant="tertiary" className="danger" onClick={remove}><Icon name="trash-2" size={18} />{t('movimientos.borrar')}</Button>
       </div>
-      <HonestyNote />
     </>
   );
 }

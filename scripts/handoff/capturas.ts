@@ -88,6 +88,8 @@ async function main() {
       await ir(page, '/meta/g1'); await foto(page, 'meta-lograda-usar-plata', 'ejemplo', '«Usar esta plata» trae meta y monto');
       await tocar(page, 'Usar esta plata'); await tocar(page, 'Continuar'); await foto(page, 'sacar-de-meta-lograda', 'ejemplo', undefined, false);
       await tocar(page, 'Sí, anotar'); await ir(page, '/metas'); await foto(page, 'metas-logradas-aparte', 'ejemplo');
+      await ir(page, '/chanchito'); await foto(page, 'chanchito-sin-conexion', 'ejemplo', 'Ya se conectó antes, ahora no');
+      await tocar(page, 'Intentar otra vez'); await page.waitForTimeout(1700); await foto(page, 'chanchito-error-conexion', 'ejemplo');
       await ctx.close();
     }
     /* ---------- una semana de uso ---------- */
@@ -105,7 +107,7 @@ async function main() {
         ['/cuento/s-compara?a=gastar-bien&p=1', 'cuento'], ['/guia/s-compara', 'guia-para-conversar'], ['/mision/m-monedas', 'mision'],
         ['/juego/g-tienda', 'juego'], ['/actividad/gastar-bien', 'actividad-en-curso'], ['/actividad/compartir', 'actividad-sin-empezar', 'Abrir no la inicia'],
         ['/progreso', 'progreso'], ['/tema/ahorrar', 'tema'], ['/momento/o1', 'momento-detalle'], ['/avances', 'todo-lo-anotado'],
-        ['/momento/nuevo', 'anotar-algo-que-paso'], ['/celebrar?m=o1', 'felicitar'], ['/chanchito', 'chanchito-ajustes'],
+        ['/momento/nuevo', 'anotar-algo-que-paso'], ['/celebrar?m=o1', 'felicitar'], ['/chanchito', 'chanchito-ajustes', 'Conectado (demo de una semana)'],
         ['/chanchito/bateria', 'chanchito-bateria'], ['/chanchito/wifi', 'chanchito-wifi'], ['/chanchito/sonido', 'chanchito-volumen'],
         ['/chanchito/emparejar', 'chanchito-conectar-celular'], ['/chanchito/perfil', 'perfil'],
         ['/chanchito/acompana', 'quien-acompana'], ['/chanchito/recordatorio', 'recordatorio-propina'], ['/actividad/ahorrar', 'actividad-terminada', 'Cierre sin puntaje + siguiente'], ['/perfiles', 'selector-de-persona'],
@@ -114,7 +116,6 @@ async function main() {
       for (const [r, nom, nota] of mas) { await ir(page, r); await foto(page, nom, 'semana', nota); }
       await ir(page, '/cuento/s-compara'); await page.locator('.play').click(); await foto(page, 'cuento-audio-no-disponible', 'semana', 'Error recuperable');
       await ir(page, '/cuento/s-planifica'); await tocar(page, 'Versión de 1 minuto'); await foto(page, 'cuento-version-corta', 'semana', 'Versión de 1 minuto + leer en voz alta');
-      await ir(page, '/chanchito'); await tocar(page, 'Intentar otra vez'); await page.waitForTimeout(1700); await foto(page, 'chanchito-error-conexion', 'semana');
       // Flujo agregar plata (4 pasos) con meta alcanzada. Motivo, meta y quién envía vienen de la última vez.
       await ir(page, '/saldo/importe'); await page.fill('#monto', '10'); await foto(page, 'agregar-1-cuanto', 'semana', undefined, false);
       await tocar(page, 'Continuar'); await foto(page, 'agregar-2-de-donde', 'semana', 'Motivo y meta recordados', false);
@@ -155,7 +156,7 @@ async function main() {
         await p.waitForTimeout(500); await p.getByRole('button', { name: 'Guardar', exact: true }).click(); await p.waitForTimeout(900);
         await tocar(p, 'Mandarle un mensajito'); await tocar(p, '¡Qué chévere'); await p.waitForTimeout(400); await p.getByRole('button', { name: 'Guardar', exact: true }).click(); await p.waitForTimeout(1500);
       }],
-      ['chanchito-sin-conexion', weekState(), async (p) => {
+      ['chanchito-sin-conexion', exampleState(), async (p) => {
         await ir(p, '/chanchito'); await p.waitForTimeout(700); await tocar(p, 'Intentar otra vez'); await p.waitForTimeout(2500);
       }],
     ];

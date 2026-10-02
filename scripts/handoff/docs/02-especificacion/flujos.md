@@ -42,7 +42,6 @@ flowchart LR
 ```mermaid
 stateDiagram-v2
   [*] --> Cuanto: Agregar plata / Sacar plata / Agregar a esta meta / Usar esta plata
-  [*] --> Quien: Repetir (chip en Alcancía, todo ya puesto)
   Cuanto --> Cuanto: monto inválido (error junto al campo, Continuar deshabilitado)
   Cuanto --> DeDonde: Continuar (monto válido)
   Cuanto --> [*]: ✕ (confirma si ya eligió algo)

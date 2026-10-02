@@ -66,12 +66,12 @@ Salió de revisar los flujos con familias muy digitales y poco digitales, con y 
 | # | Cambio | Dónde | Ref. |
 |---|---|---|---|
 | 1 | **De quién viene la plata.** Agregar plata pregunta «¿Quién le envía?» y lo guarda en el movimiento (`senderId`, `senderName`). Las listas muestran quién envió (en entradas) y el detalle separa «Le envió» de «Lo anotó». | Agregar plata, listas, detalle | 55, 18 |
-| 2 | **Anotar rápido.** Motivo, meta y quién envía vienen marcados de la última vez. Chip «Repetir: S/ 10.00 · Mamá» en Alcancía lleva directo a confirmar. El monto se selecciona entero al tocarlo. Metas como tarjetas a la vista, no desplegable. | Alcancía, Agregar/Sacar | 13, 54 |
+| 2 | **Anotar rápido.** Motivo, meta y quién envía vienen marcados de la última vez. El monto se selecciona entero al tocarlo. Metas como tarjetas a la vista, no desplegable. | Alcancía, Agregar/Sacar | 13, 54 |
 | 3 | **Retomar lo que quedó a medias.** Si salen del flujo sin anotar, Alcancía ofrece «Seguir» o «Descartar». | Alcancía | 08 |
 | 4 | **Corregir y borrar** movimientos, metas y momentos, con «Deshacer» durante 6 s. Nunca se permite dejar plata en negativo: se avisa en vez de guardar. Borrar una meta no borra plata. | Detalle de movimiento, meta y momento | 17–20 |
 | 5 | **Metas logradas.** Quedan como logradas aunque se use la plata; «Usar esta plata» abre Sacar plata con meta y monto puestos. En «Sus metas» van aparte. | Detalle de meta, Sus metas | 10–12 |
 | 6 | **Primer día que explica.** Una línea dice para qué sirve la app. Si el chanchito nunca se conectó, se invita a «Conectar chanchito» en vez de mostrar «Sin conexión». | Alcancía, Chanchito | 01, 05 |
-| 7 | **Menos lectura.** El aviso «solo lleva la cuenta» sale completo la primera vez; después, una línea corta con «¿Por qué?». | Agregar plata, listas | 06 |
+| 7 | **Menos lectura.** Se quitó el aviso «solo lleva la cuenta / no mueve plata de verdad»: las familias ya lo saben. | Agregar plata, listas, metas | 53 |
 | 8 | **Quién acompaña** (nombre y relación). Firma lo que se anota y llena «¿Quién lo vio?». Si no está, se toma del primer momento anotado. | Ajustes del chanchito | 43 |
 | 9 | **Recordatorio de propina.** Se ofrece tras anotar «Su propina de la semana»; ese día Alcancía muestra un aviso. En el prototipo es un aviso dentro de la app; en nativo, **notificación local** (ver plataformas). | Listo, Alcancía, Ajustes | 09, 44 |
 | 10 | **Ideas de 1 minuto** (una por día) con «Ya lo hicimos», que suma una conversación. | Alcancía, Aprender | 13, 21 |

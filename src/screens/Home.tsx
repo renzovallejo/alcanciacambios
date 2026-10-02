@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, ChildContext, ConnectionStatus, Icon, IconTile, LinkButton, Mascota, ScreenHeader, useCountUp } from '../components/ui';
-import { goalAchieved, goalUsed, movementReason, reasonLabel, senderLabel, newId, useStore, type Goal, type Movement } from '../lib/store';
+import { goalAchieved, goalUsed, movementReason, senderLabel, newId, useStore, type Goal, type Movement } from '../lib/store';
 import { dayName, friendlyDate, inLastWeek } from '../lib/dates';
 import { ideaOfDay } from '../lib/content';
 import { t } from '../i18n';
@@ -22,17 +22,16 @@ function newMovementIds(movements: Movement[]): string[] {
 export default function Home() {
   const { state, dispatch } = useStore();
   const nav = useNavigate();
+  const [hops, setHops] = useState(0);
   const { balanceMinor, goals, movements, childName, draft } = state;
   const firstDay = balanceMinor === 0 && goals.length === 0 && movements.length === 0;
   // Metas en camino primero; las ya usadas no ocupan lugar en la portada.
   const shownGoals = goals.filter((g) => !goalUsed(g)).slice(0, 2); // orden estable, sin reordenar por porcentaje
   const weekIn = movements.filter((m) => m.kind === 'in' && inLastWeek(m.at)).reduce((a, m) => a + m.amountMinor, 0);
-  const lastIn = state.last.in;
   const today = new Date().getDay();
   const propinaToday = state.propinaDay === today && !movements.some((m) => m.reasonId === 'mesada' && friendlyDate(m.at) === friendlyDate(new Date().toISOString()));
   const draftMoney = draft.active ? Number.parseFloat(draft.amountInput) : NaN;
 
-  const repeat = () => { dispatch({ type: 'repeat', kind: 'in' }); nav('/saldo/quien'); };
   const resume = () => nav(draft.kind === 'in' ? '/saldo/importe' : '/salida/importe');
   const anotarPropina = () => {
     dispatch({ type: 'clearDraft' });
@@ -52,12 +51,14 @@ export default function Home() {
       <ChildContext name={childName} status={<ConnectionStatus />} />
 
       <section className={`balance ${changed ? 'changed' : ''}`} aria-label={t('alcancia.etiquetaSaldo', { nombre: childName })}>
-        <Mascota size={64} className={changed ? 'hop' : ''} />
+        {/* Tocar el chanchito lo hace saltar (cada toque reinicia el salto). */}
+        <button type="button" className="mascota-btn" aria-label={t('alcancia.saltar')} onClick={() => setHops((n) => n + 1)}>
+          <Mascota key={hops} size={64} className={hops > 0 ? 'hop now' : changed ? 'hop' : ''} />
+        </button>
         <div>
           <div className="eyebrow on-dark">{t('alcancia.llevaAhorrado')}</div>
           <div className="amount" aria-hidden="true">{formatMoney(shown)}</div>
           <span className="sr-only" aria-live="polite">{formatMoney(balanceMinor)}</span>
-          <div className="balance-sub">{t('alcancia.segunAnotado')}</div>
           {weekIn > 0 && <div className="week-line">{t('alcancia.estaSemana', { monto: formatMoney(weekIn) })}</div>}
         </div>
       </section>
@@ -88,17 +89,6 @@ export default function Home() {
             <LinkButton to="/saldo/importe">{t('alcancia.agregarPlata')}</LinkButton>
             {balanceMinor > 0 && <LinkButton to="/salida/importe" variant="secondary">{t('alcancia.sacarPlata')}</LinkButton>}
           </div>
-          {lastIn && !draft.active && (() => {
-            const detalle = senderLabel(lastIn.senderId, lastIn.senderName) || reasonLabel(lastIn.reason);
-            const monto = formatMoney(lastIn.amountMinor);
-            return (
-              <div className="chip-row">
-                <button type="button" className="chip" onClick={repeat} aria-label={t('alcancia.repetirEtiqueta', { monto, detalle })}>
-                  <Icon name="rotate-ccw" size={16} />{t('alcancia.repetir', { monto, detalle })}
-                </button>
-              </div>
-            );
-          })()}
         </>
       )}
 

@@ -15,12 +15,12 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 ## Alcancía
 
 ### Alcancía (inicio) · `/` · `Home.tsx` · capturas 01, 08, 09, 13, 58 · `alcancia.*`
-- **Contenido**: encabezado → contexto → tarjeta de saldo (mascota 64 dp, «LLEVA AHORRADO», monto 36 sp, «Según lo que han anotado») → acciones → «Sus metas» (máx. 2, orden estable) → «Lo último que anotaron» (máx. 2).
+- **Contenido**: encabezado → contexto → tarjeta de saldo (mascota 64 dp, «LLEVA AHORRADO», monto 36 sp) → acciones → «Sus metas» (máx. 2, orden estable) → «Lo último que anotaron» (máx. 2).
 - **Acciones**: «Agregar plata» → Agregar plata · «Sacar plata» → Sacar plata · «Ver todas (N)» → Sus metas · tarjeta de meta → Detalle de meta · «Ver todos» → Todo lo anotado · fila → Detalle.
 - **Estados**:
   - *Primer día* (saldo 0, sin metas ni movimientos): línea «Aquí anotan la plata que {nombre} mete o saca…»; un solo botón «Anotar su primera plata»; tarjeta crema «¿Para qué quiere ahorrar {nombre}?» con «Poner su primera meta»; vacío de movimientos con icono. **No** mostrar «Sacar plata».
-  - *Con datos*: dos botones lado a lado («Sacar plata» solo si hay saldo) y chip «Repetir: S/ 10.00 · Mamá» (última entrada) que abre el paso «¿Quién le envía?» con todo puesto.
-  - *Saldo*: bajo «Según lo que han anotado», «Esta semana: +S/ X» si entró plata en 7 días.
+  - *Con datos*: dos botones lado a lado («Sacar plata» solo si hay saldo).
+  - *Saldo*: bajo el monto, «Esta semana: +S/ X» si entró plata en 7 días.
   - *Borrador*: aviso crema «Dejaron a medias: S/ X» con «Descartar» y «Seguir».
   - *Día de la propina* (sin anotarla aún): aviso «Hoy es {día}, día de su propina. ¿Ya la anotaron?» con «Anotar su propina».
   - *Idea de 1 minuto*: tarjeta lavanda al final con «Ya lo hicimos».
@@ -32,7 +32,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 - «En camino» en orden de creación (no reordenar por %) → «Poner otra meta» → «Logradas» aparte (con «¡Logrado!» o «Ya la usaron»).
 
 ### Detalle de meta · `/meta/:id` · `Goal.tsx` · 15, 10 · `meta.*`
-- Icono + nombre (título) → tarjeta: «S/ 6.00 de S/ 30.00», barra, «Va 20% · Le faltan S/ 24.00» → «Agregar plata a esta meta» → «Lo que han guardado para esta meta» (movimientos con esa meta) → aviso «Es solo para llevar la cuenta…».
+- Icono + nombre (título) → tarjeta: «S/ 6.00 de S/ 30.00», barra, «Va 20% · Le faltan S/ 24.00» → «Agregar plata a esta meta» → «Lo que han guardado para esta meta» (movimientos con esa meta).
 - *Lograda*: tarjeta menta, «¡Lo lograron! Conversen juntos qué hacer ahora.» y **sin** botón de agregar.
 - «Agregar plata a esta meta» abre el flujo de agregar con esa meta ya elegida en el paso 2.
 - *Lograda con plata*: «Usar esta plata» → Sacar plata con meta, monto y «Se compró algo» puestos. *Usada*: «Ya usaron esta plata…».
@@ -52,7 +52,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 
 ### Paso 1 · Cuánto · `/saldo/importe` · `Saldo.tsx` · 53, 07, 59, 06
 - Barra: «✕» + título. «✕» con datos elegidos pide confirmar: «Si sales ahora, no se anotará nada. ¿Quieres salir?».
-- Pregunta → caja «Ahora tiene ahorrado S/ X» → campo de monto grande (36 sp, prefijo «S/», teclado decimal; **al tocarlo se selecciona todo** para escribir encima) → ayuda o error → «O escoge uno rápido» (S/ 5 · S/ 10 · S/ 20) → «Así quedaría S/ Y» → aviso de honestidad (completo la primera vez, luego corto con «¿Por qué?»).
+- Pregunta → caja «Ahora tiene ahorrado S/ X» → campo de monto grande (36 sp, prefijo «S/», teclado decimal; **al tocarlo se selecciona todo** para escribir encima) → ayuda o error → «O escoge uno rápido» (S/ 5 · S/ 10 · S/ 20) → «Así quedaría S/ Y».
 - Pie: «Continuar» (deshabilitado si el monto no es válido) + «Todavía no se anota nada.»
 
 ### Paso 2 · ¿De dónde salió? / ¿En qué la va a usar? · `/saldo/motivo`, `/salida/motivo` · 54, 60
@@ -66,7 +66,6 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 - Lista de tarjetas con radio: Mamá, Papá, Abuela, Abuelo, Tío o tía, Otro pariente. La relación de quien acompaña lleva el subtítulo «Administra la cuenta». «Otro pariente» pide «¿Quién es?» (máx. 30, obligatorio).
 - «Resumen»: Cuánto · Por qué · Quién envía · Meta · **Así quedaría**.
 - Pie: «Sí, anotar» + «Recién se anota cuando toques el botón.». Un solo envío: «Un ratito…» y bloqueado.
-- «Repetir» en Alcancía abre directamente este paso con todo puesto.
 
 ### Último paso · ¡Listo! · `/saldo/listo`, `/salida/listo` · 56, 57
 - Check grande con rebote, «¡Listo, ya está anotado!», «Ahora Sofía lleva ahorrado S/ X.» y, si se completó una meta, «¡Ya juntaron todo para «Meta»!».
@@ -154,6 +153,9 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 
 ### Actividad terminada · 45
 - En el último paso: «Ya terminamos». Después: ceja «YA LA HICIERON · TEMA», tarjeta menta «¡Terminaron «Actividad»!» y «Ver «Siguiente»». Cada paso muestra «N min».
+
+### El chanchito · conectado (semilla semana)
+- Tarjeta menta «Conectado» + «Todo bien: está prendido y conectado al WiFi de la casa.». Batería «52% · Ahora», WiFi «Conectado a…», volumen editable. Sin avisos de «lo último que sabemos».
 
 ### El chanchito · nunca conectado · 05
 - Tarjeta «Conecten su chanchito» + «Mientras tanto, pueden anotar la plata aquí…» + «Conectar el chanchito» (→ Conectar este celular). Sin «Intentar otra vez» ni «Sin conexión».

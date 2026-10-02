@@ -64,7 +64,7 @@ struct Movimiento: Codable, Identifiable, Equatable {
 /// Quien usa el celular. relation = id de quienEnvia (sin «otro»).
 struct Acompanante: Codable, Equatable { var name: String; var relation: String? }
 
-/// Lo último anotado por tipo: se precarga al empezar y alimenta «Repetir».
+/// Lo último anotado por tipo: se precarga al empezar un flujo.
 struct UltimoRegistro: Codable, Equatable { var amountMinor: Centimos; var reason: MotivoElegido; var goalId: String?; var senderId: String?; var senderName: String? }
 
 struct Momento: Codable, Identifiable, Equatable {
@@ -114,8 +114,8 @@ struct EstadoApp: Codable, Equatable {
     var propinaDay: Int?
     /// El chanchito se conectó alguna vez. Si no, invitar a conectarlo en vez de «Sin conexión».
     var devicePaired = false
-    /// Ya vio el aviso completo de honestidad.
-    var seenHonesty = false
+    /// Conectado ahora (lo confirma el dispositivo). En la semilla «semana» viene en true.
+    var deviceOnline = false
     /// Claves "in" / "out".
     var last: [String: UltimoRegistro] = [:]
 }

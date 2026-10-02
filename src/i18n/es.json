@@ -13,15 +13,12 @@
     "verMas": "Ver más",
     "noEncontrado": "No encontramos esto.",
     "noEncontradoContenido": "No encontramos esto. Puede que ya no esté.",
-    "soloCuentaLargo": "Esto es solo para llevar la cuenta. La app no mueve plata de verdad ni cuenta las monedas del chanchito.",
     "tu": "Tú",
     "ninguna": "Ninguna",
     "noSabemos": "No sabemos",
     "ajustesChanchito": "Ajustes del chanchito",
     "estasViendo": "Estás viendo a {nombre}. Cambiar",
     "tituloPestana": "{titulo} · Alcancía",
-    "soloCuentaCorto": "Solo lleva la cuenta: no mueve plata de verdad.",
-    "saberMas": "¿Por qué?",
     "deshacer": "Deshacer",
     "editar": "Editar",
     "corregir": "Corregir",
@@ -63,7 +60,6 @@
   "alcancia": {
     "etiquetaSaldo": "Lo que {nombre} lleva ahorrado",
     "llevaAhorrado": "LLEVA AHORRADO",
-    "segunAnotado": "Según lo que han anotado",
     "primeraPlata": "Anotar su primera plata",
     "agregarPlata": "Agregar plata",
     "sacarPlata": "Sacar plata",
@@ -75,14 +71,13 @@
     "vacioTitulo": "Todavía no hay nada anotado",
     "vacioTexto": "Cuando agreguen o saquen plata, aparecerá aquí.",
     "valorPrimerDia": "Aquí anotan la plata que {nombre} mete o saca de su chanchito. Así ven juntos cómo va creciendo.",
-    "repetir": "Repetir: {monto} · {detalle}",
-    "repetirEtiqueta": "Anotar otra vez {monto} de {detalle}",
     "borrador": "Dejaron a medias: {monto}",
     "borradorSeguir": "Seguir",
     "borradorDescartar": "Descartar",
     "recordatorio": "Hoy es {dia}, día de su propina. ¿Ya la anotaron?",
     "recordatorioBoton": "Anotar su propina",
-    "estaSemana": "Esta semana: +{monto}"
+    "estaSemana": "Esta semana: +{monto}",
+    "saltar": "Hacer saltar al chanchito"
   },
   "meta": {
     "logrado": "¡Logrado!",
@@ -325,7 +320,8 @@
     "leerVoz": "Leer en voz alta",
     "leerVozAyuda": "Con la voz de este celular.",
     "detenerVoz": "Detener",
-    "vozNoDisponible": "Este celular no puede leer en voz alta. Pueden leerlo juntos."
+    "vozNoDisponible": "Este celular no puede leer en voz alta. Pueden leerlo juntos.",
+    "sonandoChanchito": "Está sonando en el chanchito. Pueden leer juntos mientras escuchan."
   },
   "guia": {
     "titulo": "Para conversar",
@@ -461,7 +457,9 @@
     "avisoNoAlDia": "Esto es lo último que sabemos; no está al día.",
     "nuncaTitulo": "Conecten su chanchito",
     "nuncaTexto": "Mientras tanto, pueden anotar la plata aquí. Cuando lo conecten, verán su batería y él dirá quién le mandó la plata.",
-    "nuncaBoton": "Conectar el chanchito"
+    "nuncaBoton": "Conectar el chanchito",
+    "conectadoTexto": "Todo bien: está prendido y conectado al WiFi de la casa.",
+    "volumenAhora": "{porcentaje}%"
   },
   "bateria": {
     "loUltimo": "Lo último que sabemos",
@@ -469,7 +467,8 @@
     "conecta": "Conecta el chanchito para ver cuánta batería tiene ahora.",
     "consejos": "Algunos consejos",
     "consejo1": "Cárgalo cuando le quede poquita batería.",
-    "consejo2": "Si no prende, revisa el cable y el cargador."
+    "consejo2": "Si no prende, revisa el cable y el cargador.",
+    "ahora": "Ahora tiene"
   },
   "wifi": {
     "guardado": "WiFi guardado",
@@ -478,13 +477,16 @@
     "reconectar": "Para volver a conectarlo",
     "paso1": "Prende el chanchito.",
     "paso2": "Revisa que el WiFi de la casa esté funcionando (tiene que ser de 2.4 GHz).",
-    "paso3": "Acércalo al router (el aparato del internet) e intenta otra vez."
+    "paso3": "Acércalo al router (el aparato del internet) e intenta otra vez.",
+    "conectadoA": "Conectado a",
+    "todoBien": "El chanchito está usando este WiFi."
   },
   "volumen": {
     "loUltimo": "Lo último que sabemos",
     "etiqueta": "Volumen",
     "confirma": "El volumen solo cambia cuando el chanchito lo confirme.",
-    "sinConexion": "Sin conexión no se puede cambiar el volumen."
+    "sinConexion": "Sin conexión no se puede cambiar el volumen.",
+    "ahora": "Ahora está en"
   },
   "emparejar": {
     "titulo": "Maneja el chanchito desde este celular",

@@ -248,6 +248,7 @@ h1:focus { outline: none; }
   /* Saldo que cambió: el número cuenta y el chanchito da un saltito. */
   .balance.changed { animation: shine 1.2s ease-out .1s both; }
   .mascota.hop { animation: hop .7s ease-in-out .15s both; }
+  .mascota.hop.now { animation-delay: 0s; }
   /* Movimiento recién registrado. */
   .row.is-new { animation: highlight 1.6s ease-out .3s both; border-radius: var(--ds-radius-12); }
   /* Confirmaciones: el icono aparece con un pequeño rebote y un pulso. */
@@ -318,3 +319,6 @@ h1:focus { outline: none; }
 .banner > span:not(.icon) { flex: 1 1 calc(100% - 40px); }
 .banner .btn { margin-left: auto; }
 .banner .btn + .btn { margin-left: 0; }
+
+.mascota-btn { background: none; border: 0; padding: 0; min-width: 44px; min-height: 44px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.mascota-btn:focus-visible { outline: 2px solid #fff; outline-offset: 4px; border-radius: 12px; }

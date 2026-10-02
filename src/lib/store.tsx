@@ -25,7 +25,7 @@ export interface FlowReason { reason: string; detail?: string }
 export interface Draft { kind: FlowKind; amountInput: string; reason: FlowReason | null; goalId: Id | null; senderId?: string | null; senderName?: string; active?: boolean }
 export interface Conversation { id: Id; title: string; recordedAt: string }
 export interface Celebration { id: Id; message: string; observationId?: Id; recordedAt: string }
-/** Lo último anotado por tipo, para recordar motivo y meta y ofrecer «Repetir». */
+/** Lo último anotado por tipo, para recordar motivo, meta y quién envía. */
 export interface LastEntry { amountMinor: number; reason: FlowReason; goalId: Id | null; senderId?: string | null; senderName?: string }
 /** Quien administra la cuenta en este celular. relation = id de SENDERS (mama, papa…). */
 export interface Caregiver { name: string; relation?: string }
@@ -57,8 +57,8 @@ export interface AppState {
   propinaDay: number | null;
   /** El chanchito se conectó alguna vez con este celular. Si no, se invita a conectarlo en vez de decir «Sin conexión». */
   devicePaired: boolean;
-  /** Ya vio el aviso completo «es solo para llevar la cuenta». */
-  seenHonesty: boolean;
+  /** El chanchito está conectado ahora. En la demo de una semana se asume conectado; con hardware real, lo dice el dispositivo. */
+  deviceOnline: boolean;
   last: Partial<Record<FlowKind, LastEntry>>;
 }
 
@@ -88,13 +88,13 @@ export const exampleState = (): AppState => ({
   caregiver: { name: 'Mamá', relation: 'mama' },
   propinaDay: null,
   devicePaired: true,
-  seenHonesty: false,
+  deviceOnline: false,
   last: { in: { amountMinor: 1000, reason: { reason: 'mesada' }, goalId: 'g1', senderId: 'mama' } },
 });
 
 export const firstDayState = (): AppState => ({
   ...exampleState(), balanceMinor: 0, goals: [], movements: [], observations: [], conversations: [], celebrations: [], startedTopics: [], activeTopic: null, activityStep: {},
-  caregiver: null, devicePaired: false, last: {},
+  caregiver: null, devicePaired: false, deviceOnline: false, last: {},
 });
 
 /** Fecha de hace n días a una hora local fija, para que la semana se vea natural. */
@@ -141,7 +141,7 @@ export const weekState = (): AppState => ({
   // La propina de la semana cae el mismo día (hace 7 días y hoy).
   propinaDay: new Date().getDay(),
   devicePaired: true,
-  seenHonesty: true,
+  deviceOnline: true,
   last: { in: { amountMinor: 1000, reason: { reason: 'mesada' }, goalId: 'g2', senderId: 'mama' }, out: { amountMinor: 300, reason: { reason: 'compra' }, goalId: null } },
 });
 
@@ -153,7 +153,6 @@ export const seedIsEmpty = SEED === 'vacio';
 type Action =
   | { type: 'draft'; patch: Partial<Draft> }
   | { type: 'startDraft'; kind: FlowKind }
-  | { type: 'repeat'; kind: FlowKind }
   | { type: 'clearDraft' }
   | { type: 'confirm'; amountMinor: number; reason: FlowReason; goalId: Id | null; author: string; senderId?: string | null; senderName?: string }
   | { type: 'addGoal'; goal: Goal }
@@ -164,7 +163,6 @@ type Action =
   | { type: 'setName'; name: string }
   | { type: 'setCaregiver'; caregiver: Caregiver | null }
   | { type: 'setPropinaDay'; day: number | null }
-  | { type: 'seenHonesty' }
   | { type: 'addObservation'; observation: Moment }
   | { type: 'updateObservation'; observation: Moment }
   | { type: 'deleteObservation'; id: Id }
@@ -232,12 +230,6 @@ export function reducer(s: AppState, a: Action): AppState {
       const goalOk = last?.goalId && s.goals.some((g) => g.id === last.goalId && !goalUsed(g)) ? last.goalId : null;
       return { ...s, draft: { ...emptyDraft(a.kind), reason: last?.reason ?? null, goalId: goalOk, senderId: last?.senderId ?? (a.kind === 'in' ? s.caregiver?.relation ?? null : null), senderName: last?.senderName ?? '' } };
     }
-    case 'repeat': {
-      const last = s.last[a.kind];
-      if (!last) return s;
-      const goalOk = last.goalId && s.goals.some((g) => g.id === last.goalId && !goalUsed(g)) ? last.goalId : null;
-      return { ...s, draft: { kind: a.kind, amountInput: (last.amountMinor / 100).toFixed(2), reason: last.reason, goalId: goalOk, senderId: last.senderId ?? null, senderName: last.senderName ?? '', active: true } };
-    }
     case 'clearDraft': return { ...s, draft: emptyDraft() };
     case 'confirm': {
       const kind = s.draft.kind;
@@ -250,7 +242,7 @@ export function reducer(s: AppState, a: Action): AppState {
       };
       return {
         ...s, balanceMinor: s.balanceMinor + sign * a.amountMinor, goals: addToGoal(s.goals, a.goalId, sign * a.amountMinor),
-        movements: [movement, ...s.movements], draft: emptyDraft(), seenHonesty: true,
+        movements: [movement, ...s.movements], draft: emptyDraft(),
         last: { ...s.last, [kind]: { amountMinor: a.amountMinor, reason: a.reason, goalId: a.goalId, senderId: a.senderId ?? null, senderName: a.senderName ?? '' } },
       };
     }
@@ -268,7 +260,6 @@ export function reducer(s: AppState, a: Action): AppState {
     case 'setName': return { ...s, childName: a.name };
     case 'setCaregiver': return { ...s, caregiver: a.caregiver };
     case 'setPropinaDay': return { ...s, propinaDay: a.day };
-    case 'seenHonesty': return { ...s, seenHonesty: true };
     case 'addObservation': return { ...s, observations: [a.observation, ...s.observations] };
     case 'updateObservation': return { ...s, observations: s.observations.map((o) => (o.id === a.observation.id ? a.observation : o)) };
     case 'deleteObservation': return { ...s, observations: s.observations.filter((o) => o.id !== a.id), celebrations: s.celebrations.filter((c) => c.observationId !== a.id) };

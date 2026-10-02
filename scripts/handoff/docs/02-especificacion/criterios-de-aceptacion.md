@@ -63,7 +63,7 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 - **H1.** Dado el paso «¿Quién le envía?», cuando elijo «Otro pariente», entonces «Sí, anotar» queda deshabilitado hasta escribir «¿Quién es?».
 - **H2.** Dado que la Abuela envió S/ 5, entonces la fila dice «Abuela · hoy · …» y el detalle muestra «Le envió: Abuela» y «Lo anotó: Mamá».
 - **H3.** Dado que ya anoté una entrada, cuando vuelvo a «Agregar plata», entonces motivo, meta y quién envía vienen marcados como la última vez.
-- **H4.** Dado *ejemplo*, cuando toco «Repetir: S/ 10.00 · Mamá», entonces llego a «¿Quién le envía?» con todo puesto y con «Sí, anotar» se anota.
+- **H4.** Dado el paso «Cuánto», cuando toco el campo, entonces todo el monto queda seleccionado para escribir encima. (No hay botón «Repetir» monto.)
 - **H5.** Dado que escribí S/ 7 y salí sin anotar, entonces Alcancía muestra «Dejaron a medias: S/ 7.00»; «Seguir» abre el paso 1 con 7.
 - **H6.** Dado un movimiento, cuando lo corrijo a un monto que dejaría plata en negativo, entonces veo «Con este cambio quedaría en negativo…» y no se guarda.
 - **H7.** Dado que borro un movimiento, entonces aparece «Borrado · Deshacer»; al tocar «Deshacer» vuelve todo como estaba.
@@ -78,7 +78,8 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 - **H16.** Dado el último paso, cuando toco «Ya terminamos», entonces veo «¡Terminaron «…»!» y la siguiente sugerida; Aprender ya no la muestra «EN CURSO».
 - **H17.** Dado «¡Listo!» al agregar, cuando el niño toca el chanchito, entonces la moneda cae y aparece «¡Clin! Adentro.» (opcional, no bloquea).
 - **H18.** Dado entradas en los últimos 7 días, entonces el saldo muestra «Esta semana: +S/ X» y «Todo lo anotado» se agrupa por mes con lo que entró y salió.
-- **H19.** Dado que ya confirmé una vez, entonces el aviso «solo lleva la cuenta» sale en una línea con «¿Por qué?».
+- **H20.** Dado *semana*, entonces Alcancía dice «Conectado» y los ajustes del chanchito muestran la tarjeta verde «Conectado», batería «Ahora» y volumen editable.
+- **H19.** En ninguna pantalla aparece un aviso de que la app no mueve plata de verdad (las familias ya lo saben).
 
 ## G. Generales
 

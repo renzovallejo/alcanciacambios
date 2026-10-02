@@ -4,6 +4,7 @@ import { BackBar, Button, Icon, LinkButton, useSpeech } from '../components/ui';
 import { ActionFooter } from './Saldo';
 import { ACTIVITIES, TOPIC_LABEL, findGame, findMission, findStory } from '../lib/content';
 import { newId, useStore } from '../lib/store';
+import { isConnected } from '../lib/device';
 import type { AudioState, Topic } from '../domain';
 import { t } from '../i18n';
 
@@ -25,6 +26,8 @@ export function Cuento() {
   const { id = 's-compara' } = useParams();
   const [qs] = useSearchParams();
   const { state } = useStore();
+  const online = isConnected(state);
+  const [onPig, setOnPig] = useState(false);
   const story = findStory(id);
   const audio = useRef<HTMLAudioElement | null>(null);
   const [audioState, setAudioState] = useState<AudioState>('idle');
@@ -44,6 +47,7 @@ export function Cuento() {
   const label = stepLabel(qs.get('a') as Topic | null, qs.get('p'));
 
   const toggle = () => {
+    if (device && online) { setOnPig((x) => !x); return; } // lo reproduce el chanchito, no este celular
     if (device) { setAudioState('error'); return; } // el chanchito no está conectado
     if (!audioSource) { setAudioState('error'); return; }
     if (!audio.current) {
@@ -95,11 +99,12 @@ export function Cuento() {
         <div className="player">
           <button className="skip" disabled={!hasAudio} onClick={() => seek(-10)} aria-label={t('cuento.atras')}><Icon name="rotate-ccw" size={24} /><span>{t('cuento.diezSegundos')}</span></button>
           <button className="play" onClick={toggle} aria-label={t(audioState === 'playing' ? 'cuento.pausar' : 'cuento.reproducir')} aria-busy={audioState === 'loading'}>
-            <Icon name={audioState === 'playing' ? 'pause' : 'play'} size={28} />
+            <Icon name={audioState === 'playing' || onPig ? 'pause' : 'play'} size={28} />
           </button>
           <button className="skip" disabled={!hasAudio} onClick={() => seek(10)} aria-label={t('cuento.adelante')}><Icon name="rotate-cw" size={24} /><span>{t('cuento.diezSegundos')}</span></button>
         </div>
         {audioState === 'error' && <p className="alert-box appear" role="alert">{errMsg}</p>}
+        {onPig && <p className="alert-box ok appear" role="status">{t('cuento.sonandoChanchito')}</p>}
         <p className="talk"><Icon name="messages-square" size={22} />{t('cuento.despues', { pregunta: story.questions[0].charAt(0).toLowerCase() + story.questions[0].slice(1) })}</p>
       </div>
       <ActionFooter>

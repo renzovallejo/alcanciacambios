@@ -20,6 +20,7 @@ export default function Chanchito() {
     setConn('connecting');
     window.setTimeout(() => setConn('error'), 1500);
   };
+  const online = isConnected(state);
   const title = conn === 'connecting' ? t('chanchito.conectando') : t('conexion.sinConexion');
   const text = conn === 'error' ? t('chanchito.errorConexion') : conn === 'connecting' ? t('chanchito.buscando') : t('chanchito.sinConexionTexto');
 
@@ -27,7 +28,11 @@ export default function Chanchito() {
     <div className="task">
       <div className="task-scroll">
         <BackBar title={t('chanchito.titulo', { nombre: state.childName })} heading />
-        {state.devicePaired ? (
+        {online ? (
+          <section className="card card-mint device-status" aria-live="polite">
+            <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{t('conexion.conectado')}</h2><p className="muted">{t('chanchito.conectadoTexto')}</p></div></div>
+          </section>
+        ) : state.devicePaired ? (
           <section className={`card card-cream device-status conn-${conn}`} aria-live="polite">
             <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{title}</h2><p className="muted">{text}</p></div></div>
             <Button block loading={conn === 'connecting'} onClick={retry}>{t('chanchito.intentar')}</Button>
@@ -41,11 +46,11 @@ export default function Chanchito() {
         )}
 
         <h2 className="section-title">{t('chanchito.seccion')}</h2>
-        {state.devicePaired && <p className="muted small">{t('chanchito.sinConexionNota')}</p>}
+        {state.devicePaired && !online && <p className="muted small">{t('chanchito.sinConexionNota')}</p>}
         <ul className="plain list">
-          <Row to="bateria" icon="battery-medium" title={t('chanchito.bateria')} desc={t('chanchito.bateriaDato', { porcentaje: DEVICE.battery.value, cuando: t(isConnected() ? 'chanchito.ahoraMismo' : 'chanchito.loUltimo') })} />
+          <Row to="bateria" icon="battery-medium" title={t('chanchito.bateria')} desc={t('chanchito.bateriaDato', { porcentaje: DEVICE.battery.value, cuando: t(online ? 'chanchito.ahoraMismo' : 'chanchito.loUltimo') })} />
           <Row to="wifi" icon="wifi" title={t('chanchito.wifi')} desc={t('chanchito.wifiDato', { red: DEVICE.savedWifiName })} />
-          <Row to="sonido" icon="volume-2" title={t('chanchito.volumen')} desc={t('chanchito.volumenDato', { porcentaje: DEVICE.volume.value })} />
+          <Row to="sonido" icon="volume-2" title={t('chanchito.volumen')} desc={t(online ? 'chanchito.volumenAhora' : 'chanchito.volumenDato', { porcentaje: DEVICE.volume.value })} />
           <Row to="emparejar" icon="bluetooth" title={t('chanchito.conectarCelular')} desc={t('chanchito.conectarCelularTexto')} />
         </ul>
 
@@ -84,13 +89,13 @@ function Offline({ children }: { children?: React.ReactNode }) {
 }
 
 export function Bateria() {
+  const online = isConnected(useStore().state);
   return (
     <div className="task"><div className="task-scroll">
       <BackBar title={t('chanchito.bateria')} heading />
-      <div className="info-box"><span>{t('bateria.loUltimo')}</span><strong>{DEVICE.battery.value}%</strong></div>
+      <div className="info-box"><span>{t(online ? 'bateria.ahora' : 'bateria.loUltimo')}</span><strong>{DEVICE.battery.value}%</strong></div>
       <div className="bar" role="progressbar" aria-valuenow={DEVICE.battery.value} aria-valuemin={0} aria-valuemax={100} aria-label={t('chanchito.bateria')}><div style={{ width: `${DEVICE.battery.value}%` }} /></div>
-      <p className="muted small">{t('bateria.sinFecha')}</p>
-      <Offline>{t('bateria.conecta')}</Offline>
+      {!online && <><p className="muted small">{t('bateria.sinFecha')}</p><Offline>{t('bateria.conecta')}</Offline></>}
       <h2 className="section-title">{t('bateria.consejos')}</h2>
       <ul className="bullets"><li>{t('bateria.consejo1')}</li><li>{t('bateria.consejo2')}</li></ul>
     </div></div>
@@ -98,6 +103,14 @@ export function Bateria() {
 }
 
 export function Wifi() {
+  const online = isConnected(useStore().state);
+  if (online) return (
+    <div className="task"><div className="task-scroll">
+      <BackBar title={t('chanchito.wifi')} heading />
+      <div className="info-box"><span>{t('wifi.conectadoA')}</span><strong>{DEVICE.savedWifiName}</strong></div>
+      <p className="alert-box ok">{t('wifi.todoBien')}</p>
+    </div></div>
+  );
   return (
     <div className="task"><div className="task-scroll">
       <BackBar title={t('chanchito.wifi')} heading />
@@ -111,14 +124,16 @@ export function Wifi() {
 }
 
 export function Sonido() {
+  const online = isConnected(useStore().state);
+  const [vol, setVol] = useState(DEVICE.volume.value);
   return (
     <div className="task"><div className="task-scroll">
       <BackBar title={t('chanchito.volumen')} heading />
-      <div className="info-box"><span>{t('volumen.loUltimo')}</span><strong>{DEVICE.volume.value}%</strong></div>
+      <div className="info-box"><span>{t(online ? 'volumen.ahora' : 'volumen.loUltimo')}</span><strong>{vol}%</strong></div>
       <label htmlFor="vol" className="field-label">{t('volumen.etiqueta')}</label>
-      <input id="vol" type="range" min={0} max={100} value={DEVICE.volume.value} disabled aria-describedby="vol-ayuda" readOnly />
+      <input id="vol" type="range" min={0} max={100} value={vol} disabled={!online} aria-describedby="vol-ayuda" onChange={(e) => setVol(Number(e.target.value))} />
       <p id="vol-ayuda" className="muted small">{t('volumen.confirma')}</p>
-      <Offline>{t('volumen.sinConexion')}</Offline>
+      {!online && <Offline>{t('volumen.sinConexion')}</Offline>}
     </div></div>
   );
 }

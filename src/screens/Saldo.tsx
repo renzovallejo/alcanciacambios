@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { BackBar, Button, HonestyNote, Icon, LinkButton, Mascota } from '../components/ui';
+import { BackBar, Button, Icon, LinkButton, Mascota } from '../components/ui';
 import { SENDERS, goalUsed, reasonLabel, senderLabel, useStore, type FlowKind } from '../lib/store';
 import { formatMoney, parseAmount } from '../lib/money';
 import { t } from '../i18n';
@@ -117,7 +117,6 @@ export function SaldoImporte() {
         {projected !== null && (
           <div className="projection"><span className="muted">{t('flujo.asiQuedaria')}</span><strong>{formatMoney(projected)}</strong></div>
         )}
-        <HonestyNote long />
       </div>
       <ActionFooter helper={t('flujo.pieCuanto')}>
         <Button block disabled={!parsed.ok} onClick={() => { setTouched(true); if (parsed.ok) nav(`${BASE[kind]}/motivo`); }}>{t('comun.continuar')}</Button>

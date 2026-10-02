@@ -17,11 +17,6 @@ describe('estado de la app', () => {
     expect(next.draft).toMatchObject({ reason: { reason: 'cumpleanos' }, senderId: 'abuela' });
   });
 
-  it('repetir deja todo listo con el último monto', () => {
-    const s = reducer(exampleState(), { type: 'repeat', kind: 'in' });
-    expect(s.draft).toMatchObject({ amountInput: '10.00', reason: { reason: 'mesada' }, goalId: 'g1', senderId: 'mama', active: true });
-  });
-
   it('las metas cuadran con sus movimientos en la semana', () => {
     const s = weekState();
     for (const g of s.goals) expect(s.movements.filter((m) => m.goalId === g.id).reduce((a, m) => a + m.amountMinor, 0)).toBe(g.savedMinor);

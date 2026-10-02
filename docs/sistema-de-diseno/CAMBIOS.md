@@ -5,7 +5,7 @@
 Componentes nuevos (todos con tokens existentes; ver capturas en el paquete para desarrollo):
 
 - **Tarjeta de opción con radio** (`.reason.wide` + `.radio-dot`): «¿Quién le envía?», metas en el flujo, días del recordatorio. Subtítulo opcional («Administra la cuenta»).
-- **Chip de acción** (`.chip`): «Repetir: S/ 10.00 · Mamá», versión del cuento. 44 dp de alto, fondo azul suave.
+- **Chip de acción** (`.chip`): versión del cuento. 44 dp de alto, fondo azul suave.
 - **Aviso en línea** (`.banner`): borrador a medias y día de la propina. Fondo crema, icono + texto + acciones debajo.
 - **Aviso flotante con Deshacer** (`.toast`): 6 s, fondo texto, acción subrayada.
 - **Tarjeta «Idea de 1 minuto»**: lavanda, ceja con icono de foco.
@@ -46,7 +46,7 @@ Componentes nuevos (todos con tokens existentes; ver capturas en el paquete para
 ### Reglas actualizadas
 - «Siempre «Juegos de rol»» pasa a: en la pestaña decir «Juegos» y explicar «Jueguen a ser otros y conversen».
 - «Usar verbos específicos: «Agregar saldo»…» pasa a verbos cotidianos: «Agregar plata», «Sacar plata»…
-- Dinero: ya no se pide la etiqueta «práctica»; se aclara con «Esto es solo para llevar la cuenta. La app no mueve plata de verdad».
+- Dinero: ya no se pide la etiqueta «práctica». En v3.4.1 también se quitó el aviso «no mueve plata de verdad»: las familias ya lo saben.
 - En Perú «propina» es la plata semanal: el id `mesada` se muestra como «Su propina de la semana».
 - El chanchito es masculino: «Conectado», «Préndelo».
 

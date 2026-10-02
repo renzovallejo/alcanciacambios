@@ -16,7 +16,7 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 | Salidas | No más que lo ahorrado (`dinero.errorNoAlcanza`) ni más que lo guardado en la meta de origen (`dinero.errorMetaNoAlcanza`). La meta nunca baja de 0. |
 | Movimiento | Guarda: tipo (`in`/`out`), autor (quien anotó: nombre de quien acompaña, o «Tú»), fecha ISO, monto con signo, motivo (`reasonId` + `reasonDetail` para «Otra cosa»; el texto visible sale del catálogo), meta (id + nombre) y, **solo en entradas, quién envía** (`senderId` ∈ `mama, papa, abuela, abuelo, tio, otro` + `senderName` libre, obligatorio con `otro`). |
 | Quién envía vs. quién anotó | Son datos distintos: la abuela puede enviar y mamá anotar. En listas de entradas se muestra quién envía; el detalle muestra ambos («Le envió» / «Lo anotó»). Con el chanchito conectado, él dice en voz alta el nombre de quien envía. |
-| Recordar lo último | `last.in` / `last.out` guardan monto, motivo, meta y quién envía. Al empezar un flujo se precargan (la meta solo si sigue disponible). «Repetir» precarga también el monto y abre el último paso. |
+| Recordar lo último | `last.in` / `last.out` guardan monto, motivo, meta y quién envía. Al empezar un flujo se precargan (la meta solo si sigue disponible). |
 | Borrador | Cualquier cambio en el flujo marca el borrador `active`. Abrir el mismo flujo lo retoma; Alcancía ofrece «Seguir» o «Descartar». Confirmar o descartar lo limpia. |
 | Corregir | Se recalcula como «deshacer el movimiento y aplicarlo con los datos nuevos». Si el saldo o alguna meta quedaría negativa, no se guarda y se avisa (`movimientos.editarNegativo`). |
 | Borrar | Igual validación (`movimientos.borrarNoSePuede`). Confirmación previa y «Deshacer» durante 6 s, que restaura el estado completo. |
@@ -60,7 +60,7 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 
 ## Chanchito (`lib/device.ts`)
 
-- Un solo estado de conexión para toda la app. Sin hardware: «Sin conexión». Si **nunca** se conectó (`devicePaired = false`), en vez de «Sin conexión» se invita a «Conectar chanchito».
+- Un solo estado de conexión para toda la app (`deviceOnline`). Sin hardware: «Sin conexión». En la demo de **una semana** se asume conectado (verde, «Conectado», batería «Ahora», volumen editable, el cuento del chanchito suena en él); con hardware real lo decide la respuesta del dispositivo. Si **nunca** se conectó (`devicePaired = false`), en vez de «Sin conexión» se invita a «Conectar chanchito».
 - Reintento: un intento a la vez; «Conectado» solo con respuesta real del dispositivo.
 - Batería, WiFi y volumen: «lo último que sabemos»; mostrar fecha de lectura solo si existe.
 - Cambios de configuración: pendientes hasta que el chanchito confirme.
@@ -71,5 +71,4 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 - Todo lo anotado va a la persona visible arriba; cambiar de persona nunca cambia una operación en curso.
 - **Quién acompaña** (`caregiver`: nombre + relación): firma lo anotado, llena «¿Quién lo vio?» y marca «Administra la cuenta» en «¿Quién le envía?». Si no existe, se toma del primer momento anotado.
 - **Recordatorio de propina** (`propinaDay` 0–6 o null): se ofrece tras anotar «Su propina de la semana». Ese día, si todavía no anotaron una, Alcancía muestra el aviso. En nativo, además, notificación local ese día (ver `plataformas.md`).
-- **Aviso de honestidad**: completo hasta la primera confirmación (`seenHonesty`); después, línea corta con «¿Por qué?».
 - Estados de ejemplo para desarrollo y QA: `06-datos/semillas/` (`vacio`, `ejemplo`, `semana`).

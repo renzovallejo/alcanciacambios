@@ -87,8 +87,8 @@ export function ChildContext({ name, status }: { name: string; status?: ReactNod
 
 /** Estado de conexión del chanchito: icono + texto, enlaza a sus ajustes. */
 export function ConnectionStatus() {
-  const on = isConnected();
   const { state } = useStore();
+  const on = isConnected(state);
   // Si nunca se conectó, no se dice «Sin conexión» (asusta): se invita a conectarlo.
   if (!on && !state.devicePaired) {
     return <Link to="/chanchito" className="conn invite"><Icon name="wifi" size={16} />{t('conexion.conectar')}</Link>;
@@ -143,22 +143,6 @@ const lastShown = new Map<string, number>();
 export function useToggle(initial = false): [boolean, () => void] {
   const [v, setV] = useState(initial);
   return [v, () => setV((x) => !x)];
-}
-
-/** Aviso de honestidad: completo la primera vez; luego una línea corta que se puede abrir. */
-export function HonestyNote({ long = false }: { long?: boolean }) {
-  const { state } = useStore();
-  const [open, toggle] = useToggle(false);
-  if (long && !state.seenHonesty) return <p className="note"><Icon name="info" size={18} /> {t('comun.soloCuentaLargo')}</p>;
-  return (
-    <p className="note short">
-      <Icon name="info" size={16} />
-      <span>
-        {open ? t('comun.soloCuentaLargo') : t('comun.soloCuentaCorto')}
-        {!open && <button type="button" className="link-btn" onClick={toggle}>{t('comun.saberMas')}</button>}
-      </span>
-    </p>
-  );
 }
 
 /** Lee un texto con la voz del celular (speechSynthesis). Si no hay, avisa. */

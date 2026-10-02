@@ -10,7 +10,7 @@ Mamás, papás, abuelas, tíos y cualquier persona que acompaña a un niño o ni
 
 1. **Como se habla en casa.** Español peruano, cotidiano y cercano. Si no lo dirías en la mesa del almuerzo, no va.
 2. **Claro antes que bonito.** Frases cortas, una idea por frase. Nada de jerga técnica ni financiera.
-3. **Honestos con la plata.** La app es un apunte para llevar la cuenta; no mueve plata de verdad ni cuenta monedas. Cuando hablamos de dinero, que se note.
+3. **Honestos con la plata.** No inventamos datos ni decimos que el chanchito está conectado si no lo está. Que la app no mueve plata de verdad ya se sabe: no se explica en pantalla.
 4. **Cálidos sin evaluar.** Reconocemos el esfuerzo, no ponemos notas. Nada de «aprobó», «domina», rankings ni porcentajes de habilidad.
 5. **Para toda la familia.** Le hablamos a quien acompaña, sea quien sea. No suponemos que siempre es la mamá o el papá.
 
@@ -105,7 +105,6 @@ Dan cariño y son muy peruanos, pero sin exagerar. Máximo uno por frase.
 | Meta lograda | Celebrar el hecho, no a la persona | «¡Ya juntaron todo para «Libro ilustrado»!», «¡Logrado!» |
 | Sin conexión | Estado + instrucción concreta | «Sin conexión. Préndelo y revisa el WiFi de la casa.» |
 | Dato viejo | Decir que no está al día | «52% · lo último que sabemos» |
-| Aviso de honestidad | Siempre cerca de la plata | «Esto es solo para llevar la cuenta. La app no mueve plata de verdad.» |
 | Confirmar salida | Pregunta clara | «Si sales ahora, no se anotará nada. ¿Quieres salir?» |
 
 ## Opciones de «¿De dónde salió esta plata?»
