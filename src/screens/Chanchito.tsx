@@ -18,7 +18,7 @@ export default function Chanchito() {
     window.setTimeout(() => setConn('error'), 1500);
   };
   const title = conn === 'connecting' ? 'Conectando…' : 'Sin conexión';
-  const text = conn === 'error' ? 'No pudimos conectar. Enciéndela, revisa la red WiFi y vuelve a intentar.' : conn === 'connecting' ? 'Buscando el chanchito…' : 'Enciéndela y revisa la red WiFi.';
+  const text = conn === 'error' ? 'No se pudo conectar. Préndelo, revisa el WiFi de la casa e intenta otra vez.' : conn === 'connecting' ? 'Buscando el chanchito…' : 'Préndelo y revisa el WiFi de la casa.';
 
   return (
     <div className="task">
@@ -26,26 +26,26 @@ export default function Chanchito() {
         <BackBar title={`El chanchito de ${state.childName}`} heading />
         <section className={`card card-cream device-status ${conn}`} aria-live="polite">
           <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{title}</h2><p className="muted">{text}</p></div></div>
-          <Button block loading={conn === 'connecting'} onClick={retry}>Reintentar conexión</Button>
+          <Button block loading={conn === 'connecting'} onClick={retry}>Intentar otra vez</Button>
         </section>
 
-        <h2 className="section-title">Dispositivo</h2>
-        <p className="muted small">Los datos no se actualizan sin conexión.</p>
+        <h2 className="section-title">El chanchito</h2>
+        <p className="muted small">Sin conexión, esto es lo último que sabemos.</p>
         <ul className="plain list">
-          <Row to="bateria" icon="battery-medium" title="Batería y energía" desc={`${DEVICE.battery.value}% · ${isConnected() ? 'Ahora' : 'Último dato recibido'}`} />
-          <Row to="wifi" icon="wifi" title="Red WiFi" desc={`${DEVICE.savedWifiName} · guardada`} />
-          <Row to="sonido" icon="volume-2" title="Voz y sonido" desc={`Volumen ${DEVICE.volume.value}% · Último ajuste conocido`} />
-          <Row to="emparejar" icon="bluetooth" title="Emparejar este celular" desc="Para usarla desde este celular." />
+          <Row to="bateria" icon="battery-medium" title="Batería" desc={`${DEVICE.battery.value}% · ${isConnected() ? 'Ahora' : 'lo último que sabemos'}`} />
+          <Row to="wifi" icon="wifi" title="Red WiFi" desc={`${DEVICE.savedWifiName} · la que tiene guardada`} />
+          <Row to="sonido" icon="volume-2" title="Volumen" desc={`${DEVICE.volume.value}% · lo último que sabemos`} />
+          <Row to="emparejar" icon="bluetooth" title="Conectar este celular" desc="Para manejar el chanchito desde aquí." />
         </ul>
 
         <h2 className="section-title">Familia</h2>
-        <ul className="plain list"><Row to="perfil" icon="user-round" title={`Perfil de ${state.childName}`} desc="Nombre y datos del perfil" /></ul>
+        <ul className="plain list"><Row to="perfil" icon="user-round" title={`Perfil de ${state.childName}`} desc="Su nombre" /></ul>
 
         <div className="center foot-links">
           <Link to="/sesion/cerrar" className="link">Cerrar sesión</Link>
           <p className="muted small">PiggyBank IoT · v2.4.0</p>
-          <button className="link small" onClick={() => { if (window.confirm('Se restablecerán todos los datos de ejemplo. ¿Continuar?')) dispatch({ type: 'reset', state: exampleState() }); }}>Restablecer datos de ejemplo</button>
-          <button className="link small" onClick={() => { if (window.confirm('Se borrarán los datos actuales para ver el primer día. ¿Continuar?')) dispatch({ type: 'reset', state: firstDayState() }); }}>Ver primer día (sin datos)</button>
+          <button className="link small" onClick={() => { if (window.confirm('Se van a poner otra vez los datos de ejemplo. ¿Seguro?')) dispatch({ type: 'reset', state: exampleState() }); }}>Poner datos de ejemplo</button>
+          <button className="link small" onClick={() => { if (window.confirm('Se va a borrar todo para empezar desde cero. ¿Seguro?')) dispatch({ type: 'reset', state: firstDayState() }); }}>Empezar desde cero</button>
         </div>
       </div>
     </div>
@@ -65,19 +65,19 @@ function Row({ to, icon, title, desc }: { to: string; icon: string; title: strin
 }
 
 function Offline({ children }: { children?: React.ReactNode }) {
-  return <p className="alert-box"><strong>Sin conexión.</strong> Estos datos son el último dato conocido y no se actualizan en vivo. {children}</p>;
+  return <p className="alert-box"><strong>Sin conexión.</strong> Esto es lo último que sabemos; no está al día. {children}</p>;
 }
 
 export function Bateria() {
   return (
     <div className="task"><div className="task-scroll">
-      <BackBar title="Batería y energía" heading />
-      <div className="info-box"><span>Último dato recibido</span><strong>{DEVICE.battery.value}%</strong></div>
+      <BackBar title="Batería" heading />
+      <div className="info-box"><span>Lo último que sabemos</span><strong>{DEVICE.battery.value}%</strong></div>
       <div className="bar" role="progressbar" aria-valuenow={DEVICE.battery.value} aria-valuemin={0} aria-valuemax={100} aria-label="Batería"><div style={{ width: `${DEVICE.battery.value}%` }} /></div>
-      <p className="muted small">Sin fecha de lectura disponible.</p>
-      <Offline>Conecta el chanchito para ver la batería actual.</Offline>
-      <h2 className="section-title">Consejos</h2>
-      <ul className="bullets"><li>Cárgalo cuando quede poca batería.</li><li>Si no enciende, revisa el cable y el cargador.</li></ul>
+      <p className="muted small">No sabemos de cuándo es este dato.</p>
+      <Offline>Conecta el chanchito para ver cuánta batería tiene ahora.</Offline>
+      <h2 className="section-title">Algunos consejos</h2>
+      <ul className="bullets"><li>Cárgalo cuando le quede poquita batería.</li><li>Si no prende, revisa el cable y el cargador.</li></ul>
     </div></div>
   );
 }
@@ -86,11 +86,11 @@ export function Wifi() {
   return (
     <div className="task"><div className="task-scroll">
       <BackBar title="Red WiFi" heading />
-      <div className="info-box"><span>Red guardada</span><strong>{DEVICE.savedWifiName}</strong></div>
-      <Offline>Para cambiar de red, primero conecta el chanchito.</Offline>
-      <Button block variant="secondary" disabled>Cambiar de red</Button>
-      <h2 className="section-title">Para reconectar</h2>
-      <ul className="bullets"><li>Enciende el chanchito.</li><li>Revisa que el WiFi de casa esté funcionando (red de 2.4 GHz).</li><li>Acércalo al router y vuelve a intentar.</li></ul>
+      <div className="info-box"><span>WiFi guardado</span><strong>{DEVICE.savedWifiName}</strong></div>
+      <Offline>Para cambiar de WiFi, primero conecta el chanchito.</Offline>
+      <Button block variant="secondary" disabled>Cambiar de WiFi</Button>
+      <h2 className="section-title">Para volver a conectarlo</h2>
+      <ul className="bullets"><li>Prende el chanchito.</li><li>Revisa que el WiFi de la casa esté funcionando (tiene que ser de 2.4 GHz).</li><li>Acércalo al router (el aparato del internet) e intenta otra vez.</li></ul>
     </div></div>
   );
 }
@@ -98,12 +98,12 @@ export function Wifi() {
 export function Sonido() {
   return (
     <div className="task"><div className="task-scroll">
-      <BackBar title="Voz y sonido" heading />
-      <div className="info-box"><span>Último volumen conocido</span><strong>{DEVICE.volume.value}%</strong></div>
+      <BackBar title="Volumen" heading />
+      <div className="info-box"><span>Lo último que sabemos</span><strong>{DEVICE.volume.value}%</strong></div>
       <label htmlFor="vol" className="field-label">Volumen</label>
       <input id="vol" type="range" min={0} max={100} value={DEVICE.volume.value} disabled aria-describedby="vol-ayuda" readOnly />
-      <p id="vol-ayuda" className="muted small">Un cambio de volumen solo se aplica cuando el chanchito confirme.</p>
-      <Offline>No se puede cambiar el volumen sin conexión.</Offline>
+      <p id="vol-ayuda" className="muted small">El volumen solo cambia cuando el chanchito lo confirme.</p>
+      <Offline>Sin conexión no se puede cambiar el volumen.</Offline>
     </div></div>
   );
 }
@@ -122,12 +122,12 @@ export function Emparejar() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title="Emparejar este celular" />
-        <h1 className="title">Usa el chanchito desde este celular</h1>
-        <ol className="bullets num"><li>Enciende el chanchito y acércalo.</li><li>Activa el Bluetooth de este celular.</li><li>Toca «Buscar chanchito» y elígelo en la lista.</li></ol>
-        {s === 'unsupported' && <p className="alert-box appear" role="alert">Este navegador no permite emparejar por Bluetooth. Prueba con Chrome en Android.</p>}
-        {s === 'notfound' && <p className="alert-box appear" role="alert">No se completó el emparejamiento. Revisa que esté encendido y cerca, y vuelve a intentar.</p>}
-        <p className="note"><Icon name="info" size={18} />El emparejamiento requiere confirmar los permisos del dispositivo.</p>
+        <BackBar title="Conectar este celular" />
+        <h1 className="title">Maneja el chanchito desde este celular</h1>
+        <ol className="bullets num"><li>Prende el chanchito y tenlo cerca.</li><li>Prende el Bluetooth de este celular.</li><li>Toca «Buscar chanchito» y escógelo en la lista.</li></ol>
+        {s === 'unsupported' && <p className="alert-box appear" role="alert">Desde este navegador no se puede usar Bluetooth. Prueba con Chrome en un celular Android.</p>}
+        {s === 'notfound' && <p className="alert-box appear" role="alert">No se pudo conectar. Revisa que esté prendido y cerca, e intenta otra vez.</p>}
+        <p className="note"><Icon name="info" size={18} />El celular te va a pedir permiso para conectarse.</p>
       </div>
       <ActionFooter><Button block loading={s === 'searching'} onClick={search}>Buscar chanchito</Button></ActionFooter>
     </div>
@@ -147,7 +147,7 @@ export function Perfil() {
         <label htmlFor="nombre" className="field-label">Nombre</label>
         <input id="nombre" className="text-field" maxLength={30} value={name} onChange={(e) => setName(e.target.value)} />
         {touched && !name.trim() && <p className="small error" role="alert">Escribe un nombre.</p>}
-        <p className="muted small">El nombre se usa en las pantallas de la app.</p>
+        <p className="muted small">Así aparecerá en toda la app.</p>
       </div>
       <ActionFooter><Button block onClick={save}>Guardar</Button></ActionFooter>
     </div>
@@ -160,11 +160,11 @@ export function Perfiles() {
     <>
       <BackBar label="Volver" />
       <h1 className="title">¿Con quién estás?</h1>
-      <p className="muted">Siempre verás a quién se aplica cada acción.</p>
+      <p className="muted">Todo lo que anotes será para esta persona.</p>
       <ul className="plain list">
         <li className="row static">
           <IconTile icon="user-round" tone="azul" />
-          <span className="row-text"><strong>{state.childName}</strong><span className="muted small">Seleccionada</span></span>
+          <span className="row-text"><strong>{state.childName}</strong><span className="muted small">Estás aquí</span></span>
           <Icon name="check" size={20} />
         </li>
       </ul>
@@ -180,7 +180,7 @@ export function CerrarSesion() {
         <BackBar title="Cerrar sesión" />
         <div className="center-col">
           <h1 className="title center">¿Cerrar sesión?</h1>
-          <p className="muted center">Podrás volver a entrar cuando quieras. Tus registros de práctica en este celular se conservan.</p>
+          <p className="muted center">Puedes volver a entrar cuando quieras. Lo que anotaste en este celular no se borra.</p>
         </div>
       </div>
       <ActionFooter>
@@ -198,7 +198,7 @@ export function SesionCerrada() {
         <div className="center-col">
           <Mascota size={100} />
           <h1 className="title center">Sesión cerrada</h1>
-          <p className="muted center">Aquí iría el inicio de sesión real. Aún no está conectado a un servicio de cuentas.</p>
+          <p className="muted center">Todavía no hay cuentas de usuario en esta versión, así que puedes entrar directo.</p>
         </div>
       </div>
       <ActionFooter><LinkButton to="/" block>Entrar de nuevo</LinkButton></ActionFooter>

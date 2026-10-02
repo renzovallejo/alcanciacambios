@@ -10,7 +10,7 @@ const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).p
 const clamp = (v: number, max: number) => Math.min(Math.max(v, 0), max);
 
 function NotFound({ to, label }: { to: string; label: string }) {
-  return (<div className="task"><div className="task-scroll"><BackBar title={label} to={to} /><p className="muted">No encontramos este contenido.</p></div></div>);
+  return (<div className="task"><div className="task-scroll"><BackBar title={label} to={to} /><p className="muted">No encontramos esto. Puede que ya no esté.</p></div></div>);
 }
 
 function stepLabel(topic: Topic | null, p: string | null): string | null {
@@ -55,8 +55,8 @@ export function Cuento() {
   };
   const seek = (d: number) => { const a = audio.current; if (!a) return; a.currentTime = clamp(a.currentTime + d, duration); setPos(a.currentTime); };
   const errMsg = device
-    ? 'No hay conexión con el chanchito, así que no se puede escuchar ahí. Puedes leer el cuento juntos.'
-    : 'El audio aún no está disponible. Puedes leer el cuento juntos.';
+    ? 'El chanchito no está conectado, así que no se puede escuchar ahí. Pero pueden leer el cuento juntos.'
+    : 'El audio todavía no está listo. Pero pueden leer el cuento juntos.';
 
   return (
     <div className="task">
@@ -70,7 +70,7 @@ export function Cuento() {
           <p>{story.text}</p>
         </section>
 
-        <p className="muted">{device ? 'Escuchar en la alcancía' : 'Escuchar en este celular'}</p>
+        <p className="muted">{device ? 'Escuchar en el chanchito' : 'Escuchar en este celular'}</p>
         <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={duration} aria-valuenow={pos} aria-label="Posición del audio">
           <div style={{ width: duration ? `${(pos / duration) * 100}%` : 0 }} />
         </div>
@@ -86,7 +86,7 @@ export function Cuento() {
         <p className="talk"><Icon name="messages-square" size={22} />Después, conversen: {story.questions[0].charAt(0).toLowerCase() + story.questions[0].slice(1)}</p>
       </div>
       <ActionFooter>
-        <LinkButton to={`/guia/${story.id}`} block>Ver guía y preguntas</LinkButton>
+        <LinkButton to={`/guia/${story.id}`} block>Ver preguntas para conversar</LinkButton>
         <LinkButton to="/aprender" variant="tertiary" block>Seguir otro día</LinkButton>
       </ActionFooter>
       <span className="sr-only">{state.childName}</span>
@@ -109,23 +109,23 @@ export function Guia() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title="Guía y preguntas" />
+        <BackBar title="Para conversar" />
         <div className="eyebrow violet">{TOPIC_LABEL[story.topic].toUpperCase()}</div>
         <h1 className="title">{story.title}</h1>
-        <h2 className="section-title">Para conversar</h2>
+        <h2 className="section-title">Pregúntale</h2>
         <ul className="plain stack-8">
           {story.questions.map((q) => (<li key={q} className="card card-violet talk"><Icon name="messages-square" size={22} />{q}</li>))}
         </ul>
-        <h2 className="section-title">Consejos para quien acompaña</h2>
+        <h2 className="section-title">Unos consejos para ti</h2>
         <ul className="bullets">
-          <li>Escucha primero; no hay respuestas correctas o incorrectas.</li>
-          <li>Pregunta «¿por qué?» con curiosidad, sin corregir.</li>
-          <li>Puedes dejarlo para otro día sin ninguna penalización.</li>
+          <li>Escucha primero. Aquí no hay respuestas buenas ni malas.</li>
+          <li>Pregunta «¿y por qué?» con curiosidad, sin corregir.</li>
+          <li>Si no es el momento, lo dejan para otro día. No pasa nada.</li>
         </ul>
-        {saved && <p className="alert-box ok appear" role="status">Conversación registrada. ¡Gracias por acompañar!</p>}
+        {saved && <p className="alert-box ok appear" role="status">¡Anotado! Gracias por darte el tiempo.</p>}
       </div>
-      <ActionFooter helper="Registrarla es opcional y no evalúa a nadie.">
-        <Button block variant={saved ? 'secondary' : 'primary'} onClick={save} disabled={saved}>{saved ? 'Conversación registrada' : 'Registrar que conversamos'}</Button>
+      <ActionFooter helper="Anotarlo es opcional. No es una nota para nadie.">
+        <Button block variant={saved ? 'secondary' : 'primary'} onClick={save} disabled={saved}>{saved ? '¡Anotado!' : 'Ya lo conversamos'}</Button>
         <LinkButton to="/aprender" variant="tertiary" block>Volver a Aprender</LinkButton>
       </ActionFooter>
     </div>
@@ -146,10 +146,10 @@ export function Mision() {
           <h1 className="feature-title">{m.title}</h1>
           <p className="body">{m.summary}</p>
         </section>
-        <h2 className="section-title">Necesitan</h2>
+        <h2 className="section-title">Van a necesitar</h2>
         <ul className="bullets">{m.materials.map((x) => <li key={x}>{x}</li>)}</ul>
-        <h2 className="section-title">Pasos</h2>
-        <p className="muted small">Marca los pasos como ayuda para ustedes; no es una tarea pendiente.</p>
+        <h2 className="section-title">Cómo se hace</h2>
+        <p className="muted small">Marquen lo que van haciendo. No es tarea.</p>
         <ul className="plain list">
           {m.steps.map((st, i) => (
             <li key={st}>
@@ -161,8 +161,8 @@ export function Mision() {
           ))}
         </ul>
       </div>
-      <ActionFooter helper="Registrar un momento es opcional.">
-        <LinkButton to={`/momento/nuevo?tema=${m.topic}`} block>Registrar un momento</LinkButton>
+      <ActionFooter helper="Si quieren, anoten cómo les fue.">
+        <LinkButton to={`/momento/nuevo?tema=${m.topic}`} block>Anotar cómo les fue</LinkButton>
         <LinkButton to="/biblioteca" variant="tertiary" block>Volver a Biblioteca</LinkButton>
       </ActionFooter>
     </div>
@@ -174,7 +174,7 @@ export function Juego() {
   const g = findGame(id);
   const { dispatch } = useStore();
   const [saved, setSaved] = useState(false);
-  if (!g) return <NotFound to="/biblioteca" label="Juego de rol" />;
+  if (!g) return <NotFound to="/biblioteca" label="Juego" />;
   const save = () => {
     if (saved) return;
     dispatch({ type: 'addConversation', conversation: { id: newId('c'), title: g.title, recordedAt: new Date().toISOString() } });
@@ -183,20 +183,20 @@ export function Juego() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title="Juego de rol" />
+        <BackBar title="Juego" />
         <section className="card card-cream feature">
           <div className="eyebrow">IMAGINEN Y CONVERSEN · {g.players.toUpperCase()}</div>
           <h1 className="feature-title">{g.title}</h1>
           <p className="body">{g.scenario}</p>
         </section>
-        <h2 className="section-title">Roles</h2>
+        <h2 className="section-title">Quién hace qué</h2>
         <ul className="bullets">{g.roles.map((x) => <li key={x}>{x}</li>)}</ul>
         <h2 className="section-title">Para conversar después</h2>
         <ul className="plain stack-8">{g.questions.map((q) => (<li key={q} className="card card-cream talk"><Icon name="messages-square" size={22} />{q}</li>))}</ul>
-        {saved && <p className="alert-box ok appear" role="status">Conversación registrada.</p>}
+        {saved && <p className="alert-box ok appear" role="status">¡Anotado!</p>}
       </div>
-      <ActionFooter helper="Registrarla es opcional y no evalúa a nadie.">
-        <Button block onClick={save} disabled={saved}>{saved ? 'Conversación registrada' : 'Registrar que conversamos'}</Button>
+      <ActionFooter helper="Anotarlo es opcional. No es una nota para nadie.">
+        <Button block onClick={save} disabled={saved}>{saved ? '¡Anotado!' : 'Ya lo conversamos'}</Button>
         <LinkButton to="/biblioteca" variant="tertiary" block>Volver a Biblioteca</LinkButton>
       </ActionFooter>
     </div>

@@ -263,3 +263,4 @@ h1:focus { outline: none; }
   .check { transition: transform .15s; } .check:checked { transform: scale(1.1); }
   .play { transition: transform .12s; } .play:active { transform: scale(.94); }
 }
+.balance-sub { font-size: var(--ds-font-12); line-height: var(--ds-line-12); color: rgba(255, 255, 255, .8); }

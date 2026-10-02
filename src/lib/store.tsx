@@ -37,8 +37,8 @@ export const exampleState = (): AppState => ({
     { id: 'g2', name: 'Rompecabezas', icon: 'puzzle', savedMinor: 400, targetMinor: 4000 },
   ],
   movements: [
-    { id: 'm1', kind: 'in', label: 'Ingreso registrado', author: 'Mamá', at: daysAgo(0), amountMinor: 1000, goalId: 'g1', goalName: 'Libro ilustrado' },
-    { id: 'm2', kind: 'in', label: 'Ingreso registrado', author: 'Mamá', at: daysAgo(1), amountMinor: 500 },
+    { id: 'm1', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: daysAgo(0), amountMinor: 1000, goalId: 'g1', goalName: 'Libro ilustrado' },
+    { id: 'm2', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: daysAgo(1), amountMinor: 500 },
   ],
   draft: emptyDraft(),
   observations: [{ id: 'o1', title: 'Un pequeño gran paso', childId: 'c1', narrative: 'Sofía decidió guardar sus monedas para el libro que quiere.', authorId: 'mama', authorDisplayName: 'Mamá', recordedAt: '2026-10-01T10:00:00Z', topic: 'ahorrar' }],
@@ -68,8 +68,9 @@ type Action =
   | { type: 'reset'; state: AppState };
 
 export const REASON_LABELS: Record<string, string> = {
-  propina: 'Propina', 'ayuda-en-casa': 'Ayudó en casa', cumpleanos: 'Cumpleaños', mesada: 'Mesada', 'buen-comportamiento': 'Buen comportamiento', otro: 'Otro',
-  compra: 'Compra', regalo: 'Regalo', compartir: 'Compartir con alguien',
+  // En Perú «propina» es también la plata semanal; aquí «mesada» se muestra como «Su propina de la semana».
+  propina: 'Le dieron propina', 'ayuda-en-casa': 'Ayudó en casa', cumpleanos: 'Por su cumple', mesada: 'Su propina de la semana', 'buen-comportamiento': 'Se portó bien', otro: 'Otra cosa',
+  compra: 'Se compró algo', regalo: 'Hizo un regalo', compartir: 'Lo compartió',
 };
 export const reasonLabel = (r: FlowReason): string => (r.reason === 'otro' && r.detail ? r.detail : REASON_LABELS[r.reason] ?? r.reason);
 
@@ -83,7 +84,7 @@ function reducer(s: AppState, a: Action): AppState {
       const goal = s.goals.find((g) => g.id === a.goalId);
       const goals = s.goals.map((g) => (g.id === a.goalId ? { ...g, savedMinor: Math.max(0, g.savedMinor + sign * a.amountMinor) } : g));
       const movement: Movement = {
-        id: `m${Date.now()}`, kind: s.draft.kind, label: s.draft.kind === 'in' ? 'Ingreso registrado' : 'Salida registrada', author: a.author,
+        id: `m${Date.now()}`, kind: s.draft.kind, label: s.draft.kind === 'in' ? 'Guardó plata' : 'Sacó plata', author: a.author,
         at: new Date().toISOString(), amountMinor: sign * a.amountMinor, reason: reasonLabel(a.reason), goalId: goal?.id, goalName: goal?.name,
       };
       return { ...s, balanceMinor: s.balanceMinor + sign * a.amountMinor, goals, movements: [movement, ...s.movements], draft: emptyDraft() };

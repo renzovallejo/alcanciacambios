@@ -26,17 +26,17 @@ export default function NuevaMeta() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar icon="x" title={first ? 'Primera meta' : 'Nueva meta'} />
+        <BackBar icon="x" title={first ? 'Su primera meta' : 'Otra meta'} />
         <h1 className="title">¿Para qué quiere ahorrar {state.childName}?</h1>
-        <p className="muted">Un juguete, un libro o algo que le haga ilusión.</p>
-        <label htmlFor="meta-nombre" className="field-label">Nombre de la meta</label>
-        <input id="meta-nombre" className="text-field" maxLength={40} value={name} onChange={(e) => setName(e.target.value)} />
-        {touched && !name.trim() && <p className="small error" role="alert">Escribe un nombre.</p>}
-        <label htmlFor="meta-monto" className="field-label">¿Cuánto cuesta? (S/)</label>
+        <p className="muted">Un juguete, un libro o algo que le guste mucho.</p>
+        <label htmlFor="meta-nombre" className="field-label">¿Qué quiere?</label>
+        <input id="meta-nombre" className="text-field" placeholder="Por ejemplo: una pelota" maxLength={40} value={name} onChange={(e) => setName(e.target.value)} />
+        {touched && !name.trim() && <p className="small error" role="alert">Escribe qué quiere.</p>}
+        <label htmlFor="meta-monto" className="field-label">¿Cuánto cuesta más o menos? (S/)</label>
         <input id="meta-monto" className="text-field" inputMode="decimal" value={target} onChange={(e) => setTarget(e.target.value)} />
         {touched && !parsed.ok && <p className="small error" role="alert">{parsed.error}</p>}
       </div>
-      <ActionFooter><Button block onClick={save}>Crear meta</Button></ActionFooter>
+      <ActionFooter><Button block onClick={save}>Guardar meta</Button></ActionFooter>
     </div>
   );
 }

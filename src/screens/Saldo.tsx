@@ -5,25 +5,27 @@ import { reasonLabel, useStore, type FlowKind } from '../lib/store';
 import { formatMoney, parseAmount } from '../lib/money';
 
 const COPY = {
-  in: { base: '/saldo', title: 'Agregar saldo', ask: '¿Cuánto van a agregar?', sub: (n: string) => `Al saldo de práctica de ${n}.`, field: 'Monto a agregar', after: 'Después de confirmar',
-    reasonTitle: '¿De dónde viene?', reasonCta: (m: string, n: string) => `Agregarás ${m} al saldo de práctica de ${n}.`, pick: 'Elige un motivo', dest: 'Destino del saldo',
-    destNone: 'Se suma al saldo de práctica.', destGoal: 'Se suma a la meta y al saldo de práctica.', done: 'Saldo agregado', confirm: 'Confirmar y agregar', author: 'Tú' },
-  out: { base: '/salida', title: 'Registrar salida', ask: '¿Cuánto salió?', sub: (n: string) => `Del saldo de práctica de ${n}.`, field: 'Monto de la salida', after: 'Saldo después de confirmar',
-    reasonTitle: '¿En qué se usó?', reasonCta: (m: string, n: string) => `Registrarás una salida de ${m} del saldo de práctica de ${n}.`, pick: 'Elige un motivo', dest: 'Origen del dinero',
-    destNone: 'Sale solo del saldo de práctica.', destGoal: 'Sale de la meta y del saldo de práctica.', done: 'Salida registrada', confirm: 'Confirmar y registrar', author: 'Tú' },
+  in: { base: '/saldo', title: 'Agregar plata', ask: '¿Cuánto va a guardar?', sub: (n: string) => `Lo que ${n} va a meter a su chanchito.`, field: 'Cuánto', after: 'Así quedaría',
+    reasonTitle: '¿De dónde salió esta plata?', reasonCta: (m: string, n: string) => `${n} va a guardar ${m}.`, pick: 'Escoge una opción', dest: '¿Es para alguna meta?',
+    destNone: 'Se suma a lo que ya tiene ahorrado.', destGoal: 'Se suma a esta meta y a lo que ya tiene ahorrado.', done: '¡Listo, ya está anotado!', confirm: 'Sí, anotar', author: 'Tú',
+    now: (n: string) => `Ahora ${n} lleva ahorrado` },
+  out: { base: '/salida', title: 'Sacar plata', ask: '¿Cuánto va a sacar?', sub: (n: string) => `Lo que ${n} va a sacar de su chanchito.`, field: 'Cuánto', after: 'Así quedaría',
+    reasonTitle: '¿En qué la va a usar?', reasonCta: (m: string, n: string) => `${n} va a sacar ${m}.`, pick: 'Escoge una opción', dest: '¿Sale de alguna meta?',
+    destNone: 'No sale de ninguna meta.', destGoal: 'Se descuenta de esta meta.', done: '¡Listo, ya está anotado!', confirm: 'Sí, anotar', author: 'Tú',
+    now: (n: string) => `Ahora ${n} tiene` },
 } as const;
 
 export const useKind = (): FlowKind => (useLocation().pathname.startsWith('/salida') ? 'out' : 'in');
 
 const REASONS: Record<FlowKind, { id: string; label: string; icon: string }[]> = {
   in: [
-    { id: 'propina', label: 'Propina', icon: 'circle-check' }, { id: 'ayuda-en-casa', label: 'Ayudó en casa', icon: 'house' },
-    { id: 'cumpleanos', label: 'Cumpleaños', icon: 'cake' }, { id: 'mesada', label: 'Mesada', icon: 'calendar-days' },
-    { id: 'buen-comportamiento', label: 'Buen comportamiento', icon: 'star' }, { id: 'otro', label: 'Otro', icon: 'ellipsis' },
+    { id: 'mesada', label: 'Su propina de la semana', icon: 'calendar-days' }, { id: 'ayuda-en-casa', label: 'Ayudó en casa', icon: 'house' },
+    { id: 'cumpleanos', label: 'Por su cumple', icon: 'cake' }, { id: 'propina', label: 'Le dieron propina', icon: 'circle-check' },
+    { id: 'buen-comportamiento', label: 'Se portó bien', icon: 'star' }, { id: 'otro', label: 'Otra cosa', icon: 'ellipsis' },
   ],
   out: [
-    { id: 'compra', label: 'Compra', icon: 'shopping-cart' }, { id: 'regalo', label: 'Regalo', icon: 'party-popper' },
-    { id: 'compartir', label: 'Compartir con alguien', icon: 'hand-heart' }, { id: 'otro', label: 'Otro', icon: 'ellipsis' },
+    { id: 'compra', label: 'Se compró algo', icon: 'shopping-cart' }, { id: 'regalo', label: 'Hizo un regalo', icon: 'party-popper' },
+    { id: 'compartir', label: 'Lo compartió', icon: 'hand-heart' }, { id: 'otro', label: 'Otra cosa', icon: 'ellipsis' },
   ],
 };
 
@@ -46,8 +48,8 @@ function useValidatedAmount(kind: FlowKind) {
   const parsed = parseAmount(state.draft.amountInput);
   if (!parsed.ok || kind === 'in') return parsed;
   const goal = state.goals.find((g) => g.id === state.draft.goalId);
-  if (parsed.money.minorUnits > state.balanceMinor) return { ok: false as const, error: `No hay saldo suficiente. Saldo actual: ${formatMoney(state.balanceMinor)}.` };
-  if (goal && parsed.money.minorUnits > goal.savedMinor) return { ok: false as const, error: `La meta «${goal.name}» solo tiene ${formatMoney(goal.savedMinor)}.` };
+  if (parsed.money.minorUnits > state.balanceMinor) return { ok: false as const, error: `No le alcanza: ahora tiene ${formatMoney(state.balanceMinor)}.` };
+  if (goal && parsed.money.minorUnits > goal.savedMinor) return { ok: false as const, error: `Para «${goal.name}» solo tiene ${formatMoney(goal.savedMinor)}.` };
   return parsed;
 }
 
@@ -67,7 +69,7 @@ export function SaldoImporte() {
 
   const close = () => {
     const dirty = state.draft.reason !== null;
-    if (dirty && !window.confirm('Si sales ahora, se descartará este registro. ¿Salir?')) return;
+    if (dirty && !window.confirm('Si sales ahora, no se anotará nada. ¿Quieres salir?')) return;
     dispatch({ type: 'clearDraft' });
     nav('/');
   };
@@ -78,10 +80,10 @@ export function SaldoImporte() {
     <div className="task">
       <div className="task-scroll">
         <BackBar icon="x" title={c.title} onBack={close} />
-        <Steps current={1} label="Importe" />
+        <Steps current={1} label="Cuánto" />
         <h1 className="title">{c.ask}</h1>
         <p className="muted">{c.sub(state.childName)}</p>
-        <div className="info-box"><span>Saldo de práctica actual</span><strong>{formatMoney(state.balanceMinor)}</strong></div>
+        <div className="info-box"><span>Ahora tiene ahorrado</span><strong>{formatMoney(state.balanceMinor)}</strong></div>
 
         <label htmlFor="monto" className="field-label">{c.field}</label>
         <div className={`amount-field ${touched && !parsed.ok ? 'invalid' : ''}`} onClick={() => ref.current?.focus()}>
@@ -92,10 +94,10 @@ export function SaldoImporte() {
             onBlur={() => setTouched(true)} />
         </div>
         <p id="monto-ayuda" className={`small ${touched && !parsed.ok ? 'error' : 'muted'}`} role={touched && !parsed.ok ? 'alert' : undefined}>
-          {touched && !parsed.ok ? parsed.error : 'Toca el importe para cambiarlo.'}
+          {touched && !parsed.ok ? parsed.error : 'Toca el monto para cambiarlo.'}
         </p>
 
-        <p className="muted">Montos rápidos</p>
+        <p className="muted">O escoge uno rápido</p>
         <div className="quick">
           {quick.map((q) => (
             <button key={q} type="button" className={isQuick(q) ? 'on' : ''} aria-pressed={isQuick(q)}
@@ -108,9 +110,9 @@ export function SaldoImporte() {
         {projected !== null && (
           <div className="projection"><span className="muted">{c.after}</span><strong>{formatMoney(projected)}</strong></div>
         )}
-        <p className="note"><Icon name="info" size={20} />Este registro es de práctica. No mueve dinero real ni detecta monedas.</p>
+        <p className="note"><Icon name="info" size={20} />Esto es solo para llevar la cuenta. La app no mueve plata de verdad ni cuenta las monedas del chanchito.</p>
       </div>
-      <ActionFooter helper="Aún no se modificará el saldo.">
+      <ActionFooter helper="Todavía no se anota nada.">
         <Button block disabled={!parsed.ok} onClick={() => { setTouched(true); if (parsed.ok) nav(`${c.base}/motivo`); }}>Continuar</Button>
       </ActionFooter>
     </div>
@@ -138,7 +140,7 @@ export function SaldoMotivo() {
     <div className="task">
       <div className="task-scroll">
         <BackBar title={c.title} />
-        <Steps current={2} label="Motivo y destino" />
+        <Steps current={2} label="De dónde viene" />
         <h1 className="title">{c.reasonTitle}</h1>
         <p className="muted">{c.reasonCta(formatMoney(parsed.money), state.childName)}</p>
 
@@ -154,7 +156,7 @@ export function SaldoMotivo() {
         </div>
         {sel?.reason === 'otro' && (
           <>
-            <label htmlFor="otro" className="field-label">¿Cuál fue el motivo?</label>
+            <label htmlFor="otro" className="field-label">Cuéntanos qué fue</label>
             <input id="otro" className="text-field" maxLength={60} value={detail}
               onChange={(e) => { setDetail(e.target.value); dispatch({ type: 'draft', patch: { reason: { reason: 'otro', detail: e.target.value } } }); }} />
           </>
@@ -164,22 +166,22 @@ export function SaldoMotivo() {
         <button type="button" className="card select-card" aria-expanded={open} onClick={() => setOpen(!open)}>
           <Icon name="wallet" size={24} />
           <span className="row-text">
-            <strong>{goal ? goal.name : 'Sin meta'}</strong>
+            <strong>{goal ? goal.name : 'Ninguna meta en especial'}</strong>
             <span className="muted small">{goal ? c.destGoal : c.destNone}</span>
           </span>
           <Icon name="chevron-down" size={20} />
         </button>
         {open && (
           <ul className="plain list options">
-            <li><button type="button" className="opt" onClick={() => { dispatch({ type: 'draft', patch: { goalId: null } }); setOpen(false); }}>Sin meta</button></li>
+            <li><button type="button" className="opt" onClick={() => { dispatch({ type: 'draft', patch: { goalId: null } }); setOpen(false); }}>Ninguna meta en especial</button></li>
             {state.goals.map((g) => (
               <li key={g.id}><button type="button" className="opt" onClick={() => { dispatch({ type: 'draft', patch: { goalId: g.id } }); setOpen(false); }}>{g.name}</button></li>
             ))}
           </ul>
         )}
-        <p className="muted small">El motivo quedará guardado junto al movimiento.</p>
+        <p className="muted small">Esto se guarda junto con lo que anoten.</p>
       </div>
-      <ActionFooter helper="Podrás revisar los datos antes de confirmar.">
+      <ActionFooter helper="Antes de anotar, podrás revisar todo.">
         <Button block disabled={!valid} onClick={() => nav(`${c.base}/revisar`)}>Continuar</Button>
       </ActionFooter>
     </div>
@@ -213,17 +215,17 @@ export function SaldoRevisar() {
       <div className="task-scroll">
         <BackBar title={c.title} />
         <Steps current={3} label="Revisar" />
-        <h1 className="title">Revisa antes de confirmar</h1>
+        <h1 className="title">¿Todo bien?</h1>
         <dl className="summary-list">
-          <div><dt>Importe</dt><dd>{formatMoney(parsed.money)}</dd></div>
-          <div><dt>Motivo</dt><dd>{reasonLabel(reason)}</dd></div>
-          <div><dt>{kind === 'in' ? 'Destino' : 'Origen'}</dt><dd>{goal ? goal.name : 'Sin meta'}</dd></div>
-          <div><dt>Saldo actual</dt><dd>{formatMoney(state.balanceMinor)}</dd></div>
+          <div><dt>Cuánto</dt><dd>{formatMoney(parsed.money)}</dd></div>
+          <div><dt>Por qué</dt><dd>{reasonLabel(reason)}</dd></div>
+          <div><dt>Meta</dt><dd>{goal ? goal.name : 'Ninguna'}</dd></div>
+          <div><dt>Ahora tiene</dt><dd>{formatMoney(state.balanceMinor)}</dd></div>
           <div className="total"><dt>{c.after}</dt><dd>{formatMoney(after)}</dd></div>
         </dl>
-        <p className="note"><Icon name="info" size={20} />Este registro es de práctica. No mueve dinero real.</p>
+        <p className="note"><Icon name="info" size={20} />Es solo para llevar la cuenta: la app no mueve plata de verdad.</p>
       </div>
-      <ActionFooter helper="El saldo cambia solo al confirmar.">
+      <ActionFooter helper="Recién se anota cuando toques el botón.">
         <Button block loading={busy} onClick={confirm}>{c.confirm}</Button>
       </ActionFooter>
     </div>
@@ -243,13 +245,13 @@ export function SaldoListo() {
         <div className="center-col">
           <span className="tile tile-verde big pop"><Icon name="circle-check" size={40} /></span>
           <h1 className="title center">{c.done}</h1>
-          <p className="muted center">El saldo de práctica de {state.childName} ahora es {formatMoney(state.balanceMinor)}.</p>
+          <p className="muted center">{c.now(state.childName)} {formatMoney(state.balanceMinor)}.</p>
           {reachedGoal && (
-            <p className="alert-box ok reached-note" role="status"><Icon name="party-popper" size={20} />¡Llegaron a la meta «{reachedGoal}»!</p>
+            <p className="alert-box ok reached-note" role="status"><Icon name="party-popper" size={20} />¡Ya juntaron todo para «{reachedGoal}»!</p>
           )}
         </div>
       </div>
-      <ActionFooter helper="Puedes ver el movimiento en Alcancía.">
+      <ActionFooter helper="Lo verás en Alcancía.">
         <LinkButton to="/" block>Volver a Alcancía</LinkButton>
       </ActionFooter>
     </div>

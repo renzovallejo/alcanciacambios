@@ -29,31 +29,31 @@ export function Actividad() {
           <div className="feature-top"><h1 className="feature-title">{act.title}</h1><Mascota size={64} /></div>
           <p className="body">{act.blurb}</p>
         </section>
-        <h2 className="section-title">Qué pueden hacer</h2>
-        <p className="muted small">Pueden hacerlo en el orden que quieran y dejarlo para otro día.</p>
+        <h2 className="section-title">Lo que van a hacer</h2>
+        <p className="muted small">En el orden que quieran. Si no terminan hoy, siguen otro día.</p>
         <ol className="plain list steps-list">
           {act.steps.map((s, i) => (
             <li key={s.id}>
               <Link to={stepPath(s, topic, i + 1)} className="row">
                 <span className={`step-num ${started && i === cur ? 'on' : ''} ${started && i < cur ? 'past' : ''}`}>{started && i < cur ? <Icon name="check" size={14} /> : i + 1}</span>
-                <span className="row-text"><strong>{s.title}</strong>{started && i === cur && <span className="muted small">Paso actual</span>}</span>
+                <span className="row-text"><strong>{s.title}</strong>{started && i === cur && <span className="muted small">Toca ahora</span>}</span>
                 <Icon name="chevron-right" size={18} className="muted" />
               </Link>
             </li>
           ))}
         </ol>
         {started && cur < act.steps.length - 1 && (
-          <Button variant="secondary" block onClick={() => dispatch({ type: 'advanceStep', topic, total: act.steps.length })}>Pasar al siguiente paso</Button>
+          <Button variant="secondary" block onClick={() => dispatch({ type: 'advanceStep', topic, total: act.steps.length })}>Ya hicimos este paso</Button>
         )}
         {started && cur === act.steps.length - 1 && (
-          <p className="alert-box ok">Están en el último paso. Pueden repetir cualquier paso o <Link to="/progreso" className="inline-link">explorar otro tema</Link> cuando quieran.</p>
+          <p className="alert-box ok">¡Ya están en el último paso! Pueden repetir lo que quieran o <Link to="/progreso" className="inline-link">ver otro tema</Link> cuando quieran.</p>
         )}
-        {!started && <p className="note"><Icon name="info" size={18} />Mirar la actividad no la inicia. Empieza cuando tú lo decidas.</p>}
+        {!started && <p className="note"><Icon name="info" size={18} />Mirar esto no la empieza. Empiecen cuando quieran.</p>}
       </div>
-      <ActionFooter helper={started ? 'Puedes seguir otro día.' : 'Podrás dejarla cuando quieras.'}>
+      <ActionFooter helper={started ? 'Pueden seguir otro día.' : 'La pueden dejar cuando quieran.'}>
         {started
-          ? <LinkButton to={stepPath(act.steps[cur], topic, cur + 1)} block>Continuar actividad</LinkButton>
-          : <Button block onClick={start}>Empezar actividad</Button>}
+          ? <LinkButton to={stepPath(act.steps[cur], topic, cur + 1)} block>Seguir con la actividad</LinkButton>
+          : <Button block onClick={start}>Empezar</Button>}
       </ActionFooter>
     </div>
   );
@@ -70,28 +70,28 @@ export function Tema() {
   return (
     <>
       <BackBar label="Progreso" to="/progreso" />
-      <div className="tema-head"><IconTile icon={TOPIC_ICON[topic]} tone="azul" size={48} /><div><h1 className="title">{TOPIC_LABEL[topic]}</h1><span className={`state ${started ? 'on' : ''}`}>{started ? 'Actividad iniciada' : 'Por explorar'}</span></div></div>
-      <h2 className="section-title">Momentos observados</h2>
+      <div className="tema-head"><IconTile icon={TOPIC_ICON[topic]} tone="azul" size={48} /><div><h1 className="title">{TOPIC_LABEL[topic]}</h1><span className={`state ${started ? 'on' : ''}`}>{started ? 'Ya empezaron' : 'Todavía no empiezan'}</span></div></div>
+      <h2 className="section-title">Lo que han anotado</h2>
       {obs.length === 0 ? (
-        <p className="muted">Aún no hay momentos registrados en este tema. Registrar uno es opcional.</p>
+        <p className="muted">Todavía no han anotado nada de este tema. Es opcional.</p>
       ) : (
         <ul className="plain stack-8">
           {obs.map((o) => (
             <li key={o.id}>
               <Link to={`/momento/${o.id}`} className="card card-mint obs">
                 <strong>{o.narrative}</strong>
-                <span className="muted small">Observado por {o.authorDisplayName}{friendlyDate(o.recordedAt) ? ` · ${friendlyDate(o.recordedAt)}` : ''}</span>
+                <span className="muted small">Lo contó {o.authorDisplayName}{friendlyDate(o.recordedAt) ? ` · ${friendlyDate(o.recordedAt)}` : ''}</span>
               </Link>
             </li>
           ))}
         </ul>
       )}
-      <LinkButton to={`/momento/nuevo?tema=${topic}`} variant="secondary" block>Registrar un momento</LinkButton>
+      <LinkButton to={`/momento/nuevo?tema=${topic}`} variant="secondary" block>Anotar algo que pasó</LinkButton>
       <h2 className="section-title">Actividad</h2>
       <div className="card card-violet feature">
         <h3 className="feature-title">{act.title}</h3>
         <p className="body">{act.blurb}</p>
-        <LinkButton to={`/actividad/${topic}`} block>{started ? 'Continuar actividad' : 'Explorar actividad'}</LinkButton>
+        <LinkButton to={`/actividad/${topic}`} block>{started ? 'Seguir con la actividad' : 'Ver la actividad'}</LinkButton>
       </div>
     </>
   );

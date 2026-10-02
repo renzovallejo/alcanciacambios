@@ -29,7 +29,7 @@ export function Button({ variant = 'primary', loading, block, disabled, children
   return (
     <button {...rest} disabled={disabled || loading} aria-busy={loading || undefined}
       className={`btn btn-${variant} ${block ? 'btn-block' : ''} ${className}`}>
-      {loading ? <><span className="spinner" aria-hidden="true" />Procesando…</> : children}
+      {loading ? <><span className="spinner" aria-hidden="true" />Un ratito…</> : children}
     </button>
   );
 }
@@ -77,7 +77,7 @@ export function ScreenHeader({ title, action = true }: { title: string; action?:
 export function ChildContext({ name, status }: { name: string; status?: ReactNode }) {
   return (
     <div className="context">
-      <Link to="/perfiles" className="context-name" aria-label={`Persona seleccionada: ${name}. Cambiar`}>{name}<Icon name="chevron-down" size={16} /></Link>
+      <Link to="/perfiles" className="context-name" aria-label={`Estás viendo a ${name}. Cambiar`}>{name}<Icon name="chevron-down" size={16} /></Link>
       {status}
     </div>
   );
@@ -87,8 +87,8 @@ export function ChildContext({ name, status }: { name: string; status?: ReactNod
 export function ConnectionStatus() {
   const on = isConnected();
   return (
-    <Link to="/chanchito" className={`conn ${on ? '' : 'off'}`} aria-label={`Chanchito: ${on ? 'conectada' : 'sin conexión'}. Ver ajustes`}>
-      <Icon name="wifi" size={16} />{on ? 'Conectada' : 'Sin conexión'}
+    <Link to="/chanchito" className={`conn ${on ? '' : 'off'}`} aria-label={`Chanchito: ${on ? 'conectado' : 'sin conexión'}. Ver ajustes`}>
+      <Icon name="wifi" size={16} />{on ? 'Conectado' : 'Sin conexión'}
     </Link>
   );
 }

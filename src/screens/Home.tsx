@@ -33,26 +33,27 @@ export default function Home() {
       <ScreenHeader title="Alcancía" />
       <ChildContext name={childName} status={<ConnectionStatus />} />
 
-      <section className={`balance ${changed ? 'changed' : ''}`} aria-label="Saldo de práctica">
+      <section className={`balance ${changed ? 'changed' : ''}`} aria-label={`Lo que ${childName} lleva ahorrado`}>
         <Mascota size={64} className={changed ? 'hop' : ''} />
         <div>
-          <div className="eyebrow on-dark">DINERO AHORRADO</div>
+          <div className="eyebrow on-dark">LLEVA AHORRADO</div>
           <div className="amount" aria-hidden="true">{formatMoney(shown)}</div>
           <span className="sr-only" aria-live="polite">{formatMoney(balanceMinor)}</span>
+          <div className="balance-sub">Según lo que han anotado</div>
         </div>
       </section>
 
       {firstDay ? (
-        <LinkButton to="/saldo/importe" block>Agregar primer saldo</LinkButton>
+        <LinkButton to="/saldo/importe" block>Anotar su primera plata</LinkButton>
       ) : (
         <div className="btn-pair">
-          <LinkButton to="/saldo/importe">Agregar saldo</LinkButton>
-          <LinkButton to="/salida/importe" variant="secondary">Registrar salida</LinkButton>
+          <LinkButton to="/saldo/importe">Agregar plata</LinkButton>
+          <LinkButton to="/salida/importe" variant="secondary">Sacar plata</LinkButton>
         </div>
       )}
 
       <div className="section-head">
-        <h2>Metas de ahorro</h2>
+        <h2>Sus metas</h2>
         {goals.length > 0 && <Link to="/metas" className="link">Ver todas ({goals.length})</Link>}
       </div>
       {goals.length === 0 ? (
@@ -61,8 +62,8 @@ export default function Home() {
             <IconTile icon="target" tone="naranja" size={40} />
             <h3>¿Para qué quiere ahorrar {childName}?</h3>
           </div>
-          <p className="muted">Un juguete, un libro o algo que le haga ilusión. Elijan juntos su primera meta.</p>
-          <LinkButton to="/meta/nueva" variant="secondary" block>Crear primera meta</LinkButton>
+          <p className="muted">Un juguete, un libro o algo que le guste mucho. Escójanlo juntos.</p>
+          <LinkButton to="/meta/nueva" variant="secondary" block>Poner su primera meta</LinkButton>
         </section>
       ) : (
         <ul className="stack-8 plain">
@@ -73,15 +74,15 @@ export default function Home() {
       )}
 
       <div className="section-head">
-        <h2>Últimos movimientos</h2>
+        <h2>Lo último que anotaron</h2>
         {movements.length > 0 && <Link to="/movimientos" className="link">Ver todos</Link>}
       </div>
       {movements.length === 0 ? (
         <div className="row static">
           <IconTile icon="list" tone="azul" />
           <span className="row-text">
-            <strong>Aún no hay movimientos</strong>
-            <span className="muted">Cuando agregues saldo o registres una salida, lo verás aquí.</span>
+            <strong>Todavía no hay nada anotado</strong>
+            <span className="muted">Cuando agreguen o saquen plata, aparecerá aquí.</span>
           </span>
         </div>
       ) : (
@@ -103,7 +104,7 @@ export function GoalCard({ g }: { g: Goal }) {
         <strong>{g.name}</strong>
         <span className="meta">{formatMoney(g.savedMinor)} de {formatMoney(g.targetMinor)}</span>
       </div>
-      <span className="pct">{reached ? 'Lograda' : `${pct}%`}</span>
+      <span className="pct">{reached ? '¡Logrado!' : `${pct}%`}</span>
       <Icon name="chevron-right" size={16} className="muted" />
       <div className="bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`Avance de ${g.name}: ${pct}%`}>
         <div style={{ width: `${pct}%` }} />
