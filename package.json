@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "handoff": "vite-node scripts/handoff/build.ts",
-    "handoff:capturas": "vite-node scripts/handoff/capturas.ts"
+    "handoff:capturas": "vite-node scripts/handoff/capturas.ts",
+    "front-kit": "vite-node scripts/front-kit/build.ts",
+    "front-kit:generar": "vite-node scripts/front-kit/correr-generar.ts",
+    "front-kit:verificar": "cd scripts/front-kit/verificar && gradle -q run -PsinGoogleMaven=true --args=\"$PWD/build/capturas\" && gradle -q run -PsinGoogleMaven=true --args=prueba"
   },
   "dependencies": {
     "react": "^18.3.1",

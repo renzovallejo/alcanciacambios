@@ -3,3 +3,8 @@ dist
 .vercel
 *.log
 entrega
+scripts/front-kit/verificar/build
+scripts/front-kit/verificar/**/build
+scripts/front-kit/verificar/.gradle
+scripts/front-kit/verificar/.kotlin
+scripts/front-kit/fuentes
