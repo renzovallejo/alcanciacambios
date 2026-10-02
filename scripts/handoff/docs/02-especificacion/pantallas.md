@@ -15,7 +15,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 ## Alcancía
 
 ### Alcancía (inicio) · `/` · `Home.tsx` · capturas 01, 08, 09, 13, 58 · `alcancia.*`
-- **Contenido**: encabezado → contexto → tarjeta de saldo (mascota 64 dp, «LLEVA AHORRADO», monto 36 sp) → acciones → «Sus metas» (máx. 2, orden estable) → «Lo último que entró y salió» (máx. 2).
+- **Contenido**: encabezado → contexto → tarjeta de saldo en azul claro (fondo `FondoAzul`, borde #DDE2F8; mascota 64 dp, «LLEVA AHORRADO» en texto secundario, monto 36 sp en `Principal`) → acciones → «Sus metas» (máx. 2, orden estable) → «Lo último que entró y salió» (máx. 2).
 - **Acciones**: «Agregar plata» → Agregar plata · «Sacar plata» → Sacar plata · «Ver todas (N)» → Sus metas · tarjeta de meta → Detalle de meta · «Ver todos» → Lo que entró y salió · fila → Detalle.
 - **Estados**:
   - *Primer día* (saldo 0, sin metas ni movimientos): un solo botón «Guardar su primera plata»; tarjeta crema «¿Para qué quiere ahorrar {nombre}?» con «Poner su primera meta». **No** mostrar «Sacar plata» ni la sección «Lo último que entró y salió» (vacía).

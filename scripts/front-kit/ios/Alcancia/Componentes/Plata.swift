@@ -28,19 +28,19 @@ struct TarjetaSaldo: View {
                 .accessibilityAddTraits(.isButton)
                 .accessibilityLabel(t("alcancia.saltar"))
             VStack(alignment: .leading, spacing: 0) {
-                Text(t("alcancia.llevaAhorrado")).alcanciaText(AlcanciaType.etiqueta)
-                SolesAnimados(centimos: mostrado).alcanciaText(AlcanciaType.importe)
+                Text(t("alcancia.llevaAhorrado")).alcanciaText(AlcanciaType.etiqueta).foregroundStyle(AlcanciaColor.textoSecundario)
+                SolesAnimados(centimos: mostrado).alcanciaText(AlcanciaType.importe).foregroundStyle(AlcanciaColor.principal)
                 if estaSemana > 0 {
-                    Text(t("alcancia.estaSemana", ["monto": Dinero.soles(estaSemana)])).alcanciaText(AlcanciaType.etiqueta.peso(400)).opacity(0.9)
+                    Text(t("alcancia.estaSemana", ["monto": Dinero.soles(estaSemana)])).alcanciaText(AlcanciaType.etiqueta.peso(400)).foregroundStyle(AlcanciaColor.textoSecundario)
                 }
             }
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("\(t("alcancia.llevaAhorrado")): \(Dinero.soles(saldo))")
             Spacer(minLength: 0)
         }
-        .foregroundStyle(AlcanciaColor.base)
         .padding(AlcanciaDimen.space20)
-        .background(RoundedRectangle(cornerRadius: AlcanciaDimen.radius16).fill(AlcanciaColor.principal))
+        .background(RoundedRectangle(cornerRadius: AlcanciaDimen.radius16).fill(AlcanciaColor.fondoAzul))
+        .overlay(RoundedRectangle(cornerRadius: AlcanciaDimen.radius16).strokeBorder(Color(hex: 0xDDE2F8), lineWidth: AlcanciaDimen.borderWidth))
         .onAppear {
             mostrado = Double(saldoAnterior ?? saldo)
             if let saldoAnterior, saldoAnterior != saldo {

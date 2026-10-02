@@ -56,7 +56,7 @@ export default function Home() {
           <Mascota key={hops} size={64} className={hops > 0 ? 'hop now' : changed ? 'hop' : ''} />
         </button>
         <div>
-          <div className="eyebrow on-dark">{t('alcancia.llevaAhorrado')}</div>
+          <div className="eyebrow">{t('alcancia.llevaAhorrado')}</div>
           <div className="amount" aria-hidden="true">{formatMoney(shown)}</div>
           <span className="sr-only" aria-live="polite">{formatMoney(balanceMinor)}</span>
           {weekIn > 0 && <div className="week-line">{t('alcancia.estaSemana', { monto: formatMoney(weekIn) })}</div>}
