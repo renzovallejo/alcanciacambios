@@ -1,5 +1,17 @@
 # Cambios del sistema de diseño
 
+## v3.4.1 · Revisión por tipos de usuario
+
+Componentes nuevos (todos con tokens existentes; ver capturas en el paquete para desarrollo):
+
+- **Tarjeta de opción con radio** (`.reason.wide` + `.radio-dot`): «¿Quién le envía?», metas en el flujo, días del recordatorio. Subtítulo opcional («Administra la cuenta»).
+- **Chip de acción** (`.chip`): «Repetir: S/ 10.00 · Mamá», versión del cuento. 44 dp de alto, fondo azul suave.
+- **Aviso en línea** (`.banner`): borrador a medias y día de la propina. Fondo crema, icono + texto + acciones debajo.
+- **Aviso flotante con Deshacer** (`.toast`): 6 s, fondo texto, acción subrayada.
+- **Tarjeta «Idea de 1 minuto»**: lavanda, ceja con icono de foco.
+- **Moneda al chanchito**: moneda dorada de 30 dp que cae sobre la mascota (respeta reducir movimiento).
+- Iconos nuevos de Lucide: person-standing, users-round, user-round-plus, pencil, trash-2, lightbulb, bell, clock-3, hand-coins, coins.
+
 ## v3.4 · Lenguaje peruano familiar
 
 **Qué cambia:** los textos. **Qué no cambia:** colores, tipografía, espacios, radios, componentes, tokens ni contratos de datos.

@@ -28,13 +28,18 @@ Hola 👋 Este paquete trae todo lo necesario para llevar a la **app Android e i
 | `02-especificacion/` | Pantallas, flujos, reglas de negocio, estados, animaciones, accesibilidad, notas por plataforma y criterios de aceptación. |
 | `03-diseno/tokens/` | Colores, medidas, tipografía y animación listos: `android/AlcanciaTokens.kt` (Compose), `ios/AlcanciaTokens.swift` (SwiftUI), `res/values/*.xml` y `tokens.json` (Flutter / RN). |
 | `03-diseno/sistema-de-diseno/` | Sistema de diseño completo: editable de Pencil, guía de lenguaje (`documentacion/lenguaje.md`), componentes, referencias v3.3. |
-| `04-assets/` | Fuente Inter (con `res/font/inter.ttf`), 41 iconos Lucide en SVG, mascota por densidad (`drawable-*dpi` y `Mascota.imageset`). |
+| `04-assets/` | Fuente Inter (con `res/font/inter.ttf`), 51 iconos Lucide en SVG, mascota por densidad (`drawable-*dpi` y `Mascota.imageset`). |
 | `05-textos/` | Todos los textos de la app: `android/res/values/strings.xml`, `ios/es.lproj/Localizable.strings(.stringsdict)`, `es.json` y `claves.md` (tabla para buscar un texto). |
 | `06-datos/` | Modelos (`Modelos.kt`, `Modelos.swift`), contenido educativo (`contenido.json`), estados de ejemplo (`semillas/`) y casos de prueba de dinero. |
-| `07-referencias/` | 45 capturas de todas las pantallas y estados + 5 videos de flujos y animaciones. Índice en `07-referencias/README.md`. |
+| `07-referencias/` | 60 capturas de todas las pantallas y estados + 5 videos de flujos y animaciones. Índice en `07-referencias/README.md`. |
 | `08-prototipo-web/` | Código del prototipo (React). Úsalo como referencia de comportamiento: `src/screens/` tiene cada pantalla. |
 | `09-backlog/tickets.csv` | Historias listas para importar, con criterios de aceptación. |
 | `manifest.sha256` | Comprobación de integridad de cada archivo. |
+
+## Lo más importante de esta versión
+
+- **Al cargar plata se guarda el motivo y de quién viene** (Mamá, Papá, Abuela, Abuelo, Tío o tía, Otro pariente). Ver `02-especificacion/flujos.md`.
+- Revisión por tipos de usuario (anotar rápido, corregir y borrar, recordatorio, ideas de 1 minuto, voz, cierre de actividad…): §5 de `01-QUE-CAMBIA.md` y épica 6 del backlog.
 
 ## Tres reglas que no se negocian
 

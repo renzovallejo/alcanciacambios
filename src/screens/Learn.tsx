@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { BackBar, ChildContext, ConnectionStatus, AccessRow, Icon, LinkButton, Mascota, ScreenHeader } from '../components/ui';
 import { useStore } from '../lib/store';
-import { ACTIVITIES, GAMES, MISSIONS, STEP_ICON, STORIES, TOPIC_LABEL, TOPIC_ORDER, type StepRef } from '../lib/content';
+import { ACTIVITIES, GAMES, MISSIONS, STEP_ICON, STORIES, TOPIC_LABEL, TOPIC_ORDER, nextActivity, type StepRef } from '../lib/content';
+import { IdeaCard } from './Home';
 import { t } from '../i18n';
 import type { Topic } from '../domain';
 
 export function Aprender() {
   const { state } = useStore();
   const topic = state.activeTopic;
-  const act = ACTIVITIES[topic ?? 'ahorrar'];
+  // Sin actividad en curso: se propone la siguiente que no hayan terminado (sin puntaje).
+  const suggested = nextActivity(state.finishedTopics) ?? ACTIVITIES.ahorrar;
+  const act = topic ? ACTIVITIES[topic] : suggested;
+  const lastDone = state.finishedTopics[state.finishedTopics.length - 1];
   const stepIdx = topic ? Math.min(state.activityStep[topic] ?? 0, act.steps.length - 1) : 0;
   const step: StepRef = act.steps[stepIdx];
   const tema = TOPIC_LABEL[act.topic].toUpperCase();
@@ -17,11 +21,14 @@ export function Aprender() {
     <>
       <ScreenHeader title={t('aprender.titulo')} />
       <ChildContext name={state.childName} status={<ConnectionStatus />} />
-      {!topic && (
+      {!topic && state.finishedTopics.length === 0 && (
         <>
           <h2 className="lead">{t('aprender.bienvenida')}</h2>
           <p className="muted">{t('aprender.bienvenidaTexto', { nombre: state.childName })}</p>
         </>
+      )}
+      {!topic && lastDone && (
+        <p className="alert-box ok">{nextActivity(state.finishedTopics) ? t('aprender.terminaron', { actividad: ACTIVITIES[lastDone].title }) : t('aprender.todasTerminadas')}</p>
       )}
       <section className="card card-violet feature">
         <div className="eyebrow violet">{t(topic ? 'aprender.enCurso' : 'aprender.paraEmpezar', { tema })}</div>
@@ -34,6 +41,8 @@ export function Aprender() {
         )}
         <LinkButton to={`/actividad/${act.topic}`} block>{t(topic ? 'aprender.seguir' : 'aprender.verDeQue')}</LinkButton>
       </section>
+
+      <IdeaCard />
 
       <h2 className="section-title">{t(topic ? 'aprender.otrasCosas' : 'aprender.otrasFormas')}</h2>
       <p className="muted small">{t(topic ? 'aprender.cuandoQuieran' : 'aprender.aSuRitmo')}</p>
@@ -51,9 +60,10 @@ type Format = 'cuentos' | 'misiones' | 'juegos';
 const FORMATS: Format[] = ['cuentos', 'misiones', 'juegos'];
 type TopicFilter = 'todos' | Topic;
 
-const LIB_STORIES = ['s-planifica', 's-separa', 's-control'];
-const LIB_MISSIONS = ['m-monedas', 'm-compara', 'm-compartir'];
-const LIB_GAMES = ['g-necesito', 'g-regalo', 'g-negocio'];
+// Todo el contenido, salvo el destacado de arriba.
+const LIB_STORIES = STORIES.map((x) => x.id).filter((id) => id !== 's-chanchito');
+const LIB_MISSIONS = MISSIONS.map((x) => x.id).filter((id) => id !== 'm-meta-familia');
+const LIB_GAMES = GAMES.map((x) => x.id).filter((id) => id !== 'g-tienda');
 
 interface Shelf {
   sub: string; tone: 'violeta' | 'verde' | 'naranja'; card: string; eyebrow: string; title: string; cta: string; icon: string; to: string;
@@ -70,7 +80,7 @@ function shelf(format: Format): Shelf {
   if (format === 'misiones') return {
     sub: t('biblioteca.subMisiones'), tone: 'verde', card: 'card-mint', eyebrow: t('biblioteca.cejaMision'),
     title: MISSIONS.find((x) => x.id === 'm-meta-familia')!.title, cta: t('biblioteca.ctaMision'), icon: 'flag', to: '/mision/m-meta-familia',
-    items: LIB_MISSIONS.map((id) => MISSIONS.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, topic: x.topic, to: `/mision/${x.id}`, meta: t('biblioteca.enFamilia', { tema: TOPIC_LABEL[x.topic] }) })),
+    items: LIB_MISSIONS.map((id) => MISSIONS.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, topic: x.topic, to: `/mision/${x.id}`, meta: t('biblioteca.minutos', { tema: TOPIC_LABEL[x.topic], minutos: x.minutes }) })),
   };
   return {
     sub: t('biblioteca.subJuegos'), tone: 'naranja', card: 'card-cream', eyebrow: t('biblioteca.cejaJuego'),

@@ -26,11 +26,18 @@ struct Meta: Codable, Identifiable, Equatable {
     var icon: String
     var savedMinor: Centimos
     var targetMinor: Centimos
+    /// Llegó al objetivo alguna vez; no se pierde aunque se use la plata.
+    var achieved: Bool? = nil
 
     /// Avance = acumulado / objetivo, entero 0–100. Nunca extrapolar a aprendizaje.
     var porcentaje: Int { targetMinor <= 0 ? 0 : min(100, Int((Double(savedMinor) * 100 / Double(targetMinor)).rounded())) }
-    var lograda: Bool { savedMinor >= targetMinor }
+    var lograda: Bool { achieved == true || savedMinor >= targetMinor }
+    /// Lograda y ya sin plata: «Ya la usaron».
+    var usada: Bool { lograda && savedMinor == 0 }
 }
+
+/// Quién le envía la plata (solo entradas), en el orden de la pantalla. Texto: "quien.<id>". «otro» exige senderName.
+let quienEnvia = ["mama", "papa", "abuela", "abuelo", "tio", "otro"]
 
 struct Movimiento: Codable, Identifiable, Equatable {
     let id: String
@@ -42,10 +49,23 @@ struct Movimiento: Codable, Identifiable, Equatable {
     var at: String
     /// Positivo en entradas, negativo en salidas.
     var amountMinor: Centimos
+    /// Texto visible guardado (compatibilidad). Mostrar desde reasonId ("motivos.<id>") o reasonDetail si es «otro».
     var reason: String?
+    var reasonId: String?
+    var reasonDetail: String?
     var goalId: String?
     var goalName: String?
+    /// De quién viene la plata (solo entradas): ver quienEnvia.
+    var senderId: String?
+    /// Nombre propio («Tía Rosa»); si existe, se muestra en lugar de la relación.
+    var senderName: String?
 }
+
+/// Quien usa el celular. relation = id de quienEnvia (sin «otro»).
+struct Acompanante: Codable, Equatable { var name: String; var relation: String? }
+
+/// Lo último anotado por tipo: se precarga al empezar y alimenta «Repetir».
+struct UltimoRegistro: Codable, Equatable { var amountMinor: Centimos; var reason: MotivoElegido; var goalId: String?; var senderId: String?; var senderName: String? }
 
 struct Momento: Codable, Identifiable, Equatable {
     let id: String
@@ -67,6 +87,10 @@ struct Borrador: Codable, Equatable {
     var amountInput = "10.00"
     var reason: MotivoElegido?
     var goalId: String?
+    var senderId: String?
+    var senderName: String?
+    /// true = empezó a anotar y no terminó: ofrecer «Seguir / Descartar».
+    var active: Bool? = false
 }
 
 /// Estado completo de la app (una persona).
@@ -83,13 +107,24 @@ struct EstadoApp: Codable, Equatable {
     var activeTopic: Tema?
     /// Paso actual por tema (índice desde 0). Claves: "ahorrar", "gastar-bien"…
     var activityStep: [String: Int] = [:]
+    /// Actividades recorridas hasta el final (sin puntaje).
+    var finishedTopics: [Tema] = []
+    var caregiver: Acompanante?
+    /// 0 = domingo … 6 = sábado; nil = sin recordatorio.
+    var propinaDay: Int?
+    /// El chanchito se conectó alguna vez. Si no, invitar a conectarlo en vez de «Sin conexión».
+    var devicePaired = false
+    /// Ya vio el aviso completo de honestidad.
+    var seenHonesty = false
+    /// Claves "in" / "out".
+    var last: [String: UltimoRegistro] = [:]
 }
 
 // MARK: - Contenido
 
-struct Cuento: Codable, Identifiable { let id: String; let title: String; let topic: Tema; let minutes: Int; let output: String; let text: String; let questions: [String] }
-struct Mision: Codable, Identifiable { let id: String; let title: String; let topic: Tema; let summary: String; let materials: [String]; let steps: [String] }
-struct Juego: Codable, Identifiable { let id: String; let title: String; let topic: Tema; let players: String; let scenario: String; let roles: [String]; let questions: [String] }
+struct Cuento: Codable, Identifiable { let id: String; let title: String; let topic: Tema; let minutes: Int; let output: String; let text: String; let short: String; let questions: [String] }
+struct Mision: Codable, Identifiable { let id: String; let title: String; let topic: Tema; let minutes: Int; let summary: String; let materials: [String]; let steps: [String] }
+struct Juego: Codable, Identifiable { let id: String; let title: String; let topic: Tema; let minutes: Int; let players: String; let scenario: String; let roles: [String]; let questions: [String] }
 struct PasoActividad: Codable { let kind: String; let id: String; let title: String; let to: String? }
 struct Actividad: Codable { let topic: Tema; let title: String; let blurb: String; let steps: [PasoActividad] }
 

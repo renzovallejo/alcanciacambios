@@ -13,14 +13,21 @@
     "verMas": "Ver más",
     "noEncontrado": "No encontramos esto.",
     "noEncontradoContenido": "No encontramos esto. Puede que ya no esté.",
-    "soloCuenta": "Es solo para llevar la cuenta: la app no mueve plata de verdad.",
     "soloCuentaLargo": "Esto es solo para llevar la cuenta. La app no mueve plata de verdad ni cuenta las monedas del chanchito.",
     "tu": "Tú",
     "ninguna": "Ninguna",
     "noSabemos": "No sabemos",
     "ajustesChanchito": "Ajustes del chanchito",
     "estasViendo": "Estás viendo a {nombre}. Cambiar",
-    "tituloPestana": "{titulo} · Alcancía"
+    "tituloPestana": "{titulo} · Alcancía",
+    "soloCuentaCorto": "Solo lleva la cuenta: no mueve plata de verdad.",
+    "saberMas": "¿Por qué?",
+    "deshacer": "Deshacer",
+    "editar": "Editar",
+    "corregir": "Corregir",
+    "borrar": "Borrar",
+    "guardarCambios": "Guardar cambios",
+    "cambiosGuardados": "Cambios guardados"
   },
   "nav": {
     "etiqueta": "Navegación principal",
@@ -31,7 +38,9 @@
   "fechas": {
     "hoy": "hoy",
     "ayer": "ayer",
-    "meses": "ene,feb,mar,abr,may,jun,jul,ago,sep,oct,nov,dic"
+    "meses": "ene,feb,mar,abr,may,jun,jul,ago,sep,oct,nov,dic",
+    "dias": "domingo,lunes,martes,miércoles,jueves,viernes,sábado",
+    "mesesLargos": "enero,febrero,marzo,abril,mayo,junio,julio,agosto,setiembre,octubre,noviembre,diciembre"
   },
   "dinero": {
     "errorVacio": "Escribe cuánto.",
@@ -48,7 +57,8 @@
     "sinConexion": "Sin conexión",
     "etiqueta": "Chanchito: {estado}. Ver ajustes",
     "estadoConectado": "conectado",
-    "estadoSinConexion": "sin conexión"
+    "estadoSinConexion": "sin conexión",
+    "conectar": "Conectar chanchito"
   },
   "alcancia": {
     "etiquetaSaldo": "Lo que {nombre} lleva ahorrado",
@@ -63,7 +73,16 @@
     "metaVaciaBoton": "Poner su primera meta",
     "loUltimo": "Lo último que anotaron",
     "vacioTitulo": "Todavía no hay nada anotado",
-    "vacioTexto": "Cuando agreguen o saquen plata, aparecerá aquí."
+    "vacioTexto": "Cuando agreguen o saquen plata, aparecerá aquí.",
+    "valorPrimerDia": "Aquí anotan la plata que {nombre} mete o saca de su chanchito. Así ven juntos cómo va creciendo.",
+    "repetir": "Repetir: {monto} · {detalle}",
+    "repetirEtiqueta": "Anotar otra vez {monto} de {detalle}",
+    "borrador": "Dejaron a medias: {monto}",
+    "borradorSeguir": "Seguir",
+    "borradorDescartar": "Descartar",
+    "recordatorio": "Hoy es {dia}, día de su propina. ¿Ya la anotaron?",
+    "recordatorioBoton": "Anotar su propina",
+    "estaSemana": "Esta semana: +{monto}"
   },
   "meta": {
     "logrado": "¡Logrado!",
@@ -81,7 +100,17 @@
     "movimientosVacio": "Todavía no han guardado plata para esta meta.",
     "listaTitulo": "Sus metas",
     "listaVacia": "Todavía no tiene metas.",
-    "otraMeta": "Poner otra meta"
+    "otraMeta": "Poner otra meta",
+    "enCamino": "En camino",
+    "logradas": "Logradas",
+    "usada": "Ya la usaron",
+    "usadaTexto": "Ya usaron esta plata. ¡Qué bien que lo lograron juntos!",
+    "usar": "Usar esta plata",
+    "editar": "Editar meta",
+    "borrar": "Borrar meta",
+    "borrarConfirmar": "¿Borrar «{meta}»? La plata guardada no se borra: sigue en lo que lleva ahorrado.",
+    "borrada": "Meta borrada",
+    "editarTitulo": "Editar meta"
   },
   "nuevaMeta": {
     "tituloPrimera": "Su primera meta",
@@ -104,13 +133,23 @@
     "loAnoto": "Lo anotó",
     "cuando": "Cuándo",
     "porQue": "Por qué",
-    "meta": "Meta"
+    "meta": "Meta",
+    "leEnvio": "Le envió",
+    "de": "De {quien}",
+    "mesTotales": "Entró {entro} · Salió {salio}",
+    "corregir": "Corregir",
+    "borrar": "Borrar",
+    "borrarConfirmar": "¿Borrar esto que anotaron? Lo que lleva ahorrado se va a ajustar.",
+    "borrado": "Borrado",
+    "borrarNoSePuede": "No se puede borrar: después sacaron plata y quedaría en negativo. Primero corrige esa salida.",
+    "editarTitulo": "Corregir lo anotado",
+    "editarNegativo": "Con este cambio quedaría en negativo. Revisa el monto.",
+    "editarPie": "Lo que lleva ahorrado y sus metas se ajustan solos."
   },
   "flujo": {
     "paso": "Paso {actual} de {total} · {etiqueta}",
     "pasoCuanto": "Cuánto",
-    "pasoDeDonde": "De dónde viene",
-    "pasoRevisar": "Revisar",
+    "pasoDeDonde": "De dónde salió",
     "pasoListo": "Listo",
     "ahoraTieneAhorrado": "Ahora tiene ahorrado",
     "cuanto": "Cuánto",
@@ -121,13 +160,10 @@
     "escogeOpcion": "Escoge una opción",
     "otroCampo": "Cuéntanos qué fue",
     "ningunaMeta": "Ninguna meta en especial",
-    "seGuardaJunto": "Esto se guarda junto con lo que anoten.",
-    "pieDeDonde": "Antes de anotar, podrás revisar todo.",
-    "todoBien": "¿Todo bien?",
+    "pieDeDonde": "Todavía no se anota nada.",
     "revisarCuanto": "Cuánto",
     "revisarPorQue": "Por qué",
     "revisarMeta": "Meta",
-    "revisarAhoraTiene": "Ahora tiene",
     "pieRevisar": "Recién se anota cuando toques el botón.",
     "confirmar": "Sí, anotar",
     "listo": "¡Listo, ya está anotado!",
@@ -143,7 +179,6 @@
       "resumen": "{nombre} va a guardar {monto}.",
       "paraMeta": "¿Es para alguna meta?",
       "sinMeta": "Se suma a lo que ya tiene ahorrado.",
-      "conMeta": "Se suma a esta meta y a lo que ya tiene ahorrado.",
       "ahora": "Ahora {nombre} lleva ahorrado {monto}."
     },
     "out": {
@@ -154,9 +189,19 @@
       "resumen": "{nombre} va a sacar {monto}.",
       "paraMeta": "¿Sale de alguna meta?",
       "sinMeta": "No sale de ninguna meta.",
-      "conMeta": "Se descuenta de esta meta.",
       "ahora": "Ahora {nombre} tiene {monto}."
-    }
+    },
+    "pasoQuien": "Quién envía",
+    "pasoEnQue": "En qué",
+    "revisarQuien": "Quién envía",
+    "resumen": "Resumen",
+    "nino": "¿Y si {nombre} mete la moneda? Que toque el chanchito.",
+    "ninoBoton": "Meter la moneda al chanchito",
+    "ninoListo": "¡Clin! Adentro.",
+    "recordarTitulo": "¿Te recordamos los {dia} anotar su propina?",
+    "recordarSi": "Sí, recuérdame",
+    "recordarNo": "Ahora no",
+    "recordarListo": "Listo. Los {dia} te lo recordamos en Alcancía."
   },
   "motivos": {
     "mesada": "Su propina de la semana",
@@ -196,7 +241,9 @@
     "anotar": "Anotar algo que pasó",
     "anotarTexto": "Algo bonito que {nombre} dijo o hizo.",
     "felicitar": "Felicitar a {nombre}",
-    "felicitarTexto": "Un mensajito por su esfuerzo."
+    "felicitarTexto": "Un mensajito por su esfuerzo.",
+    "terminaron": "Ya terminaron «{actividad}». ¿Siguen con otra?",
+    "todasTerminadas": "Ya hicieron todas las actividades. Pueden repetir la que quieran o escoger algo de la Biblioteca."
   },
   "biblioteca": {
     "titulo": "Biblioteca",
@@ -217,7 +264,6 @@
     "masParaVer": "Más para ver",
     "filtrar": "Filtrar por tema",
     "minutos": "{tema} · {minutos} min",
-    "enFamilia": "{tema} · en familia",
     "jugadores": "{tema} · {jugadores}",
     "vacio": "Todavía no hay {formato} de este tema."
   },
@@ -238,7 +284,14 @@
     "seguir": "Seguir con la actividad",
     "empezar": "Empezar",
     "verActividad": "Ver la actividad",
-    "paso": "PASO {actual} DE {total}"
+    "paso": "PASO {actual} DE {total}",
+    "minutos": "{minutos} min",
+    "terminar": "Ya terminamos",
+    "terminada": "¡Terminaron «{actividad}»!",
+    "terminadaTexto": "Sin apuro. Cuando quieran, prueben otra:",
+    "terminadaTodas": "Ya hicieron todas. Pueden repetir la que quieran.",
+    "verSiguiente": "Ver «{actividad}»",
+    "terminadaCeja": "YA LA HICIERON · {tema}"
   },
   "tema": {
     "titulo": "Tema",
@@ -266,7 +319,13 @@
     "errorAudio": "El audio todavía no está listo. Pero pueden leer el cuento juntos.",
     "despues": "Después, conversen: {pregunta}",
     "verPreguntas": "Ver preguntas para conversar",
-    "otroDia": "Seguir otro día"
+    "otroDia": "Seguir otro día",
+    "versionCorta": "Versión de 1 minuto",
+    "versionCompleta": "Cuento completo",
+    "leerVoz": "Leer en voz alta",
+    "leerVozAyuda": "Con la voz de este celular.",
+    "detenerVoz": "Detener",
+    "vozNoDisponible": "Este celular no puede leer en voz alta. Pueden leerlo juntos."
   },
   "guia": {
     "titulo": "Para conversar",
@@ -339,7 +398,10 @@
     "quienError": "Dinos quién lo vio.",
     "tema": "Tema (opcional)",
     "sinTema": "Ninguno en especial",
-    "pie": "Se guarda con la fecha de hoy."
+    "pie": "Se guarda con la fecha de hoy.",
+    "barraEditar": "Editar lo que pasó",
+    "borrarConfirmar": "¿Borrar esto que anotaron? También se borran sus mensajitos.",
+    "borrado": "Borrado"
   },
   "felicitar": {
     "barra": "Felicitar",
@@ -396,7 +458,10 @@
     "desdeCero": "Empezar desde cero",
     "desdeCeroConfirmar": "Se va a borrar todo para empezar desde cero. ¿Seguro?",
     "avisoSinConexion": "Sin conexión.",
-    "avisoNoAlDia": "Esto es lo último que sabemos; no está al día."
+    "avisoNoAlDia": "Esto es lo último que sabemos; no está al día.",
+    "nuncaTitulo": "Conecten su chanchito",
+    "nuncaTexto": "Mientras tanto, pueden anotar la plata aquí. Cuando lo conecten, verán su batería y él dirá quién le mandó la plata.",
+    "nuncaBoton": "Conectar el chanchito"
   },
   "bateria": {
     "loUltimo": "Lo último que sabemos",
@@ -453,5 +518,43 @@
     "titulo": "Uy, esta página no existe",
     "texto": "Puede que el enlace esté mal. No te preocupes, lo que anotaste sigue guardado.",
     "boton": "Ir a Alcancía"
+  },
+  "quien": {
+    "titulo": "¿Quién le envía?",
+    "sub": "Abuelos y tíos también pueden mandarle plata. Cuando el chanchito está conectado, dice su nombre en voz alta.",
+    "mama": "Mamá",
+    "papa": "Papá",
+    "abuela": "Abuela",
+    "abuelo": "Abuelo",
+    "tio": "Tío o tía",
+    "otro": "Otro pariente",
+    "admin": "Administra la cuenta",
+    "otroCampo": "¿Quién es?",
+    "otroEjemplo": "Por ejemplo: Tía Rosa"
+  },
+  "idea": {
+    "ceja": "IDEA DE 1 MINUTO",
+    "hecho": "Ya lo hicimos",
+    "anotado": "¡Anotado! Gracias por darte el minuto.",
+    "otra": "Otra idea"
+  },
+  "acompana": {
+    "fila": "Quién acompaña",
+    "filaVacia": "Dinos quién eres",
+    "titulo": "¿Quién acompaña a {nombre}?",
+    "ayuda": "Lo usamos para firmar lo que anotes y para marcar quién envía la plata.",
+    "nombre": "Tu nombre",
+    "nombreEjemplo": "Por ejemplo: Mamá, Carmen",
+    "relacion": "¿Qué eres de {nombre}?",
+    "guardado": "Guardado"
+  },
+  "recordatorio": {
+    "fila": "Recordatorio de propina",
+    "filaDia": "Los {dia}",
+    "filaNo": "Sin recordatorio",
+    "titulo": "¿Qué día le dan su propina?",
+    "ayuda": "Ese día te lo recordamos al abrir Alcancía.",
+    "ninguno": "Sin recordatorio",
+    "guardado": "Recordatorio guardado"
   }
 }

@@ -48,6 +48,20 @@ El DS no define modo oscuro: forzar claro (`Theme` sin `isSystemInDarkTheme()` /
 - Estados: detenido, cargando, reproduciendo, pausado, terminado, error (mensaje `cuento_error_audio` / `cuento.errorAudio`). ±10 s dentro de la duración.
 - Salida «en el chanchito»: si no hay conexión, error `cuento_error_chanchito` / `cuento.errorChanchito` y el texto sigue disponible.
 
+## Voz del celular (leer cuentos)
+
+- Android: `TextToSpeech` con `Locale("es", "PE")` (si no está, `es-419` o `es`), velocidad 0.95. iOS: `AVSpeechSynthesizer` con `AVSpeechSynthesisVoice(language: "es-MX")` o la que haya en español.
+- Detener al salir de la pantalla o al cambiar de versión. Si no hay voz en español: `cuento_voz_no_disponible` / `cuento.vozNoDisponible`.
+
+## Recordatorio de propina
+
+- El prototipo solo muestra un aviso en Alcancía. En nativo, además, **notificación local** semanal el día elegido (p. ej. 9:00): Android `WorkManager` + `NotificationCompat` (Android 13+: permiso `POST_NOTIFICATIONS`, pedirlo al tocar «Sí, recuérdame»); iOS `UNCalendarNotificationTrigger` con `weekday`, pidiendo autorización en ese mismo momento.
+- Texto: `alcancia_recordatorio` con `{dia}`. Al tocarla, abrir Agregar plata con «Su propina de la semana».
+
+## Deshacer
+
+- Android: `Snackbar` con acción «Deshacer» (6 s). iOS: aviso propio al pie con botón. Guardar una copia del estado anterior y restaurarla completa.
+
 ## Chanchito (cuando haya hardware)
 
 - Android 12+: permisos `BLUETOOTH_SCAN` y `BLUETOOTH_CONNECT`; antes, ubicación. iOS: `NSBluetoothAlwaysUsageDescription` (texto en español peruano, p. ej. «Para conectar el chanchito con este celular.»).

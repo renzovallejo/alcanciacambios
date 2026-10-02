@@ -1,6 +1,6 @@
 <!-- @license lucide-static v1.49.0 - ISC -->
 <svg
-  class="lucide lucide-pause"
+  class="lucide lucide-coins"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
@@ -11,6 +11,8 @@
   stroke-linecap="round"
   stroke-linejoin="round"
 >
-  <rect x="14" y="3" width="5" height="18" rx="1" />
-  <rect x="5" y="3" width="5" height="18" rx="1" />
+  <path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" />
+  <path d="M15 6h1v4" />
+  <path d="m6.134 14.768.866-.5 2 3.464" />
+  <circle cx="16" cy="8" r="6" />
 </svg>

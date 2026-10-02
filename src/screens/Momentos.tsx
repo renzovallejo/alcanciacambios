@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { BackBar, Button, ChildContext, Icon, LinkButton, Mascota, ScreenHeader } from '../components/ui';
+import { useToast } from '../components/Toast';
 import { ActionFooter } from './Saldo';
 import { ACTIVITIES, TOPIC_ICON, TOPIC_LABEL, TOPIC_ORDER } from '../lib/content';
 import { newId, useStore } from '../lib/store';
@@ -90,11 +91,20 @@ export default function Progreso() {
 
 export function MomentoDetalle() {
   const { id } = useParams();
-  const { state } = useStore();
+  const { state, dispatch } = useStore();
+  const nav = useNavigate();
+  const toast = useToast();
   const o = state.observations.find((x) => x.id === id);
   if (!o) return <div className="task"><div className="task-scroll"><BackBar title={t('momento.titulo')} to="/progreso" /><p className="muted">{t('comun.noEncontrado')}</p></div></div>;
   const date = friendlyDate(o.recordedAt);
   const cel = state.celebrations.filter((c) => c.observationId === o.id);
+  const remove = () => {
+    if (!window.confirm(t('nuevoMomento.borrarConfirmar'))) return;
+    const before = state;
+    dispatch({ type: 'deleteObservation', id: o.id });
+    toast({ message: t('nuevoMomento.borrado'), action: { label: t('comun.deshacer'), run: () => dispatch({ type: 'reset', state: before }) } });
+    nav('/progreso', { replace: true });
+  };
   return (
     <div className="task">
       <div className="task-scroll">
@@ -107,6 +117,10 @@ export function MomentoDetalle() {
         </section>
         <p className="note"><Icon name="info" size={18} />{t('momento.noEsNota')}</p>
         {cel.length > 0 && (<><h2 className="section-title">{t('momento.mensajitos')}</h2><ul className="plain stack-8">{cel.map((c) => <li key={c.id} className="card card-cream appear"><Icon name="party-popper" size={18} /> {c.message}</li>)}</ul></>)}
+        <div className="btn-pair">
+          <LinkButton to={`/momento/${o.id}/editar`} variant="tertiary"><Icon name="pencil" size={18} />{t('comun.editar')}</LinkButton>
+          <Button variant="tertiary" className="danger" onClick={remove}><Icon name="trash-2" size={18} />{t('comun.borrar')}</Button>
+        </div>
       </div>
       <ActionFooter helper={t('momento.pie')}>
         <LinkButton to={`/celebrar?m=${o.id}`} variant="secondary" block>{t('momento.mandarMensajito')}</LinkButton>
@@ -115,15 +129,19 @@ export function MomentoDetalle() {
   );
 }
 
+/** Anotar algo que pasó, o editarlo con /momento/:id/editar. «¿Quién lo vio?» viene con quien acompaña. */
 export function NuevoMomento() {
   const { state, dispatch } = useStore();
   const nav = useNavigate();
+  const toast = useToast();
+  const { id: editId } = useParams();
+  const editing = editId ? state.observations.find((o) => o.id === editId) : undefined;
   const [qs] = useSearchParams();
   const preset = qs.get('tema');
-  const [title, setTitle] = useState('');
-  const [text, setText] = useState('');
-  const [author, setAuthor] = useState('');
-  const [topic, setTopic] = useState<Topic | ''>(preset && (TOPIC_ORDER as string[]).includes(preset) ? (preset as Topic) : '');
+  const [title, setTitle] = useState(editing?.title ?? '');
+  const [text, setText] = useState(editing?.narrative ?? '');
+  const [author, setAuthor] = useState(editing?.authorDisplayName ?? state.caregiver?.name ?? '');
+  const [topic, setTopic] = useState<Topic | ''>(editing ? editing.topic ?? '' : preset && (TOPIC_ORDER as string[]).includes(preset) ? (preset as Topic) : '');
   const [touched, setTouched] = useState(false);
   const [busy, setBusy] = useState(false);
   const ok = text.trim().length > 0 && author.trim().length > 0;
@@ -132,6 +150,14 @@ export function NuevoMomento() {
     setTouched(true);
     if (!ok || busy) return;
     setBusy(true);
+    // La primera vez, quien anota queda como quien acompaña: la próxima no lo vuelve a escribir.
+    if (!state.caregiver) dispatch({ type: 'setCaregiver', caregiver: { name: author.trim() } });
+    if (editing) {
+      dispatch({ type: 'updateObservation', observation: { ...editing, title: title.trim() || undefined, narrative: text.trim(), authorId: author.trim(), authorDisplayName: author.trim(), topic: topic || undefined } });
+      toast({ message: t('comun.cambiosGuardados') });
+      nav(`/momento/${editing.id}`, { replace: true });
+      return;
+    }
     const id = newId('o');
     dispatch({ type: 'addObservation', observation: { id, title: title.trim() || undefined, childId: 'c1', narrative: text.trim(), authorId: author.trim(), authorDisplayName: author.trim(), recordedAt: new Date().toISOString(), topic: topic || undefined } });
     nav(`/momento/${id}`, { replace: true });
@@ -140,7 +166,7 @@ export function NuevoMomento() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar icon="x" title={t('nuevoMomento.barra')} />
+        <BackBar icon="x" title={t(editing ? 'nuevoMomento.barraEditar' : 'nuevoMomento.barra')} />
         <h1 className="title">{t('nuevoMomento.pregunta', { nombre: state.childName })}</h1>
         <p className="muted">{t('nuevoMomento.ayuda')}</p>
         <label htmlFor="mom-texto" className="field-label">{t('nuevoMomento.quePaso')}</label>
@@ -158,7 +184,7 @@ export function NuevoMomento() {
         </select>
       </div>
       <ActionFooter helper={t('nuevoMomento.pie')}>
-        <Button block loading={busy} onClick={save}>{t('comun.guardar')}</Button>
+        <Button block loading={busy} onClick={save}>{t(editing ? 'comun.guardarCambios' : 'comun.guardar')}</Button>
       </ActionFooter>
     </div>
   );

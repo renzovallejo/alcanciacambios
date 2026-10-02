@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout, { TaskLayout } from './components/Layout';
 import Home from './screens/Home';
-import { AllGoals, AllMovements, MovementDetail } from './screens/Lists';
+import { AllGoals, AllMovements, MovementDetail, MovementEdit } from './screens/Lists';
 import { Aprender, Biblioteca } from './screens/Learn';
 import Progreso, { Avances, Celebrar, MomentoDetalle, NuevoMomento } from './screens/Momentos';
-import { SaldoImporte, SaldoListo, SaldoMotivo, SaldoRevisar } from './screens/Saldo';
+import { SaldoImporte, SaldoListo, SaldoMotivo, SaldoQuien, SaldoRevisar } from './screens/Saldo';
 import NuevaMeta from './screens/NuevaMeta';
-import Chanchito, { Bateria, CerrarSesion, Emparejar, Perfil, Perfiles, SesionCerrada, Sonido, Wifi } from './screens/Chanchito';
+import Chanchito, { Acompana, Bateria, CerrarSesion, Emparejar, Perfil, Perfiles, Recordatorio, SesionCerrada, Sonido, Wifi } from './screens/Chanchito';
 import { Cuento, Guia, Juego, Mision } from './screens/Content';
 import { Actividad, Tema } from './screens/Actividad';
 import GoalDetail from './screens/Goal';
@@ -34,9 +34,14 @@ export default function App() {
           <Route key={`${b}1`} path={`${b}/importe`} element={<SaldoImporte />} />,
           <Route key={`${b}2`} path={`${b}/motivo`} element={<SaldoMotivo />} />,
           <Route key={`${b}3`} path={`${b}/revisar`} element={<SaldoRevisar />} />,
+          <Route key={`${b}5`} path={`${b}/quien`} element={<SaldoQuien />} />,
           <Route key={`${b}4`} path={`${b}/listo`} element={<SaldoListo />} />,
         ])}
         <Route path="meta/nueva" element={<NuevaMeta />} />
+        <Route path="meta/:id/editar" element={<NuevaMeta />} />
+        <Route path="movimiento/:id/editar" element={<MovementEdit />} />
+        <Route path="chanchito/acompana" element={<Acompana />} />
+        <Route path="chanchito/recordatorio" element={<Recordatorio />} />
         <Route path="chanchito" element={<Chanchito />} />
         <Route path="chanchito/bateria" element={<Bateria />} />
         <Route path="chanchito/wifi" element={<Wifi />} />
@@ -53,6 +58,7 @@ export default function App() {
         <Route path="actividad/:topic" element={<Actividad />} />
         <Route path="momento/nuevo" element={<NuevoMomento />} />
         <Route path="momento/:id" element={<MomentoDetalle />} />
+        <Route path="momento/:id/editar" element={<NuevoMomento />} />
         <Route path="celebrar" element={<Celebrar />} />
       </Route>
     </Routes>

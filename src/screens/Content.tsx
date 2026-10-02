@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { BackBar, Button, Icon, LinkButton } from '../components/ui';
+import { BackBar, Button, Icon, LinkButton, useSpeech } from '../components/ui';
 import { ActionFooter } from './Saldo';
 import { ACTIVITIES, TOPIC_LABEL, findGame, findMission, findStory } from '../lib/content';
 import { newId, useStore } from '../lib/store';
@@ -30,6 +30,9 @@ export function Cuento() {
   const [audioState, setAudioState] = useState<AudioState>('idle');
   const [pos, setPos] = useState(0);
   const [dur, setDur] = useState(0);
+  const [short, setShort] = useState(false);
+  const [noVoice, setNoVoice] = useState(false);
+  const voice = useSpeech();
   useEffect(() => () => { audio.current?.pause(); }, []);
   if (!story) return <NotFound to="/biblioteca" label={t('cuento.titulo')} />;
 
@@ -68,8 +71,21 @@ export function Cuento() {
         <p className="muted">{t('cuento.sub')}</p>
         <section className="card card-violet story">
           <div className="eyebrow violet"><Icon name="book-open" size={18} /> {t('cuento.ceja')}</div>
-          <p>{story.text}</p>
+          <p key={short ? 'c' : 'l'} className="swap">{short ? story.short : story.text}</p>
         </section>
+        <div className="toggle-row" role="group" aria-label={t('cuento.ceja')}>
+          <button type="button" className="chip" aria-pressed={!short} onClick={() => { voice.stop(); setShort(false); }}>{t('cuento.versionCompleta')}</button>
+          <button type="button" className="chip" aria-pressed={short} onClick={() => { voice.stop(); setShort(true); }}>{t('cuento.versionCorta')}</button>
+        </div>
+        {/* Voz del celular: se dice claramente que no es el audio del chanchito. */}
+        <Button variant="secondary" block onClick={() => {
+          if (voice.speaking) { voice.stop(); return; }
+          setNoVoice(!voice.speak(`${story.title}. ${short ? story.short : story.text}`));
+        }}>
+          <Icon name={voice.speaking ? 'pause' : 'volume-2'} size={20} />{t(voice.speaking ? 'cuento.detenerVoz' : 'cuento.leerVoz')}
+        </Button>
+        <p className="muted small center">{t('cuento.leerVozAyuda')}</p>
+        {noVoice && <p className="alert-box appear" role="alert">{t('cuento.vozNoDisponible')}</p>}
 
         <p className="muted">{t(device ? 'cuento.enChanchito' : 'cuento.enCelular')}</p>
         <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={duration} aria-valuenow={pos} aria-label={t('cuento.posicion')}>

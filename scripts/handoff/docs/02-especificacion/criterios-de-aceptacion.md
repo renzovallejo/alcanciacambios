@@ -1,16 +1,16 @@
 # Criterios de aceptación
 
-Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la mayoría están cubiertos por sus 64 comprobaciones automáticas de punta a punta, y todos se pueden ver en el prototipo publicado. Los datos de partida son las semillas de `06-datos/semillas/`: **ejemplo** (S/ 15.00, metas Libro ilustrado S/ 6 de S/ 30 y Rompecabezas S/ 4 de S/ 40) y **semana**.
+Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la mayoría están cubiertos por sus 115 comprobaciones automáticas de punta a punta, y todos se pueden ver en el prototipo publicado. Los datos de partida son las semillas de `06-datos/semillas/`: **ejemplo** (S/ 15.00, metas Libro ilustrado S/ 6 de S/ 30 y Rompecabezas S/ 4 de S/ 40) y **semana**.
 
 ## A. Agregar plata
 
-- **A1.** Dado *ejemplo*, cuando toco «Agregar plata», elijo «Su propina de la semana», escojo la meta «Libro ilustrado» y confirmo con S/ 10, entonces veo «¡Listo, ya está anotado!», el saldo pasa a S/ 25.00 y la meta muestra «S/ 16.00 de S/ 30.00».
+- **A1.** Dado *ejemplo*, cuando toco «Agregar plata», dejo S/ 10, «Su propina de la semana» y «Libro ilustrado» (ya vienen marcados), elijo «Mamá» en «¿Quién le envía?» y toco «Sí, anotar», entonces veo «¡Listo, ya está anotado!», el saldo pasa a S/ 25.00 y la meta muestra «S/ 16.00 de S/ 30.00».
 - **A2.** Dado el paso 1, cuando escribo «abc», entonces veo «Escribe un monto como 10 o 10.50.» junto al campo y «Continuar» está deshabilitado.
 - **A3.** Dado el paso 1, cuando toco «S/ 20», entonces el campo muestra 20.00, el botón tiene ✓ y «Así quedaría» muestra saldo + 20.
 - **A4.** Dado el paso 2 con «Otra cosa» elegida y sin texto, entonces «Continuar» está deshabilitado.
 - **A5.** Dado el paso 2, cuando vuelvo al paso 1, entonces el monto escrito sigue ahí.
 - **A6.** Dado el paso 1 con un motivo ya elegido, cuando toco «✕», entonces me pregunta «Si sales ahora, no se anotará nada. ¿Quieres salir?».
-- **A7.** Dado el paso 3, cuando toco «Sí, anotar» dos veces seguidas, entonces se anota **una sola vez**.
+- **A7.** Dado el paso 3 «¿Quién le envía?», cuando toco «Sí, anotar» dos veces seguidas, entonces se anota **una sola vez**.
 - **A8.** Dado que el saldo no cambió antes del paso 3, cuando estoy en los pasos 1 o 2, entonces el saldo de Alcancía sigue igual.
 - **A9.** Dado *semana* (Pelota de fútbol S/ 10 de S/ 20), cuando agrego S/ 10 a esa meta, entonces el paso 4 muestra «¡Ya juntaron todo para «Pelota de fútbol»!» y en Alcancía la tarjeta dice «¡Logrado!».
 - **A10.** Dado que acabo de anotar, cuando vuelvo a Alcancía, entonces el movimiento nuevo aparece primero y resaltado y el saldo cuenta hasta el valor nuevo.
@@ -18,9 +18,9 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 ## B. Sacar plata
 
 - **B1.** Dado *ejemplo* (S/ 15.00), cuando toco «Sacar plata» y escribo 99, entonces veo «No le alcanza: ahora tiene S/ 15.00.».
-- **B2.** Dado *ejemplo*, cuando saco S/ 5 por «Se compró algo», entonces el paso 3 dice «Así quedaría S/ 10.00» y, al confirmar, Alcancía muestra «Sacó plata» con «−S/ 5.00».
+- **B2.** Dado *ejemplo*, cuando saco S/ 5 por «Se compró algo», entonces el paso 2 muestra el resumen con «Así quedaría S/ 10.00» y, al tocar «Sí, anotar», Alcancía muestra «Sacó plata» con «−S/ 5.00».
 - **B3.** Dado un movimiento de salida, cuando lo abro, entonces veo «Salió», el monto, quién lo anotó, cuándo, «Se compró algo» y la meta.
-- **B4.** Dado el primer día (saldo 0), entonces no se muestra «Sacar plata».
+- **B4.** Dado saldo 0, entonces no se muestra «Sacar plata».
 
 ## C. Metas
 
@@ -51,12 +51,34 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 
 ## F. Chanchito y cuenta
 
-- **F1.** Dado cualquier pantalla principal, entonces el estado del chanchito es el mismo que en sus ajustes («Sin conexión»).
+- **F1.** Dado cualquier pantalla principal, entonces el estado del chanchito es el mismo que en sus ajustes («Sin conexión»; «Conectar chanchito» si nunca se conectó).
 - **F2.** Dado ajustes, cuando abro Batería, Red WiFi, Volumen, Conectar este celular y Perfil, entonces cada uno abre su pantalla.
 - **F3.** Dado Perfil, cuando cambio el nombre a «Lucía», entonces toda la app dice «Lucía».
 - **F4.** Dado «Intentar otra vez», cuando lo toco varias veces, entonces hay un solo intento en curso y, sin respuesta, termina en error recuperable (nunca «Conectado»).
 - **F5.** Dado «Cerrar sesión», entonces primero pide confirmar.
 - **F6.** Dado el nombre del niño arriba, cuando lo toco, entonces abre el selector de persona.
+
+## H. Revisión por tipos de usuario
+
+- **H1.** Dado el paso «¿Quién le envía?», cuando elijo «Otro pariente», entonces «Sí, anotar» queda deshabilitado hasta escribir «¿Quién es?».
+- **H2.** Dado que la Abuela envió S/ 5, entonces la fila dice «Abuela · hoy · …» y el detalle muestra «Le envió: Abuela» y «Lo anotó: Mamá».
+- **H3.** Dado que ya anoté una entrada, cuando vuelvo a «Agregar plata», entonces motivo, meta y quién envía vienen marcados como la última vez.
+- **H4.** Dado *ejemplo*, cuando toco «Repetir: S/ 10.00 · Mamá», entonces llego a «¿Quién le envía?» con todo puesto y con «Sí, anotar» se anota.
+- **H5.** Dado que escribí S/ 7 y salí sin anotar, entonces Alcancía muestra «Dejaron a medias: S/ 7.00»; «Seguir» abre el paso 1 con 7.
+- **H6.** Dado un movimiento, cuando lo corrijo a un monto que dejaría plata en negativo, entonces veo «Con este cambio quedaría en negativo…» y no se guarda.
+- **H7.** Dado que borro un movimiento, entonces aparece «Borrado · Deshacer»; al tocar «Deshacer» vuelve todo como estaba.
+- **H8.** Dado una meta lograda con plata, cuando toco «Usar esta plata», entonces Sacar plata viene con la meta y su monto; al anotar, la meta pasa a «Logradas» con «Ya la usaron».
+- **H9.** Dado que borro una meta, entonces lo que lleva ahorrado no cambia.
+- **H10.** Dado un momento, cuando lo edito o lo borro, entonces el cambio se ve en Progreso (y al borrar, «Deshacer» lo recupera).
+- **H11.** Dado una cuenta nueva, entonces Alcancía dice para qué sirve y muestra «Conectar chanchito», nunca «Sin conexión».
+- **H12.** Dado «Quién acompaña» = Mamá, cuando abro «Anotar algo que pasó», entonces «¿Quién lo vio?» dice «Mamá».
+- **H13.** Dado que anoto «Su propina de la semana» sin recordatorio, entonces el paso final ofrece «¿Te recordamos los {día}…?»; si acepto, ese día (sin propina anotada) Alcancía muestra el aviso y llega una notificación local.
+- **H14.** Dado un cuento, cuando toco «Versión de 1 minuto», entonces cambia el texto; «Leer en voz alta» lo lee con la voz del celular o avisa si no se puede.
+- **H15.** Dado una actividad, entonces cada paso muestra su duración («5 min»).
+- **H16.** Dado el último paso, cuando toco «Ya terminamos», entonces veo «¡Terminaron «…»!» y la siguiente sugerida; Aprender ya no la muestra «EN CURSO».
+- **H17.** Dado «¡Listo!» al agregar, cuando el niño toca el chanchito, entonces la moneda cae y aparece «¡Clin! Adentro.» (opcional, no bloquea).
+- **H18.** Dado entradas en los últimos 7 días, entonces el saldo muestra «Esta semana: +S/ X» y «Todo lo anotado» se agrupa por mes con lo que entró y salió.
+- **H19.** Dado que ya confirmé una vez, entonces el aviso «solo lleva la cuenta» sale en una línea con «¿Por qué?».
 
 ## G. Generales
 

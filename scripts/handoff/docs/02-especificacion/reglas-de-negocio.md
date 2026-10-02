@@ -14,12 +14,20 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 | Proyección | «Así quedaría» = ahorrado ± monto. Es una proyección: no cambia nada hasta confirmar. |
 | Confirmación | Un solo envío por confirmación (botón bloqueado mientras se guarda). Al confirmar: saldo ± monto, meta ± monto si se eligió, nuevo movimiento al inicio de la lista, borrador limpio. |
 | Salidas | No más que lo ahorrado (`dinero.errorNoAlcanza`) ni más que lo guardado en la meta de origen (`dinero.errorMetaNoAlcanza`). La meta nunca baja de 0. |
-| Movimiento | Guarda: tipo (`in`/`out`), autor («Tú» en el celular; en la app real, el nombre de quien está con sesión), fecha ISO, monto con signo, motivo (texto visible) y meta (id + nombre). |
+| Movimiento | Guarda: tipo (`in`/`out`), autor (quien anotó: nombre de quien acompaña, o «Tú»), fecha ISO, monto con signo, motivo (`reasonId` + `reasonDetail` para «Otra cosa»; el texto visible sale del catálogo), meta (id + nombre) y, **solo en entradas, quién envía** (`senderId` ∈ `mama, papa, abuela, abuelo, tio, otro` + `senderName` libre, obligatorio con `otro`). |
+| Quién envía vs. quién anotó | Son datos distintos: la abuela puede enviar y mamá anotar. En listas de entradas se muestra quién envía; el detalle muestra ambos («Le envió» / «Lo anotó»). Con el chanchito conectado, él dice en voz alta el nombre de quien envía. |
+| Recordar lo último | `last.in` / `last.out` guardan monto, motivo, meta y quién envía. Al empezar un flujo se precargan (la meta solo si sigue disponible). «Repetir» precarga también el monto y abre el último paso. |
+| Borrador | Cualquier cambio en el flujo marca el borrador `active`. Abrir el mismo flujo lo retoma; Alcancía ofrece «Seguir» o «Descartar». Confirmar o descartar lo limpia. |
+| Corregir | Se recalcula como «deshacer el movimiento y aplicarlo con los datos nuevos». Si el saldo o alguna meta quedaría negativa, no se guarda y se avisa (`movimientos.editarNegativo`). |
+| Borrar | Igual validación (`movimientos.borrarNoSePuede`). Confirmación previa y «Deshacer» durante 6 s, que restaura el estado completo. |
 
 ## Metas (`lib/money.ts` → `percent`, `screens/Goal.tsx`)
 
 - **Avance** = guardado / objetivo, redondeado a entero, máximo 100 %. La barra nunca va sola: siempre con «S/ X de S/ Y» y el %.
-- **Lograda** cuando guardado ≥ objetivo: tarjeta menta, «¡Logrado!», sin botón de agregar.
+- **Lograda** cuando guardado ≥ objetivo; queda marcada (`achieved`) aunque después se use la plata. Tarjeta menta, «¡Logrado!», sin botón de agregar.
+- **Usar esta plata** (meta lograda con plata): abre Sacar plata con la meta, su monto y «Se compró algo» puestos. Cuando queda en 0 se muestra «Ya la usaron» y deja de ofrecerse para agregar.
+- **Sus metas**: «En camino» arriba y «Logradas» aparte. En Alcancía no se muestran las ya usadas.
+- **Editar** nombre y costo; **borrar** no borra plata (los movimientos quedan sin meta y conservan el nombre).
 - **Aviso de meta alcanzada** solo en la confirmación que la completa (antes < objetivo y después ≥ objetivo).
 - **Orden** estable (de creación). En Alcancía, máximo 2 + «Ver todas (N)». No reordenar por porcentaje.
 - No hace falta tener una meta para agregar plata («Ninguna meta en especial» es válido).
@@ -27,6 +35,7 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 ## Fechas (`lib/dates.ts`)
 
 - «hoy», «ayer» o «1 oct» (día + mes abreviado en minúsculas). Fecha inválida → no se muestra (nunca inventar fechas).
+- «Esta semana: +S/ X» = suma de entradas de los últimos 7 días. «Todo lo anotado» se agrupa por mes («octubre») con «Entró S/ X · Salió S/ Y».
 
 ## Aprender y actividades (`screens/Learn.tsx`, `screens/Actividad.tsx`, `lib/content.ts`)
 
@@ -35,6 +44,10 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 - **Paso actual** por tema (`activityStep`). «Ya hicimos este paso» avanza uno (sin pasar del último).
 - Aprender muestra «PARA EMPEZAR» si no hay actividad activa (propone Ahorrar) o «EN CURSO» con la activa.
 - Ceja «PASO N DE M» en cuentos, misiones y juegos solo cuando se abren desde una actividad.
+- **Terminar**: en el último paso, «Ya terminamos» → `finishedTopics`, deja de estar activa, celebración sin puntaje y sugerencia de la siguiente no terminada.
+- **Duración** por paso: minutos del cuento, misión o juego (acciones: 2 min).
+- **Cuentos**: versión completa y **versión de 1 minuto** (`short`). «Leer en voz alta» usa el TTS del sistema (`es-PE`, velocidad 0.95) y se dice que es la voz del celular; si no hay TTS, mensaje `cuento.vozNoDisponible`.
+- **Idea de 1 minuto**: una por día (`IDEAS`, rota por día). «Ya lo hicimos» suma una conversación.
 
 ## Progreso (`screens/Momentos.tsx`)
 
@@ -47,7 +60,7 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 
 ## Chanchito (`lib/device.ts`)
 
-- Un solo estado de conexión para toda la app. Sin hardware: «Sin conexión».
+- Un solo estado de conexión para toda la app. Sin hardware: «Sin conexión». Si **nunca** se conectó (`devicePaired = false`), en vez de «Sin conexión» se invita a «Conectar chanchito».
 - Reintento: un intento a la vez; «Conectado» solo con respuesta real del dispositivo.
 - Batería, WiFi y volumen: «lo último que sabemos»; mostrar fecha de lectura solo si existe.
 - Cambios de configuración: pendientes hasta que el chanchito confirme.
@@ -56,4 +69,7 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 
 - Una persona por cuenta en esta versión. El nombre es un dato (nunca «Sofía» fijo en el código).
 - Todo lo anotado va a la persona visible arriba; cambiar de persona nunca cambia una operación en curso.
+- **Quién acompaña** (`caregiver`: nombre + relación): firma lo anotado, llena «¿Quién lo vio?» y marca «Administra la cuenta» en «¿Quién le envía?». Si no existe, se toma del primer momento anotado.
+- **Recordatorio de propina** (`propinaDay` 0–6 o null): se ofrece tras anotar «Su propina de la semana». Ese día, si todavía no anotaron una, Alcancía muestra el aviso. En nativo, además, notificación local ese día (ver `plataformas.md`).
+- **Aviso de honestidad**: completo hasta la primera confirmación (`seenHonesty`); después, línea corta con «¿Por qué?».
 - Estados de ejemplo para desarrollo y QA: `06-datos/semillas/` (`vacio`, `ejemplo`, `semana`).

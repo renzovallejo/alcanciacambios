@@ -24,7 +24,9 @@ Los valores están en `03-diseno/tokens/` (`AlcanciaMotion`, `AlcanciaEasing`). 
 | 12 | Botón en proceso | Texto «Un ratito…» + spinner; el botón no cambia de tamaño | spinner 0.8 s en bucle | `CircularProgressIndicator` 16 dp | `ProgressView` |
 | 13 | Chanchito «Conectando…» | La mascota se balancea ±5° | 0.5 s en bucle mientras conecta | `rememberInfiniteTransition` | `.rotationEffect` + `repeatForever` |
 | 14 | Mapa de temas (Progreso) | Las 4 tarjetas aparecen en cascada | 250 ms, +40 ms cada una | `AnimatedVisibility` con delay por índice | `.transition` con delay por índice |
-| 15 | Avisos (error de audio, conversación anotada, selector de meta) | Fundido subiendo | 180–250 ms | `AnimatedVisibility(fadeIn + expandVertically)` | `.transition(.opacity.combined(with: .move(edge: .top)))` |
+| 15 | Avisos (error de audio, conversación anotada, borrador, recordatorio, «Deshacer») | Fundido subiendo | 180–250 ms | `AnimatedVisibility(fadeIn + expandVertically)` / `Snackbar` | `.transition(.opacity.combined(with: .move(edge: .top)))` |
+| 16 | El niño mete la moneda («¡Listo!») | La moneda baja 46 dp encogiéndose y se desvanece; luego el chanchito salta | 600 ms · ease-in + salto 600 ms (retardo 450 ms) | `Animatable` de offset/escala/alpha + salto de la mascota | `withAnimation(.easeIn(duration: 0.6))` + `.offset`/`.scaleEffect` |
+| 17 | Cambiar versión del cuento | El texto cambia con fundido | 200 ms | `Crossfade` | `.transition(.opacity)` |
 
 **Curvas** (`cubic-bezier`): standard `0.2, 0, 0, 1` · decelerate `0, 0, 0.2, 1` · emphasized `0.2, 0.8, 0.2, 1` · overshoot `0.2, 0.9, 0.3, 1.3`.
 

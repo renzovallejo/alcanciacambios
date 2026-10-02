@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { BackBar, Button, Icon, IconTile, LinkButton, Mascota } from '../components/ui';
 import { ActionFooter } from './Saldo';
 import { Link } from 'react-router-dom';
-import { firstDayState, seedIsEmpty, seedState, useStore } from '../lib/store';
+import { SENDERS, firstDayState, seedIsEmpty, seedState, useStore } from '../lib/store';
+import { useToast } from '../components/Toast';
+import { dayName } from '../lib/dates';
 import { DEVICE, isConnected } from '../lib/device';
 import { t } from '../i18n';
 
@@ -25,13 +27,21 @@ export default function Chanchito() {
     <div className="task">
       <div className="task-scroll">
         <BackBar title={t('chanchito.titulo', { nombre: state.childName })} heading />
-        <section className={`card card-cream device-status conn-${conn}`} aria-live="polite">
-          <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{title}</h2><p className="muted">{text}</p></div></div>
-          <Button block loading={conn === 'connecting'} onClick={retry}>{t('chanchito.intentar')}</Button>
-        </section>
+        {state.devicePaired ? (
+          <section className={`card card-cream device-status conn-${conn}`} aria-live="polite">
+            <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{title}</h2><p className="muted">{text}</p></div></div>
+            <Button block loading={conn === 'connecting'} onClick={retry}>{t('chanchito.intentar')}</Button>
+          </section>
+        ) : (
+          // Nunca se conectó: no es un error, es el primer paso. Se invita a conectarlo.
+          <section className="card card-cream device-status">
+            <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{t('chanchito.nuncaTitulo')}</h2><p className="muted">{t('chanchito.nuncaTexto')}</p></div></div>
+            <LinkButton to="/chanchito/emparejar" block>{t('chanchito.nuncaBoton')}</LinkButton>
+          </section>
+        )}
 
         <h2 className="section-title">{t('chanchito.seccion')}</h2>
-        <p className="muted small">{t('chanchito.sinConexionNota')}</p>
+        {state.devicePaired && <p className="muted small">{t('chanchito.sinConexionNota')}</p>}
         <ul className="plain list">
           <Row to="bateria" icon="battery-medium" title={t('chanchito.bateria')} desc={t('chanchito.bateriaDato', { porcentaje: DEVICE.battery.value, cuando: t(isConnected() ? 'chanchito.ahoraMismo' : 'chanchito.loUltimo') })} />
           <Row to="wifi" icon="wifi" title={t('chanchito.wifi')} desc={t('chanchito.wifiDato', { red: DEVICE.savedWifiName })} />
@@ -40,7 +50,11 @@ export default function Chanchito() {
         </ul>
 
         <h2 className="section-title">{t('chanchito.familia')}</h2>
-        <ul className="plain list"><Row to="perfil" icon="user-round" title={t('chanchito.perfil', { nombre: state.childName })} desc={t('chanchito.perfilTexto')} /></ul>
+        <ul className="plain list">
+          <Row to="perfil" icon="user-round" title={t('chanchito.perfil', { nombre: state.childName })} desc={t('chanchito.perfilTexto')} />
+          <Row to="acompana" icon="users-round" title={t('acompana.fila')} desc={state.caregiver ? state.caregiver.name : t('acompana.filaVacia')} />
+          <Row to="recordatorio" icon="bell" title={t('recordatorio.fila')} desc={state.propinaDay === null ? t('recordatorio.filaNo') : t('recordatorio.filaDia', { dia: dayName(state.propinaDay) })} />
+        </ul>
 
         <div className="center foot-links">
           <Link to="/sesion/cerrar" className="link">{t('chanchito.cerrarSesion')}</Link>
@@ -203,6 +217,71 @@ export function SesionCerrada() {
         </div>
       </div>
       <ActionFooter><LinkButton to="/" block>{t('sesion.entrar')}</LinkButton></ActionFooter>
+    </div>
+  );
+}
+
+/** Quién acompaña: firma lo que se anota y se marca como «Administra la cuenta» en «¿Quién le envía?». */
+export function Acompana() {
+  const { state, dispatch } = useStore();
+  const nav = useNavigate();
+  const toast = useToast();
+  const [name, setName] = useState(state.caregiver?.name ?? '');
+  const [relation, setRelation] = useState<string | undefined>(state.caregiver?.relation);
+  const save = () => {
+    if (!name.trim()) return;
+    dispatch({ type: 'setCaregiver', caregiver: { name: name.trim(), relation } });
+    toast({ message: t('acompana.guardado') });
+    nav(-1);
+  };
+  return (
+    <div className="task">
+      <div className="task-scroll">
+        <BackBar title={t('acompana.fila')} />
+        <h1 className="title">{t('acompana.titulo', { nombre: state.childName })}</h1>
+        <p className="muted">{t('acompana.ayuda')}</p>
+        <label htmlFor="acomp-nombre" className="field-label">{t('acompana.nombre')}</label>
+        <input id="acomp-nombre" className="text-field" maxLength={30} placeholder={t('acompana.nombreEjemplo')} value={name} onChange={(e) => setName(e.target.value)} />
+        <h2 className="section-title" id="acomp-rel">{t('acompana.relacion', { nombre: state.childName })}</h2>
+        <div className="reasons" role="radiogroup" aria-labelledby="acomp-rel">
+          {SENDERS.filter((p) => p.id !== 'otro').map((p) => (
+            <button key={p.id} type="button" role="radio" aria-checked={relation === p.id} className={`reason ${relation === p.id ? 'on' : ''}`} onClick={() => setRelation(p.id)}>
+              <Icon name={relation === p.id ? 'circle-check' : p.icon} size={20} />{t(`quien.${p.id}`)}
+            </button>
+          ))}
+        </div>
+      </div>
+      <ActionFooter><Button block disabled={!name.trim()} onClick={save}>{t('comun.guardar')}</Button></ActionFooter>
+    </div>
+  );
+}
+
+/** Día de la propina: ese día Alcancía muestra un aviso para anotarla. */
+export function Recordatorio() {
+  const { state, dispatch } = useStore();
+  const nav = useNavigate();
+  const toast = useToast();
+  const [day, setDay] = useState<number | null>(state.propinaDay);
+  const order = [1, 2, 3, 4, 5, 6, 0];
+  const save = () => { dispatch({ type: 'setPropinaDay', day }); toast({ message: t('recordatorio.guardado') }); nav(-1); };
+  return (
+    <div className="task">
+      <div className="task-scroll">
+        <BackBar title={t('recordatorio.fila')} />
+        <h1 className="title">{t('recordatorio.titulo')}</h1>
+        <p className="muted">{t('recordatorio.ayuda')}</p>
+        <div className="radio-list" role="radiogroup" aria-label={t('recordatorio.titulo')}>
+          {order.map((d) => (
+            <button key={d} type="button" role="radio" aria-checked={day === d} className={`reason wide ${day === d ? 'on' : ''}`} onClick={() => setDay(d)}>
+              <Icon name={day === d ? 'circle-check' : 'calendar-days'} size={20} /><span className="row-text"><strong>{dayName(d).charAt(0).toUpperCase() + dayName(d).slice(1)}</strong></span>
+            </button>
+          ))}
+          <button type="button" role="radio" aria-checked={day === null} className={`reason wide ${day === null ? 'on' : ''}`} onClick={() => setDay(null)}>
+            <Icon name={day === null ? 'circle-check' : 'bell'} size={20} /><span className="row-text"><strong>{t('recordatorio.ninguno')}</strong></span>
+          </button>
+        </div>
+      </div>
+      <ActionFooter><Button block onClick={save}>{t('comun.guardar')}</Button></ActionFooter>
     </div>
   );
 }

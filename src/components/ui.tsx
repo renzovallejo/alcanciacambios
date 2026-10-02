@@ -1,6 +1,7 @@
 import { useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Link, useNavigate, type LinkProps } from 'react-router-dom';
 import { isConnected } from '../lib/device';
+import { useStore } from '../lib/store';
 import { t } from '../i18n';
 import mascota1 from '../assets/mascota/mascota-1x.png';
 import mascota2 from '../assets/mascota/mascota-2x.png';
@@ -87,6 +88,11 @@ export function ChildContext({ name, status }: { name: string; status?: ReactNod
 /** Estado de conexión del chanchito: icono + texto, enlaza a sus ajustes. */
 export function ConnectionStatus() {
   const on = isConnected();
+  const { state } = useStore();
+  // Si nunca se conectó, no se dice «Sin conexión» (asusta): se invita a conectarlo.
+  if (!on && !state.devicePaired) {
+    return <Link to="/chanchito" className="conn invite"><Icon name="wifi" size={16} />{t('conexion.conectar')}</Link>;
+  }
   return (
     <Link to="/chanchito" className={`conn ${on ? '' : 'off'}`} aria-label={t('conexion.etiqueta', { estado: t(on ? 'conexion.estadoConectado' : 'conexion.estadoSinConexion') })}>
       <Icon name="wifi" size={16} />{t(on ? 'conexion.conectado' : 'conexion.sinConexion')}
@@ -137,4 +143,39 @@ const lastShown = new Map<string, number>();
 export function useToggle(initial = false): [boolean, () => void] {
   const [v, setV] = useState(initial);
   return [v, () => setV((x) => !x)];
+}
+
+/** Aviso de honestidad: completo la primera vez; luego una línea corta que se puede abrir. */
+export function HonestyNote({ long = false }: { long?: boolean }) {
+  const { state } = useStore();
+  const [open, toggle] = useToggle(false);
+  if (long && !state.seenHonesty) return <p className="note"><Icon name="info" size={18} /> {t('comun.soloCuentaLargo')}</p>;
+  return (
+    <p className="note short">
+      <Icon name="info" size={16} />
+      <span>
+        {open ? t('comun.soloCuentaLargo') : t('comun.soloCuentaCorto')}
+        {!open && <button type="button" className="link-btn" onClick={toggle}>{t('comun.saberMas')}</button>}
+      </span>
+    </p>
+  );
+}
+
+/** Lee un texto con la voz del celular (speechSynthesis). Si no hay, avisa. */
+export function useSpeech() {
+  const [speaking, setSpeaking] = useState(false);
+  const supported = typeof window !== 'undefined' && 'speechSynthesis' in window;
+  useEffect(() => () => { if (supported) window.speechSynthesis.cancel(); }, [supported]);
+  const speak = (text: string) => {
+    if (!supported) return false;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'es-PE'; u.rate = 0.95;
+    u.onend = () => setSpeaking(false); u.onerror = () => setSpeaking(false);
+    setSpeaking(true);
+    window.speechSynthesis.speak(u);
+    return true;
+  };
+  const stop = () => { if (supported) window.speechSynthesis.cancel(); setSpeaking(false); };
+  return { supported, speaking, speak, stop };
 }

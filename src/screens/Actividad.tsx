@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BackBar, Button, Icon, IconTile, LinkButton, Mascota } from '../components/ui';
 import { ActionFooter } from './Saldo';
-import { ACTIVITIES, TOPIC_ICON, TOPIC_LABEL, TOPIC_ORDER, stepPath } from '../lib/content';
+import { ACTIVITIES, TOPIC_ICON, TOPIC_LABEL, TOPIC_ORDER, nextActivity, stepMinutes, stepPath } from '../lib/content';
 import { useStore } from '../lib/store';
 import { friendlyDate } from '../lib/dates';
 import type { Topic } from '../domain';
@@ -18,6 +18,8 @@ export function Actividad() {
   const act = ACTIVITIES[topic];
   const started = state.startedTopics.includes(topic);
   const cur = Math.min(state.activityStep[topic] ?? 0, act.steps.length - 1);
+  const finished = state.finishedTopics.includes(topic) && state.activeTopic !== topic;
+  const next = nextActivity(state.finishedTopics, topic);
 
   const ultimo = t('actividad.ultimoPaso').split('{enlace}');
   const start = () => { dispatch({ type: 'startActivity', topic }); nav(stepPath(act.steps[0], topic, 1)); };
@@ -27,7 +29,7 @@ export function Actividad() {
       <div className="task-scroll">
         <BackBar title={t('actividad.titulo')} />
         <section className="card card-violet feature">
-          <div className="eyebrow violet">{t(started ? 'actividad.enCurso' : 'actividad.paraEmpezar', { tema: TOPIC_LABEL[topic].toUpperCase() })}</div>
+          <div className="eyebrow violet">{t(finished ? 'actividad.terminadaCeja' : started ? 'actividad.enCurso' : 'actividad.paraEmpezar', { tema: TOPIC_LABEL[topic].toUpperCase() })}</div>
           <div className="feature-top"><h1 className="feature-title">{act.title}</h1><Mascota size={64} /></div>
           <p className="body">{act.blurb}</p>
         </section>
@@ -38,7 +40,8 @@ export function Actividad() {
             <li key={s.id}>
               <Link to={stepPath(s, topic, i + 1)} className="row">
                 <span className={`step-num ${started && i === cur ? 'on' : ''} ${started && i < cur ? 'past' : ''}`}>{started && i < cur ? <Icon name="check" size={14} /> : i + 1}</span>
-                <span className="row-text"><strong>{s.title}</strong>{started && i === cur && <span className="muted small">{t('actividad.tocaAhora')}</span>}</span>
+                <span className="row-text"><strong>{s.title}</strong>{started && !finished && i === cur && <span className="muted small">{t('actividad.tocaAhora')}</span>}</span>
+                <span className="step-min">{t('actividad.minutos', { minutos: stepMinutes(s) })}</span>
                 <Icon name="chevron-right" size={18} className="muted" />
               </Link>
             </li>
@@ -47,8 +50,19 @@ export function Actividad() {
         {started && cur < act.steps.length - 1 && (
           <Button variant="secondary" block onClick={() => dispatch({ type: 'advanceStep', topic, total: act.steps.length })}>{t('actividad.yaHicimos')}</Button>
         )}
-        {started && cur === act.steps.length - 1 && (
-          <p className="alert-box ok">{ultimo[0]}<Link to="/progreso" className="inline-link">{t('actividad.verOtroTema')}</Link>{ultimo[1]}</p>
+        {started && !finished && cur === act.steps.length - 1 && (
+          <>
+            <p className="alert-box ok">{ultimo[0]}<Link to="/progreso" className="inline-link">{t('actividad.verOtroTema')}</Link>{ultimo[1]}</p>
+            <Button variant="secondary" block onClick={() => dispatch({ type: 'finishActivity', topic })}><Icon name="check" size={18} />{t('actividad.terminar')}</Button>
+          </>
+        )}
+        {finished && (
+          // Cierre: se celebra sin puntaje y se propone la siguiente.
+          <section className="card card-mint appear" role="status">
+            <h2 className="moment-title"><Icon name="party-popper" size={20} /> {t('actividad.terminada', { actividad: act.title })}</h2>
+            <p className="muted">{next ? t('actividad.terminadaTexto') : t('actividad.terminadaTodas')}</p>
+            {next && <LinkButton to={`/actividad/${next.topic}`} variant="secondary" block>{t('actividad.verSiguiente', { actividad: next.title })}</LinkButton>}
+          </section>
         )}
         {!started && <p className="note"><Icon name="info" size={18} />{t('actividad.noLaEmpieza')}</p>}
       </div>

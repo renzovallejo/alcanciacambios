@@ -21,7 +21,8 @@ describe('catálogo de textos (es.json)', () => {
 
   it('las pantallas no tienen textos escritos a mano', () => {
     const found: string[] = [];
-    for (const { f, s } of sources.filter(({ f }) => f.endsWith('.tsx'))) {
+    // Solo pantallas y componentes: lib/ no tiene textos de interfaz (store.tsx es .tsx solo por el Provider).
+    for (const { f, s } of sources.filter(({ f }) => f.endsWith('.tsx') && !f.includes('/lib/'))) {
       // Texto JSX entre etiquetas con letras (excluye símbolos sueltos como «S/», «+», «·»).
       for (const m of s.matchAll(/>([^<>{}\n]*[A-Za-zÁÉÍÓÚáéíóúñ¿¡]{2,}[^<>{}\n]*)</g)) {
         if (/[=;]|\bPromise\b|\bDate\./.test(m[1])) continue; // código TypeScript, no texto
