@@ -76,7 +76,7 @@ export function ScreenHeader({ title, action = true }: { title: string; action?:
 export function ChildContext({ name, status }: { name: string; status?: ReactNode }) {
   return (
     <div className="context">
-      <span className="context-name">{name}<Icon name="chevron-down" size={16} /></span>
+      <Link to="/perfiles" className="context-name" aria-label={`Persona seleccionada: ${name}. Cambiar`}>{name}<Icon name="chevron-down" size={16} /></Link>
       {status}
     </div>
   );

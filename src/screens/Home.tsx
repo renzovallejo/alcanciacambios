@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChildContext, ConnectionStatus, Icon, IconTile, LinkButton, Mascota, ScreenHeader } from '../components/ui';
-import { useStore } from '../lib/store';
+import { useStore, type Movement } from '../lib/store';
+import { friendlyDate } from '../lib/dates';
 import { formatMoney, percent } from '../lib/money';
 
 export default function Home() {
@@ -28,7 +29,7 @@ export default function Home() {
       ) : (
         <div className="btn-pair">
           <LinkButton to="/saldo/importe">Agregar saldo</LinkButton>
-          <LinkButton to="/saldo/importe" variant="secondary">Registrar salida</LinkButton>
+          <LinkButton to="/salida/importe" variant="secondary">Registrar salida</LinkButton>
         </div>
       )}
 
@@ -90,16 +91,19 @@ export default function Home() {
   );
 }
 
-export function MovementRow({ m }: { m: { label: string; author: string; whenLabel: string; amountMinor: number; reason?: string } }) {
-  const sign = m.amountMinor >= 0 ? '+' : '−';
+export function MovementRow({ m }: { m: Movement }) {
+  const out = m.kind === 'out';
+  const when = friendlyDate(m.at);
   return (
-    <li className="row static">
-      <IconTile icon="arrow-up" tone="verde" />
-      <span className="row-text">
-        <strong>{m.label}</strong>
-        <span className="muted small">{m.author} · {m.whenLabel}{m.reason ? ` · ${m.reason}` : ''}</span>
-      </span>
-      <strong className="money-in">{sign}{formatMoney(Math.abs(m.amountMinor))}</strong>
+    <li>
+      <Link to={`/movimiento/${m.id}`} className="row">
+        <span className={out ? "out-ic" : ""}><IconTile icon="arrow-up" tone={out ? "naranja" : "verde"} /></span>
+        <span className="row-text">
+          <strong>{m.label}</strong>
+          <span className="muted small">{m.author}{when ? ` · ${when}` : ''}{m.reason ? ` · ${m.reason}` : ''}</span>
+        </span>
+        <strong className="money-in">{out ? '−' : '+'}{formatMoney(Math.abs(m.amountMinor))}</strong>
+      </Link>
     </li>
   );
 }

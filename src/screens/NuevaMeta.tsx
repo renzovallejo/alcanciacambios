@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BackBar, Button } from '../components/ui';
-import { useStore } from '../lib/store';
+import { ActionFooter } from './Saldo';
+import { newId, useStore } from '../lib/store';
 import { parseAmount } from '../lib/money';
 
 export default function NuevaMeta() {
@@ -11,19 +12,19 @@ export default function NuevaMeta() {
   const [target, setTarget] = useState('');
   const [touched, setTouched] = useState(false);
   const parsed = parseAmount(target);
-  const valid = name.trim().length > 0 && parsed.ok;
+  const first = state.goals.length === 0;
 
   const save = () => {
     setTouched(true);
-    if (!valid || !parsed.ok) return;
-    dispatch({ type: 'addGoal', goal: { id: `g${Date.now()}`, name: name.trim(), icon: 'target', savedMinor: 0, targetMinor: parsed.money.minorUnits } });
-    nav('/', { replace: true });
+    if (!name.trim() || !parsed.ok) return;
+    dispatch({ type: 'addGoal', goal: { id: newId('g'), name: name.trim(), icon: 'target', savedMinor: 0, targetMinor: parsed.money.minorUnits } });
+    nav(first ? '/' : '/metas', { replace: true });
   };
 
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar icon="x" title="Primera meta" to="/" />
+        <BackBar icon="x" title={first ? 'Primera meta' : 'Nueva meta'} />
         <h1 className="title">¿Para qué quiere ahorrar {state.childName}?</h1>
         <p className="muted">Un juguete, un libro o algo que le haga ilusión.</p>
         <label htmlFor="meta-nombre" className="field-label">Nombre de la meta</label>
@@ -33,7 +34,7 @@ export default function NuevaMeta() {
         <input id="meta-monto" className="text-field" inputMode="decimal" value={target} onChange={(e) => setTarget(e.target.value)} />
         {touched && !parsed.ok && <p className="small error" role="alert">{parsed.error}</p>}
       </div>
-      <footer className="action-footer"><Button block onClick={save}>Crear meta</Button></footer>
+      <ActionFooter><Button block onClick={save}>Crear meta</Button></ActionFooter>
     </div>
   );
 }

@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
 import Layout, { TaskLayout } from './components/Layout';
 import Home from './screens/Home';
-import { AllGoals, AllMovements } from './screens/Lists';
+import { AllGoals, AllMovements, MovementDetail } from './screens/Lists';
 import { Aprender, Biblioteca } from './screens/Learn';
-import Progreso from './screens/Progreso';
+import Progreso, { Avances, Celebrar, MomentoDetalle, NuevoMomento } from './screens/Momentos';
 import { SaldoImporte, SaldoListo, SaldoMotivo, SaldoRevisar } from './screens/Saldo';
 import NuevaMeta from './screens/NuevaMeta';
-import Chanchito from './screens/Chanchito';
-import Cuento from './screens/Cuento';
+import Chanchito, { Bateria, CerrarSesion, Emparejar, Perfil, Perfiles, SesionCerrada, Sonido, Wifi } from './screens/Chanchito';
+import { Cuento, Guia, Juego, Mision } from './screens/Content';
+import { Actividad, Tema } from './screens/Actividad';
 
 export default function App() {
   return (
@@ -17,17 +18,38 @@ export default function App() {
         <Route path="aprender" element={<Aprender />} />
         <Route path="biblioteca" element={<Biblioteca />} />
         <Route path="progreso" element={<Progreso />} />
+        <Route path="avances" element={<Avances />} />
+        <Route path="tema/:topic" element={<Tema />} />
         <Route path="metas" element={<AllGoals />} />
         <Route path="movimientos" element={<AllMovements />} />
+        <Route path="movimiento/:id" element={<MovementDetail />} />
+        <Route path="perfiles" element={<Perfiles />} />
       </Route>
       <Route element={<TaskLayout />}>
-        <Route path="saldo/importe" element={<SaldoImporte />} />
-        <Route path="saldo/motivo" element={<SaldoMotivo />} />
-        <Route path="saldo/revisar" element={<SaldoRevisar />} />
-        <Route path="saldo/listo" element={<SaldoListo />} />
+        {(['saldo', 'salida'] as const).map((b) => [
+          <Route key={`${b}1`} path={`${b}/importe`} element={<SaldoImporte />} />,
+          <Route key={`${b}2`} path={`${b}/motivo`} element={<SaldoMotivo />} />,
+          <Route key={`${b}3`} path={`${b}/revisar`} element={<SaldoRevisar />} />,
+          <Route key={`${b}4`} path={`${b}/listo`} element={<SaldoListo />} />,
+        ])}
         <Route path="meta/nueva" element={<NuevaMeta />} />
         <Route path="chanchito" element={<Chanchito />} />
+        <Route path="chanchito/bateria" element={<Bateria />} />
+        <Route path="chanchito/wifi" element={<Wifi />} />
+        <Route path="chanchito/sonido" element={<Sonido />} />
+        <Route path="chanchito/emparejar" element={<Emparejar />} />
+        <Route path="chanchito/perfil" element={<Perfil />} />
+        <Route path="sesion/cerrar" element={<CerrarSesion />} />
+        <Route path="sesion/cerrada" element={<SesionCerrada />} />
         <Route path="cuento" element={<Cuento />} />
+        <Route path="cuento/:id" element={<Cuento />} />
+        <Route path="guia/:id" element={<Guia />} />
+        <Route path="mision/:id" element={<Mision />} />
+        <Route path="juego/:id" element={<Juego />} />
+        <Route path="actividad/:topic" element={<Actividad />} />
+        <Route path="momento/nuevo" element={<NuevoMomento />} />
+        <Route path="momento/:id" element={<MomentoDetalle />} />
+        <Route path="celebrar" element={<Celebrar />} />
         <Route path="*" element={<Home />} />
       </Route>
     </Routes>
