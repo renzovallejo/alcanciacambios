@@ -109,14 +109,14 @@ export const weekState = (): AppState => ({
     { id: 'g2', name: 'Pelota de fútbol', icon: 'target', savedMinor: 1000, targetMinor: 2000 },
   ],
   movements: [
-    { id: 'w8', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(0, 18), amountMinor: 1000, reason: 'Su propina de la semana', reasonId: 'mesada', senderId: 'mama', goalId: 'g2', goalName: 'Pelota de fútbol' },
+    { id: 'w8', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(0, 18), amountMinor: 1000, reason: 'Propina de la semana', reasonId: 'mesada', senderId: 'mama', goalId: 'g2', goalName: 'Pelota de fútbol' },
     { id: 'w7', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(1, 19), amountMinor: 100, reason: 'Se portó bien', reasonId: 'buen-comportamiento', senderId: 'abuela' },
     { id: 'w6', kind: 'in', label: 'Guardó plata', author: 'Papá', at: dayAt(2, 17), amountMinor: 200, reason: 'Ayudó en casa', reasonId: 'ayuda-en-casa', senderId: 'papa', goalId: 'g1', goalName: 'Libro de dinosaurios' },
     { id: 'w5', kind: 'out', label: 'Sacó plata', author: 'Mamá', at: dayAt(3, 16), amountMinor: -200, reason: 'Hizo un regalo', reasonId: 'regalo' },
     { id: 'w4', kind: 'out', label: 'Sacó plata', author: 'Mamá', at: dayAt(4, 18), amountMinor: -300, reason: 'Se compró algo', reasonId: 'compra' },
     { id: 'w3', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(5, 13), amountMinor: 500, reason: 'Le dieron propina', reasonId: 'propina', senderId: 'tio', senderName: 'Tío Jorge' },
     { id: 'w2', kind: 'in', label: 'Guardó plata', author: 'Papá', at: dayAt(6, 18), amountMinor: 200, reason: 'Ayudó en casa', reasonId: 'ayuda-en-casa', senderId: 'papa' },
-    { id: 'w1', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(7, 10), amountMinor: 1000, reason: 'Su propina de la semana', reasonId: 'mesada', senderId: 'mama', goalId: 'g1', goalName: 'Libro de dinosaurios' },
+    { id: 'w1', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(7, 10), amountMinor: 1000, reason: 'Propina de la semana', reasonId: 'mesada', senderId: 'mama', goalId: 'g1', goalName: 'Libro de dinosaurios' },
   ],
   draft: emptyDraft(),
   observations: [

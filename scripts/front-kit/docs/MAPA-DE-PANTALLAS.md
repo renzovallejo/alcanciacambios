@@ -38,6 +38,6 @@ Para cada pantalla de la app: dónde verla en el prototipo, su captura en el paq
 | Progreso / Tema | `/progreso`, `/tema/:tema` | 31, 32, 03 | Armar | `Tarjeta(Menta)` con `Mascota` + grilla 2×2 de temas (`OpcionTarjeta` sin selección) |
 | Lo que pasó · Contar algo que pasó · Felicitar | `/momento/*`, `/celebrar` | 33–36 | Armar | `Tarjeta(Menta)` · `CampoTexto` · `OpcionFila(conRadio = false)` para las frases |
 | El chanchito y sus ajustes | `/chanchito/*` | 05, 37–44, 52 | Armar | `Tarjeta(Crema/Menta)` con `Mascota` + `Boton` · filas · `EstadoConexion` |
-| Quién acompaña · Recordatorio | `/chanchito/acompana`, `/chanchito/recordatorio` | 43, 44 | Armar | `CampoTexto` + `GrillaOpciones(QUIEN_ENVIA sin «otro»)` · `OpcionFila` × 7 días |
+| Recordatorio | `/chanchito/recordatorio` | 44 | Armar | `OpcionFila` × 7 días + «Sin recordatorio» |
 
 Los textos de cada pantalla están en `es.json` bajo la sección del mismo nombre (`meta.*`, `movimientos.*`, `chanchito.*`…); la tabla completa clave → texto está en `05-textos/claves.md` del paquete de especificación.

@@ -43,7 +43,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 - Al guardar: si vino de una actividad (`?volver=`), vuelve a la actividad; si era la primera, a Alcancía; si no, a Sus metas.
 
 ### Lo que entró y salió / Detalle · `/movimientos`, `/movimiento/:id` · `Lists.tsx` · 16, 17, 18 · `movimientos.*`
-- Agrupado por mes («octubre», con «Entró S/ X · Salió S/ Y»), más reciente primero. Fila: icono ↑ verde (entró) o ↓ crema (salió), «Guardó plata / Sacó plata», «Abuela · hoy · Por su cumple» (en entradas, **quién envió**; en salidas, quién anotó), monto con signo **+ / −**.
+- Agrupado por mes («octubre», con «Entró S/ X · Salió S/ Y»), más reciente primero. Fila: icono ↑ verde (entró) o ↓ crema (salió), **título = motivo** («Propina de la semana»), debajo solo **quién envió · cuándo** («Abuela · ayer»; en salidas, solo cuándo), monto con signo **+ / −**.
 - Detalle: «Entró/Salió» + monto, **Le envió** (entradas), Por qué, Meta, Cuándo, Lo hizo → «Corregir» y «Borrar» (confirma; si dejaría plata en negativo, avisa y no borra; aviso con «Deshacer»).
 
 ## Flujo de plata (agregar y sacar)
@@ -69,7 +69,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 ### Último paso · ¡Listo! · `/saldo/listo`, `/salida/listo` · 56, 57
 - Check grande con rebote, «¡Listo, ya se guardó!», «Ahora Sofía lleva ahorrado S/ X.» y, si se completó una meta, «¡Ya juntaron todo para «Meta»!».
 - Agregar: «¿Y si Sofía mete la moneda? Que toque el chanchito.» → al tocar, la moneda cae y el chanchito salta («¡Clin! Adentro.»). Opcional.
-- Si el motivo fue «Su propina de la semana» y no hay recordatorio: «¿Te recordamos los {día} guardar su propina?» · «Sí, recuérdame» / «Ahora no».
+- Si el motivo fue «Propina de la semana» y no hay recordatorio: «¿Te recordamos los {día} guardar su propina?» · «Sí, recuérdame» / «Ahora no».
 - Pie: «Volver a Alcancía». **No** se puede volver atrás (reemplazar la pila).
 
 ### Corregir · `/movimiento/:id/editar` · `Lists.tsx` · 19
@@ -137,15 +137,12 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 
 ## Nuevas en la revisión por tipos de usuario
 
-### Quién acompaña · `/chanchito/acompana` · `Chanchito.tsx` · 43 · `acompana.*`
-- «¿Quién acompaña a {nombre}?», campo «Tu nombre», relación (Mamá, Papá, Abuela, Abuelo, Tío o tía). Se usa para firmar, para «¿Quién lo vio?» y para «Administra la cuenta».
-
 ### Recordatorio de propina · `/chanchito/recordatorio` · 44 · `recordatorio.*`
 - «¿Qué día le dan su propina?»: lunes a domingo + «Sin recordatorio». En la fila de ajustes: «Los viernes» o «Sin recordatorio».
 
 ### Editar momento · `/momento/:id/editar` · `Momentos.tsx`
 - Mismo formulario que Anotar, con «Guardar cambios». En el detalle del momento: «Editar» y «Borrar» (borra también sus mensajitos; aviso con «Deshacer»).
-- En Anotar, «¿Quién lo vio?» viene con el nombre de quien acompaña.
+- En Contar, «¿Quién lo vio?» viene con el nombre de quien usa el celular.
 
 ### Cuento · versión de 1 minuto y voz · 51
 - Debajo del texto: «Cuento completo» / «Versión de 1 minuto» (cambia el texto) y «Leer en voz alta» (TTS del sistema) con «Con la voz de este celular.». Mientras habla, el botón dice «Detener».

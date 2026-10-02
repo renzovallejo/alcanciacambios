@@ -11,7 +11,7 @@ Todos los textos pasan a **español peruano familiar** («plata», «propina», 
 - Copia `05-textos/android/res/values/strings.xml` y `05-textos/ios/es.lproj/` completos.
 - Cambios más visibles: `03-diseno/sistema-de-diseno/CAMBIOS.md` (tabla antes / después).
 - Reglas para textos nuevos: `03-diseno/sistema-de-diseno/documentacion/lenguaje.md`.
-- **Motivos de plata**: los ids no cambian; cambia lo que se muestra. `mesada` → «Su propina de la semana», `propina` → «Le dieron propina», `cumpleanos` → «Por su cumple», `buen-comportamiento` → «Se portó bien», `otro` → «Otra cosa».
+- **Motivos de plata**: los ids no cambian; cambia lo que se muestra. `mesada` → «Propina de la semana», `propina` → «Le dieron propina», `cumpleanos` → «Por su cumple», `buen-comportamiento` → «Se portó bien», `otro` → «Otra cosa».
 
 ## 2. Pantallas
 
@@ -72,8 +72,8 @@ Salió de revisar los flujos con familias muy digitales y poco digitales, con y 
 | 5 | **Metas logradas.** Quedan como logradas aunque se use la plata; «Usar esta plata» abre Sacar plata con meta y monto puestos. En «Sus metas» van aparte. | Detalle de meta, Sus metas | 10–12 |
 | 6 | **Primer día limpio.** Solo lo necesario: saldo, «Guardar su primera plata» y la primera meta. Si el chanchito nunca se conectó, se invita a «Conectar chanchito» en vez de mostrar «Sin conexión», y no se muestran datos del dispositivo. | Alcancía, Chanchito | 01, 05 |
 | 7 | **Menos texto.** −39 % de palabras en el primer día y −23 % con una semana de uso: sin subtítulos repetidos, ayudas al pie, frases tranquilizadoras ni resúmenes; sin el aviso «no mueve plata de verdad». Detalle en `pantallas.md` → «Menos texto». | Todas | 01, 53, 55 |
-| 8 | **Quién acompaña** (nombre y relación). Firma lo que se anota y llena «¿Quién lo vio?». Si no está, se toma del primer momento anotado. | Ajustes del chanchito | 43 |
-| 9 | **Recordatorio de propina.** Se ofrece tras anotar «Su propina de la semana»; ese día Alcancía muestra un aviso. En el prototipo es un aviso dentro de la app; en nativo, **notificación local** (ver plataformas). | Listo, Alcancía, Ajustes | 09, 44 |
+| 8 | **«¿Quién lo vio?» prellenado** con quien usa el celular (se toma del primer momento contado). Sin pantalla «Quién acompaña» en Ajustes. | Contar algo que pasó | 35 |
+| 9 | **Recordatorio de propina.** Se ofrece tras anotar «Propina de la semana»; ese día Alcancía muestra un aviso. En el prototipo es un aviso dentro de la app; en nativo, **notificación local** (ver plataformas). | Listo, Alcancía, Ajustes | 09, 44 |
 | 10 | **Ideas de 1 minuto** (una por día) con «Ya lo hicimos», que suma una conversación. | Alcancía, Aprender | 13, 21 |
 | 11 | **Duración** de cada paso, **versión de 1 minuto** de cada cuento y **«Leer en voz alta» con la voz del celular** (TTS del sistema). | Actividad, Cuento | 29, 51 |
 | 12 | **Más contenido**: 2 cuentos (compartir, ganar), 1 misión (ganar), 1 juego (ahorrar). La Biblioteca lista todo. | Biblioteca | 22–24 |

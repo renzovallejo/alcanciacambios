@@ -4,7 +4,7 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 
 ## A. Agregar plata
 
-- **A1.** Dado *ejemplo*, cuando toco «Agregar plata», dejo S/ 10, «Su propina de la semana» y «Libro ilustrado» (ya vienen marcados), elijo «Mamá» en «¿Quién le envía?» y toco «Sí, guardar», entonces veo «¡Listo, ya se guardó!», el saldo pasa a S/ 25.00 y la meta muestra «S/ 16.00 de S/ 30.00».
+- **A1.** Dado *ejemplo*, cuando toco «Agregar plata», dejo S/ 10, «Propina de la semana» y «Libro ilustrado» (ya vienen marcados), elijo «Mamá» en «¿Quién le envía?» y toco «Sí, guardar», entonces veo «¡Listo, ya se guardó!», el saldo pasa a S/ 25.00 y la meta muestra «S/ 16.00 de S/ 30.00».
 - **A2.** Dado el paso 1, cuando escribo «abc», entonces veo «Escribe un monto como 10 o 10.50.» junto al campo y «Continuar» está deshabilitado.
 - **A3.** Dado el paso 1, cuando toco «S/ 20», entonces el campo muestra 20.00, el botón tiene ✓ y «Así quedaría» muestra saldo + 20.
 - **A4.** Dado el paso 2 con «Otra cosa» elegida y sin texto, entonces «Continuar» está deshabilitado.
@@ -71,8 +71,8 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 - **H9.** Dado que borro una meta, entonces lo que lleva ahorrado no cambia.
 - **H10.** Dado un momento, cuando lo edito o lo borro, entonces el cambio se ve en Progreso (y al borrar, «Deshacer» lo recupera).
 - **H11.** Dado una cuenta nueva, entonces Alcancía muestra «Conectar chanchito» (nunca «Sin conexión»), sin sección de movimientos vacía, y Batería/WiFi/Volumen no muestran datos inventados.
-- **H12.** Dado «Quién acompaña» = Mamá, cuando abro «Contar algo que pasó», entonces «¿Quién lo vio?» dice «Mamá».
-- **H13.** Dado que anoto «Su propina de la semana» sin recordatorio, entonces el paso final ofrece «¿Te recordamos los {día}…?»; si acepto, ese día (sin propina anotada) Alcancía muestra el aviso y llega una notificación local.
+- **H12.** Dado que Mamá ya contó algo antes, cuando abro «Contar algo que pasó», entonces «¿Quién lo vio?» dice «Mamá». En Ajustes del chanchito no hay fila «Quién acompaña».
+- **H13.** Dado que anoto «Propina de la semana» sin recordatorio, entonces el paso final ofrece «¿Te recordamos los {día}…?»; si acepto, ese día (sin propina anotada) Alcancía muestra el aviso y llega una notificación local.
 - **H14.** Dado un cuento, cuando toco «Versión de 1 minuto», entonces cambia el texto; «Leer en voz alta» lo lee con la voz del celular o avisa si no se puede.
 - **H15.** Dado una actividad, entonces cada paso muestra su duración («5 min»).
 - **H16.** Dado el último paso, cuando toco «Ya terminamos», entonces veo «¡Terminaron «…»!» y la siguiente sugerida; Aprender ya no la muestra «EN CURSO».

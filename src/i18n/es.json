@@ -176,7 +176,7 @@
     "recordarListo": "Listo. Los {dia} te lo recordamos en Alcancía."
   },
   "motivos": {
-    "mesada": "Su propina de la semana",
+    "mesada": "Propina de la semana",
     "ayuda-en-casa": "Ayudó en casa",
     "cumpleanos": "Por su cumple",
     "propina": "Le dieron propina",
@@ -437,6 +437,10 @@
     "estasAqui": "Estás aquí",
     "editar": "Editar perfil"
   },
+  "demo": {
+    "volverACero": "Volver a cero",
+    "volverACeroConfirmar": "Se borra todo lo que hiciste en esta demo y vuelves al primer día. ¿Seguro?"
+  },
   "sesion": {
     "cerrarTitulo": "¿Cerrar sesión?",
     "cerrarTexto": "Puedes volver a entrar cuando quieras. Lo que guardaste en este celular no se borra.",
@@ -465,15 +469,6 @@
     "ceja": "IDEA DE 1 MINUTO",
     "hecho": "Ya lo hicimos",
     "anotado": "¡Listo! Gracias por darte el minuto."
-  },
-  "acompana": {
-    "fila": "Quién acompaña",
-    "filaVacia": "Dinos quién eres",
-    "titulo": "¿Quién acompaña a {nombre}?",
-    "nombre": "Tu nombre",
-    "nombreEjemplo": "Por ejemplo: Mamá, Carmen",
-    "relacion": "¿Qué eres de {nombre}?",
-    "guardado": "Guardado"
   },
   "recordatorio": {
     "fila": "Recordatorio de propina",

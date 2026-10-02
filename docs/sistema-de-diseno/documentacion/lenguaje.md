@@ -112,7 +112,7 @@ Dan cariño y son muy peruanos, pero sin exagerar. Máximo uno por frase.
 
 | Id (contrato) | Texto |
 |---|---|
-| `mesada` | Su propina de la semana |
+| `mesada` | Propina de la semana |
 | `ayuda-en-casa` | Ayudó en casa |
 | `cumpleanos` | Por su cumple |
 | `propina` | Le dieron propina |

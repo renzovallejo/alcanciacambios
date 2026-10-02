@@ -58,7 +58,6 @@ export default function Chanchito() {
         <h2 className="section-title">{t('chanchito.familia')}</h2>
         <ul className="plain list">
           <Row to="perfil" icon="user-round" title={t('chanchito.perfil', { nombre: state.childName })} />
-          <Row to="acompana" icon="users-round" title={t('acompana.fila')} desc={state.caregiver ? state.caregiver.name : t('acompana.filaVacia')} />
           <Row to="recordatorio" icon="bell" title={t('recordatorio.fila')} desc={state.propinaDay === null ? t('recordatorio.filaNo') : t('recordatorio.filaDia', { dia: dayName(state.propinaDay) })} />
         </ul>
 
@@ -248,40 +247,6 @@ export function SesionCerrada() {
         </div>
       </div>
       <ActionFooter><LinkButton to="/" block>{t('sesion.entrar')}</LinkButton></ActionFooter>
-    </div>
-  );
-}
-
-/** Quién acompaña: firma lo que se anota y se marca como «Administra la cuenta» en «¿Quién le envía?». */
-export function Acompana() {
-  const { state, dispatch } = useStore();
-  const nav = useNavigate();
-  const toast = useToast();
-  const [name, setName] = useState(state.caregiver?.name ?? '');
-  const [relation, setRelation] = useState<string | undefined>(state.caregiver?.relation);
-  const save = () => {
-    if (!name.trim()) return;
-    dispatch({ type: 'setCaregiver', caregiver: { name: name.trim(), relation } });
-    toast({ message: t('acompana.guardado') });
-    nav(-1);
-  };
-  return (
-    <div className="task">
-      <div className="task-scroll">
-        <BackBar title={t('acompana.fila')} />
-        <h1 className="title">{t('acompana.titulo', { nombre: state.childName })}</h1>
-        <label htmlFor="acomp-nombre" className="field-label">{t('acompana.nombre')}</label>
-        <input id="acomp-nombre" className="text-field" maxLength={30} placeholder={t('acompana.nombreEjemplo')} value={name} onChange={(e) => setName(e.target.value)} />
-        <h2 className="section-title" id="acomp-rel">{t('acompana.relacion', { nombre: state.childName })}</h2>
-        <div className="reasons" role="radiogroup" aria-labelledby="acomp-rel">
-          {SENDERS.filter((p) => p.id !== 'otro').map((p) => (
-            <button key={p.id} type="button" role="radio" aria-checked={relation === p.id} className={`reason ${relation === p.id ? 'on' : ''}`} onClick={() => setRelation(p.id)}>
-              <Icon name={relation === p.id ? 'circle-check' : p.icon} size={20} />{t(`quien.${p.id}`)}
-            </button>
-          ))}
-        </div>
-      </div>
-      <ActionFooter><Button block disabled={!name.trim()} onClick={save}>{t('comun.guardar')}</Button></ActionFooter>
     </div>
   );
 }

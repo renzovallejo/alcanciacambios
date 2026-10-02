@@ -54,8 +54,6 @@ val TEXTO_ARGS: Map<String, List<String>> = mapOf(
     "chanchito.titulo" to listOf("nombre"),
     "chanchito.bateriaDato" to listOf("porcentaje", "cuando"),
     "chanchito.perfil" to listOf("nombre"),
-    "acompana.titulo" to listOf("nombre"),
-    "acompana.relacion" to listOf("nombre"),
     "recordatorio.filaDia" to listOf("dia"),
 )
 

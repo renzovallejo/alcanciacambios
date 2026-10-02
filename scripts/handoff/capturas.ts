@@ -110,7 +110,7 @@ async function main() {
         ['/momento/nuevo', 'contar-algo-que-paso'], ['/celebrar?m=o1', 'felicitar'], ['/chanchito', 'chanchito-ajustes', 'Conectado (demo de una semana)'],
         ['/chanchito/bateria', 'chanchito-bateria'], ['/chanchito/wifi', 'chanchito-wifi'], ['/chanchito/sonido', 'chanchito-volumen'],
         ['/chanchito/emparejar', 'chanchito-conectar-celular'], ['/chanchito/perfil', 'perfil'],
-        ['/chanchito/acompana', 'quien-acompana'], ['/chanchito/recordatorio', 'recordatorio-propina'], ['/actividad/ahorrar', 'actividad-terminada', 'Cierre sin puntaje + siguiente'], ['/perfiles', 'selector-de-persona'],
+        ['/tema/compartir', 'tema-sin-empezar'], ['/chanchito/recordatorio', 'recordatorio-propina'], ['/actividad/ahorrar', 'actividad-terminada', 'Cierre sin puntaje + siguiente'], ['/perfiles', 'selector-de-persona'],
         ['/sesion/cerrar', 'cerrar-sesion'], ['/sesion/cerrada', 'sesion-cerrada'], ['/no-existe', 'pagina-no-encontrada'],
       ];
       for (const [r, nom, nota] of mas) { await ir(page, r); await foto(page, nom, 'semana', nota); }
@@ -141,7 +141,7 @@ async function main() {
       }],
       ['meta-lograda', weekState(), async (p) => {
         await ir(p, '/meta/g2'); await p.waitForTimeout(900); await tocar(p, 'Agregar plata a esta meta'); await p.fill('#monto', '10'); await p.waitForTimeout(500);
-        await tocar(p, 'Continuar'); await tocar(p, 'Su propina de la semana'); await tocar(p, 'Continuar'); await p.waitForTimeout(500);
+        await tocar(p, 'Continuar'); await tocar(p, 'Propina de la semana'); await tocar(p, 'Continuar'); await p.waitForTimeout(500);
         await tocar(p, 'Sí, '); await p.waitForTimeout(2000); await tocar(p, 'Volver a Alcancía'); await p.waitForTimeout(2500);
       }],
       ['navegacion-y-biblioteca', weekState(), async (p) => {

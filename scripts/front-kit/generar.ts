@@ -67,7 +67,7 @@ export function generar() {
     const metas = s.goals.map((g) => ({ id: g.id, nombre: g.name, icono: g.icon, guardado: g.savedMinor, objetivo: g.targetMinor, lograda: goalAchieved(g), usada: goalUsed(g) }));
     const movs = s.movements.map((m) => ({
       id: m.id, entrada: m.kind === 'in', centimos: Math.abs(m.amountMinor),
-      quien: m.kind === 'in' ? senderLabel(m.senderId, m.senderName) || m.author : m.author,
+      quien: m.kind === 'in' ? senderLabel(m.senderId, m.senderName) : '',
       cuando: friendlyDate(m.at) ?? '', motivo: movementReason(m) ?? '', meta: m.goalName ?? null, mes: monthKey(m.at), mesTitulo: monthLabel(m.at),
     }));
     const semana = s.movements.filter((m) => m.kind === 'in' && inLastWeek(m.at)).reduce((a, m) => a + m.amountMinor, 0);

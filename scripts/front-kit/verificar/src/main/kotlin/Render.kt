@@ -36,8 +36,8 @@ fun main(args: Array<String>) {
     png("04-alcancia-dia-de-propina", 900) { AlcanciaPantalla(semana.copy(diaPropina = "viernes")) }
     png("05-agregar-1-cuanto") { CuantoPantalla(Flujo.Entrada, "Sofía", semana.saldo, "10.00", {}, {}, {}) }
     png("06-agregar-2-de-donde", 1100) { MotivoPantalla(Flujo.Entrada, "Sofía", 1000, semana.saldo, "mesada", "", {}, {}, semana.metas, "g2", {}, {}, {}) }
-    png("07-agregar-3-quien-envia", 1250) { QuienPantalla(1000, semana.saldo, "Su propina de la semana", "Pelota de fútbol", "mama", "", {}, {}, {}, {}, relacionAdmin = "mama") }
-    png("08-agregar-3-otro-pariente", 1100) { QuienPantalla(1000, semana.saldo, "Su propina de la semana", null, "otro", "", {}, {}, {}, {}) }
+    png("07-agregar-3-quien-envia", 1250) { QuienPantalla(1000, semana.saldo, "Propina de la semana", "Pelota de fútbol", "mama", "", {}, {}, {}, {}, relacionAdmin = "mama") }
+    png("08-agregar-3-otro-pariente", 1100) { QuienPantalla(1000, semana.saldo, "Propina de la semana", null, "otro", "", {}, {}, {}, {}) }
     png("09-agregar-4-listo", 1100) { ListoPantalla(Flujo.Entrada, "Sofía", 3500, {}, metaLograda = "Pelota de fútbol", diaRecordatorio = "viernes") }
     png("10-sacar-1-cuanto") { CuantoPantalla(Flujo.Salida, "Sofía", semana.saldo, "5.00", {}, {}, {}) }
     png("11-sacar-2-en-que", 1150) { MotivoPantalla(Flujo.Salida, "Sofía", 500, semana.saldo, "compra", "", {}, {}, semana.metas, null, {}, {}, {}) }

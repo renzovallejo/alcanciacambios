@@ -53,7 +53,5 @@ let textoArgs: [String: [String]] = [
     "chanchito.titulo": ["nombre"],
     "chanchito.bateriaDato": ["porcentaje", "cuando"],
     "chanchito.perfil": ["nombre"],
-    "acompana.titulo": ["nombre"],
-    "acompana.relacion": ["nombre"],
     "recordatorio.filaDia": ["dia"],
 ]

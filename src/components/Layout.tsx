@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Icon } from './ui';
+import { firstDayState, seedIsEmpty, useStore } from '../lib/store';
 import { t } from '../i18n';
 
 const TABS = [
@@ -35,11 +36,32 @@ function useRouteChange() {
   return pathname;
 }
 
+/**
+ * Solo en la demo «primer día» (VITE_SEED=vacio): botón rojo arriba para volver a cero y ver la app desde el inicio.
+ * Es una herramienta del prototipo; no va en la app real.
+ */
+function DemoReset() {
+  const { dispatch } = useStore();
+  const nav = useNavigate();
+  if (!seedIsEmpty) return null;
+  const reset = () => {
+    if (!window.confirm(t('demo.volverACeroConfirmar'))) return;
+    dispatch({ type: 'reset', state: firstDayState() });
+    nav('/');
+  };
+  return (
+    <button type="button" className="demo-reset" onClick={reset}>
+      <Icon name="rotate-ccw" size={16} /> {t('demo.volverACero')}
+    </button>
+  );
+}
+
 export default function Layout() {
   const pathname = useRouteChange();
   const active = tabIndex(pathname);
   return (
     <div className="app">
+      <DemoReset />
       <main className="page page-enter" key={pathname}><Outlet /></main>
       <nav className="tabbar" aria-label={t('nav.etiqueta')} style={{ ['--i' as string]: active }}>
         {active >= 0 && <span className="tab-pill" aria-hidden="true" />}
@@ -58,5 +80,5 @@ export default function Layout() {
 /** Subpantallas de tarea: sin navegación global. */
 export function TaskLayout() {
   const pathname = useRouteChange();
-  return <div className="app task-enter" key={pathname}><Outlet /></div>;
+  return <div className="app task-enter" key={pathname}><DemoReset /><Outlet /></div>;
 }

@@ -165,16 +165,18 @@ export function GoalCard({ g }: { g: Goal }) {
 export function MovementRow({ m, isNew = false }: { m: Movement; isNew?: boolean }) {
   const out = m.kind === 'out';
   const when = friendlyDate(m.at);
-  // En entradas importa de quién vino la plata; en salidas, en qué se usó.
-  const who = out ? m.author : senderLabel(m.senderId, m.senderName) || m.author;
-  const reason = movementReason(m);
+  // Lo justo: el motivo como título y debajo quién envió (solo entradas) y cuándo.
+  // «Guardó/Sacó plata» lo dicen la flecha y el signo; quién lo hizo está en el detalle.
+  const who = out ? '' : senderLabel(m.senderId, m.senderName);
+  const reason = movementReason(m) || t(`movimientos.${m.kind}`);
   return (
     <li>
       <Link to={`/movimiento/${m.id}`} className={`row ${isNew ? 'is-new' : ''}`}>
         <span className={out ? "out-ic" : ""}><IconTile icon="arrow-up" tone={out ? "naranja" : "verde"} /></span>
         <span className="row-text">
-          <strong>{t(`movimientos.${m.kind}`)}</strong>
-          <span className="muted small">{who}{when ? ` · ${when}` : ''}{reason ? ` · ${reason}` : ''}</span>
+          <span className="sr-only">{t(`movimientos.${m.kind}`)}: </span>
+          <strong>{reason}</strong>
+          <span className="muted small">{[who, when].filter(Boolean).join(' · ')}</span>
         </span>
         <strong className="money-in">{out ? '−' : '+'}{formatMoney(Math.abs(m.amountMinor))}</strong>
       </Link>

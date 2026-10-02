@@ -35,6 +35,7 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -121,24 +122,27 @@ fun TarjetaMeta(meta: MetaUi, onClick: () -> Unit, modifier: Modifier = Modifier
 }
 
 /**
- * Fila de movimiento: «Guardó plata · Abuela · ayer · Se portó bien · +S/ 1.00».
+ * Fila de movimiento: título = motivo («Se portó bien»), debajo quién envió (solo entradas) y cuándo («Abuela · ayer»), y el monto.
+ * «Guardó/Sacó plata» lo dicen la flecha y el signo (y se anuncia al lector de pantalla); quién lo hizo va en el detalle.
  * [nuevo] la resalta en menta y se desvanece (1.6 s), para el que se acaba de guardar.
  */
 @Composable
 fun FilaMovimiento(m: MovimientoUi, onClick: () -> Unit, modifier: Modifier = Modifier, nuevo: Boolean = false) {
     val salida = m.flujo == Flujo.Salida
+    val tipo = t(if (salida) "movimientos.out" else "movimientos.in")
     val fondo = remember { AnimatableColor(if (nuevo) AlcanciaColor.FondoVerde else Color.Transparent) }
     val d = duracion(1600)
     LaunchedEffect(nuevo) { if (nuevo) fondo.animateTo(Color.Transparent, tween(d, delayMillis = if (d == 0) 0 else 300)) }
     Row(
         modifier.fillMaxWidth().clip(RoundedCornerShape(AlcanciaDimen.Radius12)).background(fondo.value)
-            .clickable(role = Role.Button, onClick = onClick).defaultMinSize(minHeight = 56.dp).padding(vertical = AlcanciaDimen.Space12),
+            .clickable(role = Role.Button, onClick = onClick).defaultMinSize(minHeight = 56.dp).padding(vertical = AlcanciaDimen.Space12)
+            .semantics(mergeDescendants = true) { stateDescription = tipo },
         horizontalArrangement = Arrangement.spacedBy(AlcanciaDimen.Space12), verticalAlignment = Alignment.CenterVertically,
     ) {
         Box(Modifier.graphicsLayer { rotationZ = if (salida) 180f else 0f }) { IconTile(Ic.ArrowUp, if (salida) TonoTile.Naranja else TonoTile.Verde) }
         Column(Modifier.weight(1f)) {
-            Text(t(if (salida) "movimientos.out" else "movimientos.in"), style = AlcanciaType.elemento)
-            Text(listOf(m.quien, m.cuando, m.motivo).filter { it.isNotBlank() }.joinToString(" · "), style = AlcanciaType.secundario, color = AlcanciaColor.TextoSecundario)
+            Text(m.motivo.ifBlank { tipo }, style = AlcanciaType.elemento)
+            Text(listOf(if (salida) "" else m.quien, m.cuando).filter { it.isNotBlank() }.joinToString(" · "), style = AlcanciaType.secundario, color = AlcanciaColor.TextoSecundario)
         }
         Text((if (salida) "−" else "+") + formatoSoles(m.centimos), style = AlcanciaType.cuerpo.copy(fontWeight = FontWeight.SemiBold), color = AlcanciaColor.Principal)
     }

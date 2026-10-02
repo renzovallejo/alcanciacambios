@@ -105,7 +105,8 @@ struct TarjetaMeta: View {
 }
 
 /**
- Fila de movimiento: «Guardó plata · Abuela · ayer · Se portó bien · +S/ 1.00».
+ Fila de movimiento: título = motivo («Se portó bien»), debajo quién envió (solo entradas) y cuándo («Abuela · ayer»), y el monto.
+ «Guardó/Sacó plata» lo dicen la flecha y el signo (VoiceOver lo anuncia); quién lo hizo va en el detalle.
  `nuevo` la resalta en menta y se desvanece (1.6 s), para el que se acaba de guardar.
  */
 struct FilaMovimiento: View {
@@ -120,8 +121,8 @@ struct FilaMovimiento: View {
             HStack(spacing: AlcanciaDimen.space12) {
                 IconTile(icono: Ic.arrowUp, tono: salida ? .naranja : .verde).rotationEffect(.degrees(salida ? 180 : 0))
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(t(salida ? "movimientos.out" : "movimientos.in")).alcanciaText(AlcanciaType.elemento).foregroundStyle(AlcanciaColor.texto)
-                    Text([m.quien, m.cuando, m.motivo].filter { !$0.isEmpty }.joined(separator: " · "))
+                    Text(m.motivo.isEmpty ? t(salida ? "movimientos.out" : "movimientos.in") : m.motivo).alcanciaText(AlcanciaType.elemento).foregroundStyle(AlcanciaColor.texto)
+                    Text([salida ? "" : m.quien, m.cuando].filter { !$0.isEmpty }.joined(separator: " · "))
                         .alcanciaText(AlcanciaType.secundario).foregroundStyle(AlcanciaColor.textoSecundario).multilineTextAlignment(.leading)
                 }
                 Spacer(minLength: 0)
@@ -134,6 +135,7 @@ struct FilaMovimiento: View {
         }
         .buttonStyle(Presionable())
         .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(t(salida ? "movimientos.out" : "movimientos.in")): \(m.motivo), \([salida ? "" : m.quien, m.cuando].filter { !$0.isEmpty }.joined(separator: ", ")), \(salida ? "−" : "+")\(Dinero.soles(m.centimos))")
         .onAppear {
             guard nuevo else { return }
             resaltado = true

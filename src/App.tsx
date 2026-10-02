@@ -6,7 +6,7 @@ import { Aprender, Biblioteca } from './screens/Learn';
 import Progreso, { Avances, Celebrar, MomentoDetalle, NuevoMomento } from './screens/Momentos';
 import { SaldoImporte, SaldoListo, SaldoMotivo, SaldoQuien, SaldoRevisar } from './screens/Saldo';
 import NuevaMeta from './screens/NuevaMeta';
-import Chanchito, { Acompana, Bateria, CerrarSesion, Emparejar, Perfil, Perfiles, Recordatorio, SesionCerrada, Sonido, Wifi } from './screens/Chanchito';
+import Chanchito, { Bateria, CerrarSesion, Emparejar, Perfil, Perfiles, Recordatorio, SesionCerrada, Sonido, Wifi } from './screens/Chanchito';
 import { Cuento, Guia, Juego, Mision } from './screens/Content';
 import { Actividad, Tema } from './screens/Actividad';
 import GoalDetail from './screens/Goal';
@@ -40,7 +40,6 @@ export default function App() {
         <Route path="meta/nueva" element={<NuevaMeta />} />
         <Route path="meta/:id/editar" element={<NuevaMeta />} />
         <Route path="movimiento/:id/editar" element={<MovementEdit />} />
-        <Route path="chanchito/acompana" element={<Acompana />} />
         <Route path="chanchito/recordatorio" element={<Recordatorio />} />
         <Route path="chanchito" element={<Chanchito />} />
         <Route path="chanchito/bateria" element={<Bateria />} />

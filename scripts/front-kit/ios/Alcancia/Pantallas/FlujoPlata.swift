@@ -201,6 +201,6 @@ struct ListoPantalla: View {
 
 #Preview("Agregar 1 · Cuánto") { CuantoPantalla(flujo: .entrada, nombre: "Sofía", saldo: 2500, monto: .constant("10.00"), alCerrar: {}, alContinuar: {}) }
 #Preview("Agregar 2 · De dónde") { MotivoPantalla(flujo: .entrada, nombre: "Sofía", centimos: 1000, saldo: 2500, motivo: .constant("mesada"), detalle: .constant(""), metas: Ejemplos.semana.metas, meta: .constant("g2"), alAtras: {}, alContinuar: {}) }
-#Preview("Agregar 3 · Quién envía") { QuienPantalla(centimos: 1000, saldo: 2500, motivoTexto: "Su propina de la semana", metaNombre: "Pelota de fútbol", quien: .constant("mama"), nombreOtro: .constant(""), relacionAdmin: "mama", alAtras: {}, alConfirmar: {}) }
+#Preview("Agregar 3 · Quién envía") { QuienPantalla(centimos: 1000, saldo: 2500, motivoTexto: "Propina de la semana", metaNombre: "Pelota de fútbol", quien: .constant("mama"), nombreOtro: .constant(""), relacionAdmin: "mama", alAtras: {}, alConfirmar: {}) }
 #Preview("Agregar 4 · Listo") { ListoPantalla(flujo: .entrada, nombre: "Sofía", saldo: 3500, metaLograda: "Pelota de fútbol", diaRecordatorio: "viernes", alVolver: {}) }
 #Preview("Sacar 2 · En qué") { MotivoPantalla(flujo: .salida, nombre: "Sofía", centimos: 500, saldo: 2500, motivo: .constant("compra"), detalle: .constant(""), metas: Ejemplos.semana.metas, meta: .constant(nil), alAtras: {}, alContinuar: {}) }

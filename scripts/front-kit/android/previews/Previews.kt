@@ -33,7 +33,7 @@ private const val ANCHO = 402
 @Composable fun PrevMotivo() = AlcanciaTheme { MotivoPantalla(Flujo.Entrada, "Sofía", 1000, 2500, "mesada", "", {}, {}, Ejemplos.semana.metas, "g2", {}, {}, {}) }
 
 @Preview(name = "Agregar 3 · Quién envía", widthDp = ANCHO, heightDp = 1250, showBackground = true)
-@Composable fun PrevQuien() = AlcanciaTheme { QuienPantalla(1000, 2500, "Su propina de la semana", "Pelota de fútbol", "mama", "", {}, {}, {}, {}, relacionAdmin = "mama") }
+@Composable fun PrevQuien() = AlcanciaTheme { QuienPantalla(1000, 2500, "Propina de la semana", "Pelota de fútbol", "mama", "", {}, {}, {}, {}, relacionAdmin = "mama") }
 
 @Preview(name = "Agregar 4 · Listo", widthDp = ANCHO, heightDp = 1100, showBackground = true)
 @Composable fun PrevListo() = AlcanciaTheme { ListoPantalla(Flujo.Entrada, "Sofía", 3500, {}, metaLograda = "Pelota de fútbol", diaRecordatorio = "viernes") }

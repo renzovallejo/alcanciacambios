@@ -69,6 +69,6 @@ Cada regla indica dónde está implementada en el prototipo (`08-prototipo-web/s
 
 - Una persona por cuenta en esta versión. El nombre es un dato (nunca «Sofía» fijo en el código).
 - Lo que entró y salió va a la persona visible arriba; cambiar de persona nunca cambia una operación en curso.
-- **Quién acompaña** (`caregiver`: nombre + relación): firma lo anotado, llena «¿Quién lo vio?» y marca «Administra la cuenta» en «¿Quién le envía?». Si no existe, se toma del primer momento anotado.
-- **Recordatorio de propina** (`propinaDay` 0–6 o null): se ofrece tras anotar «Su propina de la semana». Ese día, si todavía no anotaron una, Alcancía muestra el aviso. En nativo, además, notificación local ese día (ver `plataformas.md`).
+- **Quién usa el celular** (`caregiver`: nombre + relación): no tiene pantalla propia (se quitó de Ajustes para simplificar). Se toma del primer momento contado y de la cuenta de la app; firma lo que se hace, llena «¿Quién lo vio?» y marca «Administra la cuenta» en «¿Quién le envía?».
+- **Recordatorio de propina** (`propinaDay` 0–6 o null): se ofrece tras anotar «Propina de la semana». Ese día, si todavía no anotaron una, Alcancía muestra el aviso. En nativo, además, notificación local ese día (ver `plataformas.md`).
 - Estados de ejemplo para desarrollo y QA: `06-datos/semillas/` (`vacio`, `ejemplo`, `semana`).

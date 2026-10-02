@@ -40,7 +40,7 @@ Componentes nuevos (todos con tokens existentes; ver capturas en el paquete para
 | Después de confirmar | Así quedaría |
 | ¿De dónde viene? · Elige un motivo | ¿De dónde salió esta plata? · Escoge una opción |
 | Destino del saldo · Sin meta | ¿Es para alguna meta? · Ninguna meta en especial |
-| Mesada / Propina / Cumpleaños / Buen comportamiento / Otro | Su propina de la semana / Le dieron propina / Por su cumple / Se portó bien / Otra cosa |
+| Mesada / Propina / Cumpleaños / Buen comportamiento / Otro | Propina de la semana / Le dieron propina / Por su cumple / Se portó bien / Otra cosa |
 | Ingreso registrado · Últimos movimientos | Guardó plata · Lo último que anotaron |
 | Metas de ahorro | Sus metas |
 | Conocer la actividad / Continuar actividad / Explorar actividad | Ver de qué se trata / Seguir con la actividad / Ver la actividad |
@@ -55,7 +55,7 @@ Componentes nuevos (todos con tokens existentes; ver capturas en el paquete para
 - «Siempre «Juegos de rol»» pasa a: en la pestaña decir «Juegos» y explicar «Jueguen a ser otros y conversen».
 - «Usar verbos específicos: «Agregar saldo»…» pasa a verbos cotidianos: «Agregar plata», «Sacar plata»…
 - Dinero: ya no se pide la etiqueta «práctica». En v3.4.1 también se quitó el aviso «no mueve plata de verdad»: las familias ya lo saben.
-- En Perú «propina» es la plata semanal: el id `mesada` se muestra como «Su propina de la semana».
+- En Perú «propina» es la plata semanal: el id `mesada` se muestra como «Propina de la semana» (sin «Su»: más corto en las filas).
 - El chanchito es masculino: «Conectado», «Préndelo».
 
 ### Archivos

@@ -27,7 +27,7 @@ flowchart LR
   C --> AV[Todo lo que han contado · Progreso]
   C --> AC
   A & B & C --> CH([El chanchito]) --> BA([Batería]) & WI([WiFi]) & VO([Volumen]) & EM([Conectar celular]) & PE([Perfil]) & SE([Cerrar sesión])
-  CH --> QA([Quién acompaña]) & RE([Recordatorio de propina])
+  CH --> RE([Recordatorio de propina])
   MO --> NE([Editar momento])
   A & B & C --> PS[Selector de persona] --> PE
 ```
@@ -58,7 +58,7 @@ stateDiagram-v2
 - El **saldo cambia solo al confirmar**. Antes, «Así quedaría» es una proyección.
 - Sacar plata no permite más que lo ahorrado ni más que lo que tiene la meta de origen («No le alcanza…», «Para «Meta» solo tiene…»).
 - Si la persona vuelve al paso 1 con un monto que ya no es válido, los pasos siguientes regresan solos al paso 1.
-- **¡Listo!** (agregar): moneda opcional para que el niño la «meta» al chanchito; si el motivo fue «Su propina de la semana» y no hay recordatorio, ofrece «¿Te recordamos los {día}…?».
+- **¡Listo!** (agregar): moneda opcional para que el niño la «meta» al chanchito; si el motivo fue «Propina de la semana» y no hay recordatorio, ofrece «¿Te recordamos los {día}…?».
 
 ## Corregir y borrar
 

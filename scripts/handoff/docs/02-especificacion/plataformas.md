@@ -56,7 +56,7 @@ El DS no define modo oscuro: forzar claro (`Theme` sin `isSystemInDarkTheme()` /
 ## Recordatorio de propina
 
 - El prototipo solo muestra un aviso en Alcancía. En nativo, además, **notificación local** semanal el día elegido (p. ej. 9:00): Android `WorkManager` + `NotificationCompat` (Android 13+: permiso `POST_NOTIFICATIONS`, pedirlo al tocar «Sí, recuérdame»); iOS `UNCalendarNotificationTrigger` con `weekday`, pidiendo autorización en ese mismo momento.
-- Texto: `alcancia_recordatorio` con `{dia}`. Al tocarla, abrir Agregar plata con «Su propina de la semana».
+- Texto: `alcancia_recordatorio` con `{dia}`. Al tocarla, abrir Agregar plata con «Propina de la semana».
 
 ## Deshacer
 
@@ -70,6 +70,7 @@ El DS no define modo oscuro: forzar claro (`Theme` sin `isSystemInDarkTheme()` /
 ## Lo que es solo del prototipo (no implementar)
 
 - «Reiniciar la demo» y «Empezar desde cero» en ajustes del chanchito.
+- La franja roja «Volver a cero» arriba de todas las pantallas en la demo de primer día (`VITE_SEED=vacio`).
 - La pantalla «Sesión cerrada» (usar el flujo real de la app).
 - La página «Uy, esta página no existe» (no aplica en apps nativas).
 - El mensaje de Bluetooth «Desde este navegador…» (en nativo, pedir permisos del sistema).
