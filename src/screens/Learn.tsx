@@ -16,17 +16,11 @@ export function Aprender() {
   const stepIdx = topic ? Math.min(state.activityStep[topic] ?? 0, act.steps.length - 1) : 0;
   const step: StepRef = act.steps[stepIdx];
   const tema = TOPIC_LABEL[act.topic].toUpperCase();
-  const biblioteca = <li><AccessRow to="/biblioteca" icon="library" tone="azul" title={t('aprender.biblioteca')} description={t('aprender.bibliotecaTexto')} /></li>;
+  const biblioteca = <li><AccessRow to="/biblioteca" icon="library" tone="azul" title={t('aprender.biblioteca')} /></li>;
   return (
     <>
       <ScreenHeader title={t('aprender.titulo')} />
       <ChildContext name={state.childName} status={<ConnectionStatus />} />
-      {!topic && state.finishedTopics.length === 0 && (
-        <>
-          <h2 className="lead">{t('aprender.bienvenida')}</h2>
-          <p className="muted">{t('aprender.bienvenidaTexto', { nombre: state.childName })}</p>
-        </>
-      )}
       {!topic && lastDone && (
         <p className="alert-box ok">{nextActivity(state.finishedTopics) ? t('aprender.terminaron', { actividad: ACTIVITIES[lastDone].title }) : t('aprender.todasTerminadas')}</p>
       )}
@@ -45,11 +39,10 @@ export function Aprender() {
       <IdeaCard />
 
       <h2 className="section-title">{t(topic ? 'aprender.otrasCosas' : 'aprender.otrasFormas')}</h2>
-      <p className="muted small">{t(topic ? 'aprender.cuandoQuieran' : 'aprender.aSuRitmo')}</p>
       <ul className="plain list">
         {!topic && biblioteca}
-        <li><AccessRow to="/momento/nuevo" icon="sparkles" tone="violeta" title={t('aprender.anotar')} description={t('aprender.anotarTexto', { nombre: state.childName })} /></li>
-        <li><AccessRow to="/celebrar" icon="party-popper" tone="naranja" title={t('aprender.felicitar', { nombre: state.childName })} description={t('aprender.felicitarTexto')} /></li>
+        <li><AccessRow to="/momento/nuevo" icon="sparkles" tone="violeta" title={t('aprender.anotar')} /></li>
+        <li><AccessRow to="/celebrar" icon="party-popper" tone="naranja" title={t('aprender.felicitar', { nombre: state.childName })} /></li>
         {topic && biblioteca}
       </ul>
     </>
@@ -66,24 +59,24 @@ const LIB_MISSIONS = MISSIONS.map((x) => x.id).filter((id) => id !== 'm-meta-fam
 const LIB_GAMES = GAMES.map((x) => x.id).filter((id) => id !== 'g-tienda');
 
 interface Shelf {
-  sub: string; tone: 'violeta' | 'verde' | 'naranja'; card: string; eyebrow: string; title: string; cta: string; icon: string; to: string;
+  tone: 'violeta' | 'verde' | 'naranja'; card: string; eyebrow: string; title: string; cta: string; icon: string; to: string;
   items: { id: string; title: string; meta: string; topic: Topic; to: string }[];
 }
 
 /** Se arma al renderizar para leer siempre los textos actuales del catálogo. */
 function shelf(format: Format): Shelf {
   if (format === 'cuentos') return {
-    sub: t('biblioteca.subCuentos'), tone: 'violeta', card: 'card-violet', eyebrow: t('biblioteca.cejaCuento'),
+    tone: 'violeta', card: 'card-violet', eyebrow: t('biblioteca.cejaCuento'),
     title: STORIES.find((x) => x.id === 's-chanchito')!.title, cta: t('biblioteca.ctaCuento'), icon: 'book-open', to: '/cuento/s-chanchito',
     items: LIB_STORIES.map((id) => STORIES.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, topic: x.topic, to: `/cuento/${x.id}`, meta: t('biblioteca.minutos', { tema: TOPIC_LABEL[x.topic], minutos: x.minutes }) })),
   };
   if (format === 'misiones') return {
-    sub: t('biblioteca.subMisiones'), tone: 'verde', card: 'card-mint', eyebrow: t('biblioteca.cejaMision'),
+    tone: 'verde', card: 'card-mint', eyebrow: t('biblioteca.cejaMision'),
     title: MISSIONS.find((x) => x.id === 'm-meta-familia')!.title, cta: t('biblioteca.ctaMision'), icon: 'flag', to: '/mision/m-meta-familia',
     items: LIB_MISSIONS.map((id) => MISSIONS.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, topic: x.topic, to: `/mision/${x.id}`, meta: t('biblioteca.minutos', { tema: TOPIC_LABEL[x.topic], minutos: x.minutes }) })),
   };
   return {
-    sub: t('biblioteca.subJuegos'), tone: 'naranja', card: 'card-cream', eyebrow: t('biblioteca.cejaJuego'),
+    tone: 'naranja', card: 'card-cream', eyebrow: t('biblioteca.cejaJuego'),
     title: GAMES.find((x) => x.id === 'g-tienda')!.title, cta: t('biblioteca.ctaJuego'), icon: 'messages-square', to: '/juego/g-tienda',
     items: LIB_GAMES.map((id) => GAMES.find((x) => x.id === id)!).map((x) => ({ id: x.id, title: x.title, topic: x.topic, to: `/juego/${x.id}`, meta: t('biblioteca.jugadores', { tema: TOPIC_LABEL[x.topic], jugadores: x.players }) })),
   };
@@ -98,7 +91,6 @@ export function Biblioteca() {
     <>
       <BackBar label={t('biblioteca.volver')} to="/aprender" />
       <h1 className="title">{t('biblioteca.titulo')}</h1>
-      <p className="muted">{c.sub}</p>
       <div className="segmented" role="tablist" aria-label={t('biblioteca.formato')} style={{ ['--i' as string]: FORMATS.indexOf(format) }}>
         <span className="seg-pill" aria-hidden="true" />
         {FORMATS.map((f) => (

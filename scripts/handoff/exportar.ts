@@ -313,5 +313,6 @@ export function exportAssets(out: string) {
     ],
     info: { author: 'xcode', version: 1 },
   }, null, 2));
+  copyDir(join(DS, 'assets', 'icono-app'), join(out, 'icono-app'));
   return { iconos: icons.length };
 }

@@ -1,0 +1,29 @@
+CHANCHITO — ICONOS PARA APP STORE Y GOOGLE PLAY
+
+APPLE / APP STORE
+Archivo: Apple/AppIcon.appiconset/AppIcon-1024.png
+1024 × 1024 px, PNG RGB de 8 bits, sRGB, sin canal alfa.
+La carpeta AppIcon.appiconset incluye Contents.json para proyectos iOS modernos de Xcode que admiten un icono universal de 1024 px.
+Integrar en Assets.xcassets y seleccionar ese AppIcon como icono de la aplicación. App Store Connect recibe el icono de iOS mediante la compilación enviada; no es una captura de pantalla.
+Si el proyecto utiliza un catálogo antiguo de tamaños múltiples, el desarrollador debe generar los tamaños adicionales desde este maestro. No se incluyen variantes específicas de modo oscuro o tintado.
+
+GOOGLE PLAY
+Archivo: Google-Play/Icono-512.png
+512 × 512 px, PNG RGB de 24 bits, sRGB, sin transparencia, menor de 1 MB.
+Subir como icono de la aplicación en la ficha de Play Console.
+Este archivo corresponde a la ficha de la tienda, no a las capas de un icono adaptativo del launcher de Android.
+
+DISEÑO
+Chanchito grande y centrado, adaptado desde el SVG original.
+Fondo azul predominante con halos morado y naranja en los bordes.
+Los archivos son cuadrados y sin esquinas recortadas. Apple y Google aplican su propia máscara: no añadir esquinas transparentes ni otra máscara antes de subirlos.
+La vista redondeada en Pencil se conserva como previsualización.
+
+VALIDACIÓN REALIZADA
+Dimensiones verificadas. Todos los píxeles del render original eran opacos.
+El canal alfa se eliminó sin recomprimir con pérdida: PNG RGB, perfil sRGB declarado.
+Google Play: 81 970 bytes. Apple: 236 792 bytes.
+
+ALCANCE
+Este ZIP contiene los iconos, no una ficha completa de publicación: no incluye capturas, gráfico de funciones, binarios, firma, configuración Android adaptativa ni textos legales.
+Revisar los requisitos vigentes de cada consola al enviar la aplicación. No implica aprobación de las tiendas.

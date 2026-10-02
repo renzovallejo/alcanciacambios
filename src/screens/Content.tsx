@@ -72,7 +72,6 @@ export function Cuento() {
         <BackBar title={t('cuento.barra')} />
         <div className="eyebrow violet">{TOPIC_LABEL[story.topic].toUpperCase()}{label ? ` · ${label}` : ''}</div>
         <h1 className="title">{story.title}</h1>
-        <p className="muted">{t('cuento.sub')}</p>
         <section className="card card-violet story">
           <div className="eyebrow violet"><Icon name="book-open" size={18} /> {t('cuento.ceja')}</div>
           <p key={short ? 'c' : 'l'} className="swap">{short ? story.short : story.text}</p>
@@ -88,10 +87,11 @@ export function Cuento() {
         }}>
           <Icon name={voice.speaking ? 'pause' : 'volume-2'} size={20} />{t(voice.speaking ? 'cuento.detenerVoz' : 'cuento.leerVoz')}
         </Button>
-        <p className="muted small center">{t('cuento.leerVozAyuda')}</p>
         {noVoice && <p className="alert-box appear" role="alert">{t('cuento.vozNoDisponible')}</p>}
 
-        <p className="muted">{t(device ? 'cuento.enChanchito' : 'cuento.enCelular')}</p>
+        {/* Reproductor solo para el cuento que suena en el chanchito; los demás se leen con la voz del celular. */}
+        {device && <>
+        <p className="muted">{t('cuento.enChanchito')}</p>
         <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={duration} aria-valuenow={pos} aria-label={t('cuento.posicion')}>
           <div style={{ width: duration ? `${(pos / duration) * 100}%` : 0 }} />
         </div>
@@ -105,7 +105,7 @@ export function Cuento() {
         </div>
         {audioState === 'error' && <p className="alert-box appear" role="alert">{errMsg}</p>}
         {onPig && <p className="alert-box ok appear" role="status">{t('cuento.sonandoChanchito')}</p>}
-        <p className="talk"><Icon name="messages-square" size={22} />{t('cuento.despues', { pregunta: story.questions[0].charAt(0).toLowerCase() + story.questions[0].slice(1) })}</p>
+        </>}
       </div>
       <ActionFooter>
         <LinkButton to={`/guia/${story.id}`} block>{t('cuento.verPreguntas')}</LinkButton>
@@ -146,7 +146,7 @@ export function Guia() {
         </ul>
         {saved && <p className="alert-box ok appear" role="status">{t('guia.anotado')}</p>}
       </div>
-      <ActionFooter helper={t('guia.pie')}>
+      <ActionFooter>
         <Button block variant={saved ? 'secondary' : 'primary'} onClick={save} disabled={saved}>{t(saved ? 'guia.anotadoCorto' : 'guia.yaConversamos')}</Button>
         <LinkButton to="/aprender" variant="tertiary" block>{t('guia.volverAprender')}</LinkButton>
       </ActionFooter>
@@ -171,7 +171,6 @@ export function Mision() {
         <h2 className="section-title">{t('mision.necesitan')}</h2>
         <ul className="bullets">{m.materials.map((x) => <li key={x}>{x}</li>)}</ul>
         <h2 className="section-title">{t('mision.comoSeHace')}</h2>
-        <p className="muted small">{t('mision.noEsTarea')}</p>
         <ul className="plain list">
           {m.steps.map((st, i) => (
             <li key={st}>
@@ -183,7 +182,7 @@ export function Mision() {
           ))}
         </ul>
       </div>
-      <ActionFooter helper={t('mision.pie')}>
+      <ActionFooter>
         <LinkButton to={`/momento/nuevo?tema=${m.topic}`} block>{t('mision.anotar')}</LinkButton>
         <LinkButton to="/biblioteca" variant="tertiary" block>{t('mision.volverBiblioteca')}</LinkButton>
       </ActionFooter>
@@ -217,7 +216,7 @@ export function Juego() {
         <ul className="plain stack-8">{g.questions.map((q) => (<li key={q} className="card card-cream talk"><Icon name="messages-square" size={22} />{q}</li>))}</ul>
         {saved && <p className="alert-box ok appear" role="status">{t('guia.anotadoCorto')}</p>}
       </div>
-      <ActionFooter helper={t('guia.pie')}>
+      <ActionFooter>
         <Button block onClick={save} disabled={saved}>{t(saved ? 'guia.anotadoCorto' : 'guia.yaConversamos')}</Button>
         <LinkButton to="/biblioteca" variant="tertiary" block>{t('mision.volverBiblioteca')}</LinkButton>
       </ActionFooter>

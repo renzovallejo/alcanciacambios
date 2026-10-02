@@ -49,11 +49,11 @@ export function IconTile({ icon, tone, size = 40 }: { icon: string; tone: 'azul'
 }
 
 /** Fila pulsable completa: toda la fila es el objetivo táctil. */
-export function AccessRow({ to, icon, tone, title, description }: { to: string; icon: string; tone: 'azul' | 'violeta' | 'naranja' | 'verde'; title: string; description: string }) {
+export function AccessRow({ to, icon, tone, title, description }: { to: string; icon: string; tone: 'azul' | 'violeta' | 'naranja' | 'verde'; title: string; description?: string }) {
   return (
     <Link to={to} className="row">
       <IconTile icon={icon} tone={tone} />
-      <span className="row-text"><strong>{title}</strong><span className="muted">{description}</span></span>
+      <span className="row-text"><strong>{title}</strong>{description && <span className="muted">{description}</span>}</span>
       <Icon name="chevron-right" size={18} className="muted" />
     </Link>
   );

@@ -26,7 +26,7 @@ export default function Progreso() {
   return (
     <>
       <ScreenHeader title={t('progreso.titulo')} />
-      <ChildContext name={state.childName} status={<span className="muted small">{t('progreso.sinNotas')}</span>} />
+      <ChildContext name={state.childName} />
 
       {featured ? (
         <section className="card card-mint moment">
@@ -43,18 +43,19 @@ export default function Progreso() {
       ) : (
         <section className="card card-mint moment">
           <div className="feature-top">
-            <div><div className="eyebrow">{t('progreso.vacioCeja')}</div><h2 className="moment-title">{t('progreso.vacioTitulo')}</h2></div>
+            <h2 className="moment-title">{t('progreso.vacioTitulo')}</h2>
             <Mascota size={64} />
           </div>
-          <p className="body">{t('progreso.vacioTexto', { nombre: state.childName })}</p>
           <LinkButton to="/momento/nuevo" variant="secondary" block>{t('progreso.anotar')}</LinkButton>
         </section>
       )}
 
-      <div className="summary">
-        <span className="muted small">{tn('progreso.cosas', obsCount)} · {tn('progreso.conversaciones', convCount)}</span>
-        <Link to="/avances" className="link">{t('comun.verTodo')} <Icon name="arrow-left" size={16} className="flip" /></Link>
-      </div>
+      {obsCount + convCount > 0 && (
+        <div className="summary">
+          <span className="muted small">{tn('progreso.cosas', obsCount)} · {tn('progreso.conversaciones', convCount)}</span>
+          <Link to="/avances" className="link">{t('comun.verTodo')} <Icon name="arrow-left" size={16} className="flip" /></Link>
+        </div>
+      )}
 
       <h2 className="section-title">{t('progreso.descubriendo')}</h2>
       <ul className="plain topics stagger">
@@ -66,7 +67,7 @@ export default function Progreso() {
                 <Icon name={TOPIC_ICON[tp]} size={18} className={tp === 'compartir' ? 'violet-ic' : ''} />
                 <strong>{TOPIC_LABEL[tp]}</strong>
                 <Icon name="chevron-right" size={16} className="muted chev" />
-                <span className={started ? 'state on' : 'state'}>{t(started ? 'temas.yaEmpezaron' : 'temas.todaviaNo')}</span>
+                {started && <span className="state on">{t('temas.yaEmpezaron')}</span>}
               </Link>
             </li>
           );
@@ -76,7 +77,7 @@ export default function Progreso() {
       <h2 className="section-title">{t('progreso.queHacer')}</h2>
       {rec ? (
         <>
-          <p className="muted">{rec.blurb}</p>
+          <p className="muted">{rec.title}</p>
           <LinkButton to={`/actividad/${rec.topic}`} block>{t('progreso.verActividad')}</LinkButton>
         </>
       ) : (
@@ -115,14 +116,13 @@ export function MomentoDetalle() {
           <p className="moment-quote">{o.narrative}</p>
           <span className="muted small">{t('progreso.loConto', { autor: o.authorDisplayName })}{date ? ` · ${date}` : ''}</span>
         </section>
-        <p className="note"><Icon name="info" size={18} />{t('momento.noEsNota')}</p>
         {cel.length > 0 && (<><h2 className="section-title">{t('momento.mensajitos')}</h2><ul className="plain stack-8">{cel.map((c) => <li key={c.id} className="card card-cream appear"><Icon name="party-popper" size={18} /> {c.message}</li>)}</ul></>)}
         <div className="btn-pair">
           <LinkButton to={`/momento/${o.id}/editar`} variant="tertiary"><Icon name="pencil" size={18} />{t('comun.editar')}</LinkButton>
           <Button variant="tertiary" className="danger" onClick={remove}><Icon name="trash-2" size={18} />{t('comun.borrar')}</Button>
         </div>
       </div>
-      <ActionFooter helper={t('momento.pie')}>
+      <ActionFooter>
         <LinkButton to={`/celebrar?m=${o.id}`} variant="secondary" block>{t('momento.mandarMensajito')}</LinkButton>
       </ActionFooter>
     </div>
@@ -168,7 +168,6 @@ export function NuevoMomento() {
       <div className="task-scroll">
         <BackBar icon="x" title={t(editing ? 'nuevoMomento.barraEditar' : 'nuevoMomento.barra')} />
         <h1 className="title">{t('nuevoMomento.pregunta', { nombre: state.childName })}</h1>
-        <p className="muted">{t('nuevoMomento.ayuda')}</p>
         <label htmlFor="mom-texto" className="field-label">{t('nuevoMomento.quePaso')}</label>
         <textarea id="mom-texto" className="text-field area" rows={4} maxLength={280} value={text} onChange={(e) => setText(e.target.value)} />
         {touched && !text.trim() && <p className="small error" role="alert">{t('nuevoMomento.quePasoError')}</p>}
@@ -183,7 +182,7 @@ export function NuevoMomento() {
           {TOPIC_ORDER.map((tp) => <option key={tp} value={tp}>{TOPIC_LABEL[tp]}</option>)}
         </select>
       </div>
-      <ActionFooter helper={t('nuevoMomento.pie')}>
+      <ActionFooter>
         <Button block loading={busy} onClick={save}>{t(editing ? 'comun.guardarCambios' : 'comun.guardar')}</Button>
       </ActionFooter>
     </div>
@@ -226,7 +225,6 @@ export function Celebrar() {
       <div className="task-scroll">
         <BackBar icon="x" title={t('felicitar.barra')} />
         <h1 className="title">{t('felicitar.titulo', { nombre: state.childName })}</h1>
-        <p className="muted">{t('felicitar.ayuda')}</p>
         <div className="radio-list" role="radiogroup" aria-label={t('felicitar.etiqueta')}>
           {MESSAGE_KEYS.map((k) => t(k)).map((m) => (
             <button key={m} type="button" role="radio" aria-checked={sel === m} className={`reason ${sel === m ? 'on' : ''}`} onClick={() => setSel(m)}>
@@ -239,7 +237,7 @@ export function Celebrar() {
         </div>
         {sel === 'custom' && (<><label htmlFor="cel" className="field-label">{t('felicitar.tuMensajito')}</label><input id="cel" className="text-field" maxLength={100} value={custom} onChange={(e) => setCustom(e.target.value)} /></>)}
       </div>
-      <ActionFooter helper={t('felicitar.pie')}>
+      <ActionFooter>
         <Button block disabled={!message} onClick={save}>{t('comun.guardar')}</Button>
       </ActionFooter>
     </div>
@@ -253,7 +251,6 @@ export function Avances() {
     <>
       <BackBar label={t('avances.volver')} to="/progreso" />
       <h1 className="title">{t('avances.titulo')}</h1>
-      <p className="muted small">{t('avances.sub')}</p>
       <h2 className="section-title">{t('avances.cosas')}</h2>
       {obs.length === 0 ? <p className="muted">{t('avances.cosasVacio')}</p> : (
         <ul className="plain stack-8">{obs.map((o) => (

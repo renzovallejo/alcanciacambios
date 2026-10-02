@@ -4,18 +4,17 @@ import UIKit
 /**
  Campo de monto grande (36 pt, prefijo «S/», teclado decimal).
  Al enfocarlo se selecciona todo: se escribe encima sin borrar a mano.
- `error` aparece debajo, junto al campo; si es nil se muestra `ayuda`.
+ `error` aparece debajo, junto al campo (sin ayuda permanente).
  */
 struct CampoMonto: View {
     @Binding var valor: String
+    /// No se ve (el título ya pregunta «¿Cuánto…?»); la lee VoiceOver.
     let etiqueta: String
-    let ayuda: String
     let error: String?
     @FocusState private var enfocado: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(etiqueta).alcanciaText(AlcanciaType.boton)
             HStack(spacing: 10) {
                 Text("S/").alcanciaText(AlcanciaType.importe).accessibilityHidden(true)
                 TextField("", text: $valor)
@@ -36,8 +35,7 @@ struct CampoMonto: View {
             .overlay(RoundedRectangle(cornerRadius: AlcanciaDimen.radius14).strokeBorder(error != nil ? AlcanciaExtra.error : AlcanciaColor.principal, lineWidth: 1.5))
             .contentShape(Rectangle())
             .onTapGesture { enfocado = true }
-            Text(error ?? ayuda).alcanciaText(AlcanciaType.secundario)
-                .foregroundStyle(error != nil ? AlcanciaExtra.error : AlcanciaColor.textoSecundario)
+            if let error { Text(error).alcanciaText(AlcanciaType.secundario).foregroundStyle(AlcanciaExtra.error) }
         }
     }
 }

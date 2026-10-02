@@ -61,9 +61,10 @@ private fun Galeria() = Column(Modifier.padding(24.dp), verticalArrangement = Ar
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { Chip("Cuento completo", {}, presionado = true); Chip("Versión de 1 minuto", {}) }
     Text("Avisos", style = AlcanciaType.seccion)
     Aviso("¡Ya juntaron todo para «Pelota de fútbol»!", ok = true, icono = Ic.PartyPopper)
+    TarjetaIdea("IDEA DE 1 MINUTO", "Cuenten juntos las monedas de su chanchito.", "Ya lo hicimos", false, "", {})
     Banner(Ic.Bell, "Hoy es viernes, día de su propina. ¿Ya la guardó?") { Boton("Guardar su propina", {}, variante = Variante.Secundario) }
     AvisoDeshacer("Borrado", "Deshacer", {}, {}, "Cerrar")
-    CampoMonto("abc", {}, "Cuánto", "Toca el monto para cambiarlo.", "Escribe un monto como 10 o 10.50.")
+    CampoMonto("abc", {}, "Cuánto", "Escribe un monto como 10 o 10.50.")
     Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) { IconoExito(); MonedaAlChanchito("Meter la moneda", {}) }
     BarraPestanas(0, {})
 }

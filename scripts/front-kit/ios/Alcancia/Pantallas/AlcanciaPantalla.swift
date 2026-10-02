@@ -28,7 +28,6 @@ struct AlcanciaPantalla: View {
     var acciones = AccionesAlcancia()
     var saldoAnterior: Int? = nil
     var nuevoId: String? = nil
-    @State private var ideaHecha = false
 
     var body: some View {
         PantallaPestana {
@@ -48,7 +47,6 @@ struct AlcanciaPantalla: View {
             }
 
             if estado.primerDia {
-                Text(t("alcancia.valorPrimerDia", ["nombre": estado.nombre])).alcanciaText(AlcanciaType.secundario).foregroundStyle(AlcanciaColor.textoSecundario)
                 Boton(texto: t("alcancia.primeraPlata"), accion: acciones.alAgregar)
             } else {
                 HStack(spacing: AlcanciaDimen.space12) {
@@ -65,7 +63,6 @@ struct AlcanciaPantalla: View {
                         IconTile(icono: Ic.target, tono: .acento)
                         Text(t("alcancia.metaVaciaTitulo", ["nombre": estado.nombre])).alcanciaText(AlcanciaType.seccion)
                     }
-                    Text(t("alcancia.metaVaciaTexto")).alcanciaText(AlcanciaType.cuerpo).foregroundStyle(AlcanciaColor.textoSecundario)
                     Boton(texto: t("alcancia.metaVaciaBoton"), variante: .secundario, accion: acciones.alPonerMeta)
                 }
             } else {
@@ -75,16 +72,9 @@ struct AlcanciaPantalla: View {
                 }
             }
 
-            EncabezadoSeccion(titulo: t("alcancia.loUltimo"), accion: estado.movimientos.isEmpty ? nil : t("comun.verTodos"), alAccion: acciones.alVerMovimientos)
-            if estado.movimientos.isEmpty {
-                HStack(spacing: AlcanciaDimen.space12) {
-                    IconTile(icono: Ic.list, tono: .azul)
-                    VStack(alignment: .leading) {
-                        Text(t("alcancia.vacioTitulo")).alcanciaText(AlcanciaType.elemento)
-                        Text(t("alcancia.vacioTexto")).alcanciaText(AlcanciaType.secundario).foregroundStyle(AlcanciaColor.textoSecundario)
-                    }
-                }
-            } else {
+            // Sin movimientos no se muestra la sección: no hay nada que ver todavía.
+            if !estado.movimientos.isEmpty {
+                EncabezadoSeccion(titulo: t("alcancia.loUltimo"), accion: t("comun.verTodos"), alAccion: acciones.alVerMovimientos)
                 VStack(spacing: 0) {
                     ForEach(Array(estado.movimientos.enumerated()), id: \.element.id) { i, m in
                         if i > 0 { Separador() }
@@ -92,10 +82,6 @@ struct AlcanciaPantalla: View {
                     }
                     Separador()
                 }
-            }
-
-            if !estado.primerDia, let idea = estado.idea {
-                TarjetaIdea(idea: idea, hecho: $ideaHecha, alHecho: acciones.alIdeaHecha)
             }
         }
     }

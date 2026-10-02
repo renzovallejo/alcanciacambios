@@ -12,9 +12,9 @@ Este kit es **código de interfaz listo para pegar** en la app que ya existe: te
 | `android/ui/` | Kotlin + Compose: `tema/`, `componentes/`, `pantallas/`, `modelo/`, `dinero/`, `i18n/` y `generado/` (tokens, iconos, datos de ejemplo) |
 | `android/plataforma/Plataforma.kt` | Lo único que toca Android: fuente, iconos, mascota, textos de `strings.xml`, «reducir movimiento». Ajusta el `import …R` |
 | `android/previews/Previews.kt` | 11 previews con datos reales (incluye una **demo interactiva** del flujo completo) |
-| `android/res/` | `strings.xml`, Inter en 3 pesos, 51 iconos como VectorDrawable (`ic_*.xml`), mascota por densidad |
+| `android/res/` | `strings.xml`, Inter en 3 pesos, 51 iconos como VectorDrawable (`ic_*.xml`), mascota por densidad e **ícono de la app** (`mipmap-*/ic_launcher*`, adaptativo incluido) |
 | `ios/Alcancia/` | Swift + SwiftUI: `Componentes/`, `Pantallas/` (con `#Preview`), `Modelo/`, `Textos/` y `Generado/` |
-| `ios/Recursos/` | `Assets.xcassets` (51 iconos vectoriales `ic-*` como plantilla + `Mascota`), `es.lproj/Localizable.strings(.stringsdict)`, Inter en 3 pesos |
+| `ios/Recursos/` | `Assets.xcassets` (51 iconos vectoriales `ic-*` como plantilla, `Mascota` y **`AppIcon`** de 1024), `es.lproj/Localizable.strings(.stringsdict)`, Inter en 3 pesos |
 | `capturas/kit-compose/` | Cómo se ve el kit Compose renderizado (pantallas y galería de componentes) |
 | `capturas/web/` | Las mismas pantallas en el prototipo web, para comparar |
 | `MAPA-DE-PANTALLAS.md` | Cada pantalla de la app → qué componentes usar (también las que el kit no trae hechas) |

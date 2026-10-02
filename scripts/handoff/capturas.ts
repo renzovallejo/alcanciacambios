@@ -114,7 +114,7 @@ async function main() {
         ['/sesion/cerrar', 'cerrar-sesion'], ['/sesion/cerrada', 'sesion-cerrada'], ['/no-existe', 'pagina-no-encontrada'],
       ];
       for (const [r, nom, nota] of mas) { await ir(page, r); await foto(page, nom, 'semana', nota); }
-      await ir(page, '/cuento/s-compara'); await page.locator('.play').click(); await foto(page, 'cuento-audio-no-disponible', 'semana', 'Error recuperable');
+      await ir(page, '/cuento/s-chanchito'); await page.locator('.play').click(); await foto(page, 'cuento-suena-en-el-chanchito', 'semana', 'Chanchito conectado');
       await ir(page, '/cuento/s-planifica'); await tocar(page, 'Versión de 1 minuto'); await foto(page, 'cuento-version-corta', 'semana', 'Versión de 1 minuto + leer en voz alta');
       // Flujo agregar plata (4 pasos) con meta alcanzada. Motivo, meta y quién envía vienen de la última vez.
       await ir(page, '/saldo/importe'); await page.fill('#monto', '10'); await foto(page, 'agregar-1-cuanto', 'semana', undefined, false);

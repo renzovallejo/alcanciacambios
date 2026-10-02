@@ -12,7 +12,8 @@ Mamás, papás, abuelas, tíos y cualquier persona que acompaña a un niño o ni
 2. **Claro antes que bonito.** Frases cortas, una idea por frase. Nada de jerga técnica ni financiera.
 3. **Honestos con la plata.** No inventamos datos ni decimos que el chanchito está conectado si no lo está. Que la app no mueve plata de verdad ya se sabe: no se explica en pantalla.
 4. **Cálidos sin evaluar.** Reconocemos el esfuerzo, no ponemos notas. Nada de «aprobó», «domina», rankings ni porcentajes de habilidad.
-5. **Para toda la familia.** Le hablamos a quien acompaña, sea quien sea. No suponemos que siempre es la mamá o el papá.
+5. **Lo justo y necesario.** Cada pantalla: título, datos y acciones. Sin subtítulos que expliquen lo que el título ya dice, sin ayudas permanentes al pie («Todavía no cambia nada»), sin frases para tranquilizar («No es tarea», «Es opcional») y sin resúmenes que repiten lo que se acaba de elegir. Los errores sí se explican, junto al campo. Si una sección está vacía y no hay nada que hacer en ella, no se muestra.
+6. **Para toda la familia.** Le hablamos a quien acompaña, sea quien sea. No suponemos que siempre es la mamá o el papá.
 
 ## Cómo nos dirigimos
 

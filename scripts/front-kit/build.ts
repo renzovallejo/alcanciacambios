@@ -36,7 +36,7 @@ for (const f of fuentes) {
   // Claves armadas con un id del catálogo: motivos.<id>, quien.<id>.
   for (const m of s.matchAll(/(?:Opcion\(|Opcion\(id: )"([\w-]+)"/g)) if (!claves.has(`motivos.${m[1]}`) && !claves.has(`quien.${m[1]}`)) faltan.push(`${relative(KIT, f)}: opción ${m[1]}`);
 }
-for (const k of ['titulo', 'pregunta', 'sub', 'deDonde', 'resumen', 'paraMeta', 'sinMeta', 'ahora', 'confirmar', 'listo']) for (const f of ['in', 'out']) if (!claves.has(`flujo.${f}.${k}`)) faltan.push(`flujo.${f}.${k}`);
+for (const k of ['titulo', 'pregunta', 'deDonde', 'paraMeta', 'ahora', 'confirmar', 'listo']) for (const f of ['in', 'out']) if (!claves.has(`flujo.${f}.${k}`)) faltan.push(`flujo.${f}.${k}`);
 if (faltan.length) { console.error('✘ Claves de texto que no existen en es.json:\n  ' + faltan.join('\n  ')); process.exit(1); }
 
 /* 3 · armar */
@@ -63,12 +63,17 @@ copy(mascota('1x'), join(A, 'res', 'drawable-mdpi', 'mascota.png'));
 copy(mascota('2x'), join(A, 'res', 'drawable-xhdpi', 'mascota.png'));
 copy(mascota('3x'), join(A, 'res', 'drawable-xxhdpi', 'mascota.png'));
 
+// Ícono de la app (maestro en el sistema de diseño)
+const ICONO = join(DS, 'assets', 'icono-app');
+for (const d of readdirSync(join(ICONO, 'android')).filter((x) => x.startsWith('mipmap'))) copyDir(join(ICONO, 'android', d), join(A, 'res', d));
+
 // iOS
 const I = join(OUT, 'ios');
 copyDir(join(KIT, 'ios', 'Alcancia'), join(I, 'Alcancia'));
 const XC = join(I, 'Recursos', 'Assets.xcassets');
 write(join(XC, 'Contents.json'), JSON.stringify({ info: { author: 'xcode', version: 1 } }, null, 2));
 const iconos = exportarIconos(join(A, 'res'), XC);
+copyDir(join(ICONO, 'ios', 'AppIcon.appiconset'), join(XC, 'AppIcon.appiconset'));
 const set = join(XC, 'Mascota.imageset');
 copy(mascota('1x'), join(set, 'mascota.png')); copy(mascota('2x'), join(set, 'mascota@2x.png')); copy(mascota('3x'), join(set, 'mascota@3x.png'));
 write(join(set, 'Contents.json'), JSON.stringify({ images: [1, 2, 3].map((n) => ({ idiom: 'universal', filename: n === 1 ? 'mascota.png' : `mascota@${n}x.png`, scale: `${n}x` })), info: { author: 'xcode', version: 1 } }, null, 2));

@@ -40,7 +40,6 @@ export default function NuevaMeta() {
       <div className="task-scroll">
         <BackBar icon="x" title={editing ? t('meta.editarTitulo') : t(first ? 'nuevaMeta.tituloPrimera' : 'nuevaMeta.tituloOtra')} />
         <h1 className="title">{t('nuevaMeta.pregunta', { nombre: state.childName })}</h1>
-        <p className="muted">{t('nuevaMeta.ayuda')}</p>
         <label htmlFor="meta-nombre" className="field-label">{t('nuevaMeta.nombre')}</label>
         <input id="meta-nombre" className="text-field" placeholder={t('nuevaMeta.nombreEjemplo')} maxLength={40} value={name} onChange={(e) => setName(e.target.value)} />
         {touched && !name.trim() && <p className="small error" role="alert">{t('nuevaMeta.nombreError')}</p>}

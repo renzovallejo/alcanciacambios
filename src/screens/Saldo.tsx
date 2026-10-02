@@ -88,23 +88,18 @@ export function SaldoImporte() {
         <BackBar icon="x" title={tf(kind, 'titulo')} onBack={close} />
         <Steps kind={kind} current={1} />
         <h1 className="title">{tf(kind, 'pregunta')}</h1>
-        <p className="muted">{tf(kind, 'sub', { nombre: state.childName })}</p>
-        <div className="info-box"><span>{t('flujo.ahoraTieneAhorrado')}</span><strong>{formatMoney(state.balanceMinor)}</strong></div>
 
-        <label htmlFor="monto" className="field-label">{t('flujo.cuanto')}</label>
+        <label htmlFor="monto" className="sr-only">{t('flujo.cuanto')}</label>
         <div className={`amount-field ${touched && !parsed.ok ? 'invalid' : ''}`} onClick={() => ref.current?.focus()}>
           <span aria-hidden="true">S/</span>
           {/* Al tocar se selecciona todo: se escribe encima sin borrar a mano. */}
           <input id="monto" ref={ref} inputMode="decimal" autoComplete="off" value={input.replace(/^S\/\s*/, '')}
-            aria-invalid={touched && !parsed.ok} aria-describedby="monto-ayuda" onFocus={(e) => e.currentTarget.select()}
+            aria-invalid={touched && !parsed.ok} aria-describedby={touched && !parsed.ok ? 'monto-ayuda' : undefined} onFocus={(e) => e.currentTarget.select()}
             onChange={(e) => { setTouched(true); dispatch({ type: 'draft', patch: { amountInput: e.target.value } }); }}
             onBlur={() => setTouched(true)} />
         </div>
-        <p id="monto-ayuda" className={`small ${touched && !parsed.ok ? 'error' : 'muted'}`} role={touched && !parsed.ok ? 'alert' : undefined}>
-          {touched && !parsed.ok ? parsed.error : t('flujo.tocaMonto')}
-        </p>
+        {touched && !parsed.ok && <p id="monto-ayuda" className="small error" role="alert">{parsed.error}</p>}
 
-        <p className="muted">{t('flujo.rapido')}</p>
         <div className="quick">
           {quick.map((q) => (
             <button key={q} type="button" className={isQuick(q) ? 'on' : ''} aria-pressed={isQuick(q)}
@@ -118,7 +113,7 @@ export function SaldoImporte() {
           <div className="projection"><span className="muted">{t('flujo.asiQuedaria')}</span><strong>{formatMoney(projected)}</strong></div>
         )}
       </div>
-      <ActionFooter helper={t('flujo.pieCuanto')}>
+      <ActionFooter>
         <Button block disabled={!parsed.ok} onClick={() => { setTouched(true); if (parsed.ok) nav(`${BASE[kind]}/motivo`); }}>{t('comun.continuar')}</Button>
       </ActionFooter>
     </div>
@@ -137,7 +132,7 @@ function GoalChoice({ kind }: { kind: FlowKind }) {
       <div className="radio-list" role="radiogroup" aria-labelledby="meta">
         <button type="button" role="radio" aria-checked={sel === null} className={`reason wide ${sel === null ? 'on' : ''}`} onClick={() => pick(null)}>
           <Icon name={sel === null ? 'circle-check' : 'wallet'} size={20} />
-          <span className="row-text"><strong>{t('flujo.ningunaMeta')}</strong><span className="muted small">{tf(kind, 'sinMeta')}</span></span>
+          <span className="row-text"><strong>{t('flujo.ningunaMeta')}</strong></span>
         </button>
         {goals.map((g) => (
           <button key={g.id} type="button" role="radio" aria-checked={sel === g.id} className={`reason wide ${sel === g.id ? 'on' : ''}`} onClick={() => pick(g.id)}>
@@ -150,20 +145,11 @@ function GoalChoice({ kind }: { kind: FlowKind }) {
   );
 }
 
-/** Resumen compacto antes de confirmar. */
-function Summary({ kind, amountMinor }: { kind: FlowKind; amountMinor: number }) {
+/** «Así quedaría S/ X» antes de confirmar (lo elegido ya está a la vista). */
+function Projection({ kind, amountMinor }: { kind: FlowKind; amountMinor: number }) {
   const { state } = useStore();
-  const goal = state.goals.find((g) => g.id === state.draft.goalId);
   const after = state.balanceMinor + (kind === 'in' ? 1 : -1) * amountMinor;
-  return (
-    <dl className="summary-list">
-      <div><dt>{t('flujo.revisarCuanto')}</dt><dd>{formatMoney(amountMinor)}</dd></div>
-      {state.draft.reason && <div><dt>{t('flujo.revisarPorQue')}</dt><dd>{reasonLabel(state.draft.reason)}</dd></div>}
-      {kind === 'in' && state.draft.senderId && <div><dt>{t('flujo.revisarQuien')}</dt><dd>{senderLabel(state.draft.senderId, state.draft.senderName)}</dd></div>}
-      <div><dt>{t('flujo.revisarMeta')}</dt><dd>{goal ? goal.name : t('comun.ninguna')}</dd></div>
-      <div className="total"><dt>{t('flujo.asiQuedaria')}</dt><dd>{formatMoney(after)}</dd></div>
-    </dl>
-  );
+  return <div className="projection"><span className="muted">{t('flujo.asiQuedaria')}</span><strong>{formatMoney(after)}</strong></div>;
 }
 
 /** Confirma una sola vez y va al paso final. */
@@ -205,7 +191,6 @@ export function SaldoMotivo() {
         <BackBar title={tf(kind, 'titulo')} />
         <Steps kind={kind} current={2} />
         <h1 className="title">{tf(kind, 'deDonde')}</h1>
-        <p className="muted">{tf(kind, 'resumen', { monto: formatMoney(parsed.money), nombre: state.childName })}</p>
 
         <div className="reasons" role="radiogroup" aria-label={t('flujo.escogeOpcion')}>
           {REASONS[kind].map((r) => (
@@ -225,14 +210,14 @@ export function SaldoMotivo() {
         )}
 
         <GoalChoice kind={kind} />
-        {kind === 'out' && valid && <><h2 className="section-title">{t('flujo.resumen')}</h2><Summary kind={kind} amountMinor={parsed.money.minorUnits} /></>}
+        {kind === 'out' && valid && <Projection kind={kind} amountMinor={parsed.money.minorUnits} />}
       </div>
       {kind === 'in' ? (
-        <ActionFooter helper={t('flujo.pieDeDonde')}>
+        <ActionFooter>
           <Button block disabled={!valid} onClick={() => nav(`${BASE.in}/quien`)}>{t('comun.continuar')}</Button>
         </ActionFooter>
       ) : (
-        <ActionFooter helper={t('flujo.pieRevisar')}>
+        <ActionFooter>
           <Button block disabled={!valid} loading={busy} onClick={confirm}>{tf(kind, 'confirmar')}</Button>
         </ActionFooter>
       )}
@@ -258,7 +243,6 @@ export function SaldoQuien() {
         <BackBar title={tf('in', 'titulo')} />
         <Steps kind="in" current={3} />
         <h1 className="title">{t('quien.titulo')}</h1>
-        <p className="muted">{t('quien.sub')}</p>
         <div className="radio-list" role="radiogroup" aria-label={t('quien.titulo')}>
           {SENDERS.map((p) => (
             <button key={p.id} type="button" role="radio" aria-checked={sel === p.id} className={`reason wide ${sel === p.id ? 'on' : ''}`}
@@ -276,9 +260,9 @@ export function SaldoQuien() {
               onChange={(e) => dispatch({ type: 'draft', patch: { senderName: e.target.value } })} />
           </>
         )}
-        {valid && <><h2 className="section-title">{t('flujo.resumen')}</h2><Summary kind="in" amountMinor={parsed.money.minorUnits} /></>}
+        {valid && <Projection kind="in" amountMinor={parsed.money.minorUnits} />}
       </div>
-      <ActionFooter helper={t('flujo.pieRevisar')}>
+      <ActionFooter>
         <Button block disabled={!valid} loading={busy} onClick={confirm}>{tf('in', 'confirmar')}</Button>
       </ActionFooter>
     </div>
@@ -335,7 +319,7 @@ export function SaldoListo() {
           {reminder === 'set' && <p className="alert-box ok appear" role="status">{t('flujo.recordarListo', { dia })}</p>}
         </div>
       </div>
-      <ActionFooter helper={t('flujo.pieListo')}>
+      <ActionFooter>
         <LinkButton to="/" block>{t('flujo.volverAlcancia')}</LinkButton>
       </ActionFooter>
     </div>

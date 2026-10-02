@@ -38,7 +38,6 @@ data class AccionesAlcancia(
 @Composable
 fun AlcanciaPantalla(estado: AlcanciaUi, acciones: AccionesAlcancia = AccionesAlcancia(), saldoAnterior: Int = estado.saldo, nuevoId: String? = null) {
     var saltos by remember { mutableStateOf(0) }
-    var ideaHecha by remember { mutableStateOf(false) }
     PantallaPestana {
         EncabezadoPantalla(t("nav.alcancia"), acciones.onAjustes)
         FilaContexto(estado.nombre, estado.conexion, acciones.onPersona, acciones.onConexion)
@@ -55,7 +54,6 @@ fun AlcanciaPantalla(estado: AlcanciaUi, acciones: AccionesAlcancia = AccionesAl
         }
 
         if (estado.primerDia) {
-            Text(t("alcancia.valorPrimerDia", "nombre" to estado.nombre), style = AlcanciaType.secundario, color = AlcanciaColor.TextoSecundario)
             Boton(t("alcancia.primeraPlata"), acciones.onAgregar, Modifier.fillMaxWidth())
         } else {
             ParDeBotones {
@@ -72,7 +70,6 @@ fun AlcanciaPantalla(estado: AlcanciaUi, acciones: AccionesAlcancia = AccionesAl
                     IconTile(Ic.Target, TonoTile.Acento)
                     Text(t("alcancia.metaVaciaTitulo", "nombre" to estado.nombre), style = AlcanciaType.seccion)
                 }
-                Text(t("alcancia.metaVaciaTexto"), style = AlcanciaType.cuerpo, color = AlcanciaColor.TextoSecundario)
                 Boton(t("alcancia.metaVaciaBoton"), acciones.onPonerMeta, Modifier.fillMaxWidth(), Variante.Secundario)
             }
         } else {
@@ -82,16 +79,9 @@ fun AlcanciaPantalla(estado: AlcanciaUi, acciones: AccionesAlcancia = AccionesAl
             }
         }
 
-        EncabezadoSeccion(t("alcancia.loUltimo"), accion = if (estado.movimientos.isNotEmpty()) t("comun.verTodos") else null, onAccion = acciones.onVerMovimientos)
-        if (estado.movimientos.isEmpty()) {
-            Row(horizontalArrangement = Arrangement.spacedBy(AlcanciaDimen.Space12), verticalAlignment = Alignment.CenterVertically) {
-                IconTile(Ic.List, TonoTile.Azul)
-                Column {
-                    Text(t("alcancia.vacioTitulo"), style = AlcanciaType.elemento)
-                    Text(t("alcancia.vacioTexto"), style = AlcanciaType.secundario, color = AlcanciaColor.TextoSecundario)
-                }
-            }
-        } else {
+        // Sin movimientos no se muestra la sección: no hay nada que ver todavía.
+        if (estado.movimientos.isNotEmpty()) {
+            EncabezadoSeccion(t("alcancia.loUltimo"), accion = t("comun.verTodos"), onAccion = acciones.onVerMovimientos)
             Column {
                 estado.movimientos.forEachIndexed { i, m ->
                     if (i > 0) Separador()
@@ -99,10 +89,6 @@ fun AlcanciaPantalla(estado: AlcanciaUi, acciones: AccionesAlcancia = AccionesAl
                 }
                 Separador()
             }
-        }
-
-        if (!estado.primerDia && estado.idea != null) {
-            TarjetaIdea(t("idea.ceja"), estado.idea, t("idea.hecho"), ideaHecha, t("idea.anotado"), { ideaHecha = true; acciones.onIdeaHecha() })
         }
     }
 }

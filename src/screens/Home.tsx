@@ -80,7 +80,6 @@ export default function Home() {
 
       {firstDay ? (
         <>
-          <p className="value-line">{t('alcancia.valorPrimerDia', { nombre: childName })}</p>
           <LinkButton to="/saldo/importe" block>{t('alcancia.primeraPlata')}</LinkButton>
         </>
       ) : (
@@ -102,7 +101,6 @@ export default function Home() {
             <IconTile icon="target" tone="naranja" size={40} />
             <h3>{t('alcancia.metaVaciaTitulo', { nombre: childName })}</h3>
           </div>
-          <p className="muted">{t('alcancia.metaVaciaTexto')}</p>
           <LinkButton to="/meta/nueva" variant="secondary" block>{t('alcancia.metaVaciaBoton')}</LinkButton>
         </section>
       ) : (
@@ -113,25 +111,18 @@ export default function Home() {
         </ul>
       )}
 
-      <div className="section-head">
-        <h2>{t('alcancia.loUltimo')}</h2>
-        {movements.length > 0 && <Link to="/movimientos" className="link">{t('comun.verTodos')}</Link>}
-      </div>
-      {movements.length === 0 ? (
-        <div className="row static">
-          <IconTile icon="list" tone="azul" />
-          <span className="row-text">
-            <strong>{t('alcancia.vacioTitulo')}</strong>
-            <span className="muted">{t('alcancia.vacioTexto')}</span>
-          </span>
-        </div>
-      ) : (
-        <ul className="plain list">
-          {shownMoves.map((m) => <MovementRow key={m.id} m={m} isNew={newIds.has(m.id)} />)}
-        </ul>
+      {/* Sin movimientos no se muestra la sección: no hay nada que ver todavía. */}
+      {movements.length > 0 && (
+        <>
+          <div className="section-head">
+            <h2>{t('alcancia.loUltimo')}</h2>
+            <Link to="/movimientos" className="link">{t('comun.verTodos')}</Link>
+          </div>
+          <ul className="plain list">
+            {shownMoves.map((m) => <MovementRow key={m.id} m={m} isNew={newIds.has(m.id)} />)}
+          </ul>
+        </>
       )}
-
-      {!firstDay && <IdeaCard />}
     </>
   );
 }

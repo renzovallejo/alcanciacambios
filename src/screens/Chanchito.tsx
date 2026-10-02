@@ -21,6 +21,7 @@ export default function Chanchito() {
     window.setTimeout(() => setConn('error'), 1500);
   };
   const online = isConnected(state);
+  const paired = state.devicePaired;
   const title = conn === 'connecting' ? t('chanchito.conectando') : t('conexion.sinConexion');
   const text = conn === 'error' ? t('chanchito.errorConexion') : conn === 'connecting' ? t('chanchito.buscando') : t('chanchito.sinConexionTexto');
 
@@ -30,7 +31,7 @@ export default function Chanchito() {
         <BackBar title={t('chanchito.titulo', { nombre: state.childName })} heading />
         {online ? (
           <section className="card card-mint device-status" aria-live="polite">
-            <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{t('conexion.conectado')}</h2><p className="muted">{t('chanchito.conectadoTexto')}</p></div></div>
+            <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{t('conexion.conectado')}</h2></div></div>
           </section>
         ) : state.devicePaired ? (
           <section className={`card card-cream device-status conn-${conn}`} aria-live="polite">
@@ -40,7 +41,7 @@ export default function Chanchito() {
         ) : (
           // Nunca se conectó: no es un error, es el primer paso. Se invita a conectarlo.
           <section className="card card-cream device-status">
-            <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{t('chanchito.nuncaTitulo')}</h2><p className="muted">{t('chanchito.nuncaTexto')}</p></div></div>
+            <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{t('chanchito.nuncaTitulo')}</h2></div></div>
             <LinkButton to="/chanchito/emparejar" block>{t('chanchito.nuncaBoton')}</LinkButton>
           </section>
         )}
@@ -48,15 +49,15 @@ export default function Chanchito() {
         <h2 className="section-title">{t('chanchito.seccion')}</h2>
         {state.devicePaired && !online && <p className="muted small">{t('chanchito.sinConexionNota')}</p>}
         <ul className="plain list">
-          <Row to="bateria" icon="battery-medium" title={t('chanchito.bateria')} desc={t('chanchito.bateriaDato', { porcentaje: DEVICE.battery.value, cuando: t(online ? 'chanchito.ahoraMismo' : 'chanchito.loUltimo') })} />
-          <Row to="wifi" icon="wifi" title={t('chanchito.wifi')} desc={t('chanchito.wifiDato', { red: DEVICE.savedWifiName })} />
-          <Row to="sonido" icon="volume-2" title={t('chanchito.volumen')} desc={t(online ? 'chanchito.volumenAhora' : 'chanchito.volumenDato', { porcentaje: DEVICE.volume.value })} />
-          <Row to="emparejar" icon="bluetooth" title={t('chanchito.conectarCelular')} desc={t('chanchito.conectarCelularTexto')} />
+          <Row to="bateria" icon="battery-medium" title={t('chanchito.bateria')} desc={paired ? t('chanchito.bateriaDato', { porcentaje: DEVICE.battery.value, cuando: t(online ? 'chanchito.ahoraMismo' : 'chanchito.loUltimo') }) : undefined} />
+          <Row to="wifi" icon="wifi" title={t('chanchito.wifi')} desc={paired ? DEVICE.savedWifiName : undefined} />
+          <Row to="sonido" icon="volume-2" title={t('chanchito.volumen')} desc={paired ? `${DEVICE.volume.value}%` : undefined} />
+          <Row to="emparejar" icon="bluetooth" title={t('chanchito.conectarCelular')} />
         </ul>
 
         <h2 className="section-title">{t('chanchito.familia')}</h2>
         <ul className="plain list">
-          <Row to="perfil" icon="user-round" title={t('chanchito.perfil', { nombre: state.childName })} desc={t('chanchito.perfilTexto')} />
+          <Row to="perfil" icon="user-round" title={t('chanchito.perfil', { nombre: state.childName })} />
           <Row to="acompana" icon="users-round" title={t('acompana.fila')} desc={state.caregiver ? state.caregiver.name : t('acompana.filaVacia')} />
           <Row to="recordatorio" icon="bell" title={t('recordatorio.fila')} desc={state.propinaDay === null ? t('recordatorio.filaNo') : t('recordatorio.filaDia', { dia: dayName(state.propinaDay) })} />
         </ul>
@@ -72,38 +73,53 @@ export default function Chanchito() {
   );
 }
 
-function Row({ to, icon, title, desc }: { to: string; icon: string; title: string; desc: string }) {
+function Row({ to, icon, title, desc }: { to: string; icon: string; title: string; desc?: string }) {
   return (
     <li>
       <Link to={`/chanchito/${to}`} className="row">
         <IconTile icon={icon} tone="azul" />
-        <span className="row-text"><strong>{title}</strong><span className="muted small">{desc}</span></span>
+        <span className="row-text"><strong>{title}</strong>{desc && <span className="muted small">{desc}</span>}</span>
         <Icon name="chevron-right" size={18} className="muted" />
       </Link>
     </li>
   );
 }
 
+/** Batería, WiFi y volumen de un chanchito que nunca se conectó: no hay datos, solo la invitación a conectarlo. */
+function SinDatos({ title }: { title: string }) {
+  return (
+    <div className="task"><div className="task-scroll">
+      <BackBar title={title} heading />
+      <section className="card card-cream device-status">
+        <div className="device-top"><Mascota size={64} /><h2 className="device-title">{t('chanchito.nuncaTitulo')}</h2></div>
+        <LinkButton to="/chanchito/emparejar" block>{t('chanchito.nuncaBoton')}</LinkButton>
+      </section>
+    </div></div>
+  );
+}
+
 function Offline({ children }: { children?: React.ReactNode }) {
-  return <p className="alert-box"><strong>{t('chanchito.avisoSinConexion')}</strong> {t('chanchito.avisoNoAlDia')} {children}</p>;
+  return <p className="alert-box">{children}</p>;
 }
 
 export function Bateria() {
-  const online = isConnected(useStore().state);
+  const { state } = useStore();
+  const online = isConnected(state);
+  if (!state.devicePaired) return <SinDatos title={t('chanchito.bateria')} />;
   return (
     <div className="task"><div className="task-scroll">
       <BackBar title={t('chanchito.bateria')} heading />
       <div className="info-box"><span>{t(online ? 'bateria.ahora' : 'bateria.loUltimo')}</span><strong>{DEVICE.battery.value}%</strong></div>
       <div className="bar" role="progressbar" aria-valuenow={DEVICE.battery.value} aria-valuemin={0} aria-valuemax={100} aria-label={t('chanchito.bateria')}><div style={{ width: `${DEVICE.battery.value}%` }} /></div>
-      {!online && <><p className="muted small">{t('bateria.sinFecha')}</p><Offline>{t('bateria.conecta')}</Offline></>}
-      <h2 className="section-title">{t('bateria.consejos')}</h2>
-      <ul className="bullets"><li>{t('bateria.consejo1')}</li><li>{t('bateria.consejo2')}</li></ul>
+      {!online && <Offline>{t('bateria.conecta')}</Offline>}
     </div></div>
   );
 }
 
 export function Wifi() {
-  const online = isConnected(useStore().state);
+  const { state } = useStore();
+  const online = isConnected(state);
+  if (!state.devicePaired) return <SinDatos title={t('chanchito.wifi')} />;
   if (online) return (
     <div className="task"><div className="task-scroll">
       <BackBar title={t('chanchito.wifi')} heading />
@@ -124,8 +140,10 @@ export function Wifi() {
 }
 
 export function Sonido() {
-  const online = isConnected(useStore().state);
+  const { state } = useStore();
+  const online = isConnected(state);
   const [vol, setVol] = useState(DEVICE.volume.value);
+  if (!state.devicePaired) return <SinDatos title={t('chanchito.volumen')} />;
   return (
     <div className="task"><div className="task-scroll">
       <BackBar title={t('chanchito.volumen')} heading />
@@ -177,7 +195,6 @@ export function Perfil() {
         <label htmlFor="nombre" className="field-label">{t('perfil.nombre')}</label>
         <input id="nombre" className="text-field" maxLength={30} value={name} onChange={(e) => setName(e.target.value)} />
         {touched && !name.trim() && <p className="small error" role="alert">{t('perfil.nombreError')}</p>}
-        <p className="muted small">{t('perfil.ayuda')}</p>
       </div>
       <ActionFooter><Button block onClick={save}>{t('comun.guardar')}</Button></ActionFooter>
     </div>
@@ -190,7 +207,6 @@ export function Perfiles() {
     <>
       <BackBar label={t('comun.volver')} />
       <h1 className="title">{t('perfiles.titulo')}</h1>
-      <p className="muted">{t('perfiles.ayuda')}</p>
       <ul className="plain list">
         <li className="row static">
           <IconTile icon="user-round" tone="azul" />
@@ -254,7 +270,6 @@ export function Acompana() {
       <div className="task-scroll">
         <BackBar title={t('acompana.fila')} />
         <h1 className="title">{t('acompana.titulo', { nombre: state.childName })}</h1>
-        <p className="muted">{t('acompana.ayuda')}</p>
         <label htmlFor="acomp-nombre" className="field-label">{t('acompana.nombre')}</label>
         <input id="acomp-nombre" className="text-field" maxLength={30} placeholder={t('acompana.nombreEjemplo')} value={name} onChange={(e) => setName(e.target.value)} />
         <h2 className="section-title" id="acomp-rel">{t('acompana.relacion', { nombre: state.childName })}</h2>
@@ -284,7 +299,6 @@ export function Recordatorio() {
       <div className="task-scroll">
         <BackBar title={t('recordatorio.fila')} />
         <h1 className="title">{t('recordatorio.titulo')}</h1>
-        <p className="muted">{t('recordatorio.ayuda')}</p>
         <div className="radio-list" role="radiogroup" aria-label={t('recordatorio.titulo')}>
           {order.map((d) => (
             <button key={d} type="button" role="radio" aria-checked={day === d} className={`reason wide ${day === d ? 'on' : ''}`} onClick={() => setDay(d)}>

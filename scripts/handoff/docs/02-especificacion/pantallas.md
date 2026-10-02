@@ -18,7 +18,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 - **Contenido**: encabezado → contexto → tarjeta de saldo (mascota 64 dp, «LLEVA AHORRADO», monto 36 sp) → acciones → «Sus metas» (máx. 2, orden estable) → «Lo último que entró y salió» (máx. 2).
 - **Acciones**: «Agregar plata» → Agregar plata · «Sacar plata» → Sacar plata · «Ver todas (N)» → Sus metas · tarjeta de meta → Detalle de meta · «Ver todos» → Lo que entró y salió · fila → Detalle.
 - **Estados**:
-  - *Primer día* (saldo 0, sin metas ni movimientos): línea «Aquí ven la plata que {nombre} mete o saca…»; un solo botón «Guardar su primera plata»; tarjeta crema «¿Para qué quiere ahorrar {nombre}?» con «Poner su primera meta»; vacío de movimientos con icono. **No** mostrar «Sacar plata».
+  - *Primer día* (saldo 0, sin metas ni movimientos): un solo botón «Guardar su primera plata»; tarjeta crema «¿Para qué quiere ahorrar {nombre}?» con «Poner su primera meta». **No** mostrar «Sacar plata» ni la sección «Lo último que entró y salió» (vacía).
   - *Con datos*: dos botones lado a lado («Sacar plata» solo si hay saldo).
   - *Saldo*: bajo el monto, «Esta semana: +S/ X» si entró plata en 7 días.
   - *Borrador*: aviso crema «Dejaron a medias: S/ X» con «Descartar» y «Seguir».
@@ -52,20 +52,19 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 
 ### Paso 1 · Cuánto · `/saldo/importe` · `Saldo.tsx` · 53, 07, 59, 06
 - Barra: «✕» + título. «✕» con datos elegidos pide confirmar: «Si sales ahora, no cambia nada. ¿Quieres salir?».
-- Pregunta → caja «Ahora tiene ahorrado S/ X» → campo de monto grande (36 sp, prefijo «S/», teclado decimal; **al tocarlo se selecciona todo** para escribir encima) → ayuda o error → «O escoge uno rápido» (S/ 5 · S/ 10 · S/ 20) → «Así quedaría S/ Y».
-- Pie: «Continuar» (deshabilitado si el monto no es válido) + «Todavía no cambia nada.»
+- Pregunta → campo de monto grande (36 sp, prefijo «S/», teclado decimal; **al tocarlo se selecciona todo** para escribir encima; su etiqueta «Cuánto» solo la lee el lector de pantalla) → error si lo hay → S/ 5 · S/ 10 · S/ 20 → «Así quedaría S/ Y».
+- Pie: «Continuar» (deshabilitado si el monto no es válido). Sin ayudas permanentes.
 
 ### Paso 2 · ¿De dónde salió? / ¿En qué la va a usar? · `/saldo/motivo`, `/salida/motivo` · 54, 60
-- Barra «←» (conserva lo escrito). Resumen «Sofía va a guardar S/ 10.00.».
+- Barra «←» (conserva lo escrito).
 - Motivos: grilla de 2 columnas, selección única con icono ✓ + borde + fondo. «Otra cosa» pide «Cuéntanos qué fue» (máx. 60).
-- «¿Es para alguna meta?» / «¿Sale de alguna meta?»: **tarjetas a la vista** (no desplegable) con «Ninguna meta en especial» + metas con «S/ X de S/ Y». En agregar no aparecen metas ya usadas; en sacar, solo metas con plata.
-- Agregar: pie «Continuar». Sacar: «Resumen» + «Sí, guardar» en este mismo paso.
+- «¿Es para alguna meta?» / «¿Sale de alguna meta?»: **tarjetas a la vista** (no desplegable) con «Ninguna meta en especial» (sin subtítulo) + metas con «S/ X de S/ Y». En agregar no aparecen metas ya usadas; en sacar, solo metas con plata.
+- Agregar: pie «Continuar». Sacar: «Así quedaría S/ X» + «Sí, sacar» en este mismo paso.
 
 ### Paso 3 (agregar) · ¿Quién le envía? · `/saldo/quien` · 55 · `quien.*`
-- Texto: «Abuelos y tíos también pueden mandarle plata. Cuando el chanchito está conectado, dice su nombre en voz alta.»
 - Lista de tarjetas con radio: Mamá, Papá, Abuela, Abuelo, Tío o tía, Otro pariente. La relación de quien acompaña lleva el subtítulo «Administra la cuenta». «Otro pariente» pide «¿Quién es?» (máx. 30, obligatorio).
-- «Resumen»: Cuánto · Por qué · Quién envía · Meta · **Así quedaría**.
-- Pie: «Sí, guardar» + «Recién cambia cuando toques el botón.». Un solo envío: «Un ratito…» y bloqueado.
+- «Así quedaría S/ X» (lo elegido ya se vio en los pasos anteriores: no se repite en un resumen).
+- Pie: «Sí, guardar». Un solo envío: «Un ratito…» y bloqueado.
 
 ### Último paso · ¡Listo! · `/saldo/listo`, `/salida/listo` · 56, 57
 - Check grande con rebote, «¡Listo, ya se guardó!», «Ahora Sofía lleva ahorrado S/ X.» y, si se completó una meta, «¡Ya juntaron todo para «Meta»!».
@@ -79,7 +78,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 ## Aprender
 
 ### Aprender · `/aprender` · `Learn.tsx` · 02, 21 · `aprender.*`
-- *Para empezar* (ninguna actividad empezada): «Aprendan a ahorrar juntos» + texto → tarjeta lavanda «PARA EMPEZAR · AHORRAR», «Fijar una meta de ahorro», mascota, «Ver de qué se trata» → «Otras formas de acompañar» (Biblioteca, Contar algo que pasó, Felicitar).
+- *Para empezar* (ninguna actividad empezada): tarjeta lavanda «PARA EMPEZAR · AHORRAR», «Fijar una meta de ahorro», mascota, «Ver de qué se trata» → «Otras formas de acompañar» (Biblioteca, Contar algo que pasó, Felicitar).
 - *En curso*: tarjeta «EN CURSO · {TEMA}», título de la actividad activa, fila «Ahora: {paso actual}» (borde naranja), «Seguir con la actividad» → «Otras cosas que pueden hacer» (Anotar, Felicitar, Biblioteca).
 
 ### Biblioteca · `/biblioteca` · 22–24 · `biblioteca.*`
@@ -106,7 +105,7 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 ## Progreso
 
 ### Progreso · `/progreso` · `Momentos.tsx` · 31, 03 · `progreso.*`
-- Contexto con «Sin notas ni comparar con nadie» → tarjeta menta del momento destacado (ceja, título, relato, «Lo contó Mamá · ayer», «Ver más →») → resumen «3 cosas anotadas · 3 conversaciones» + «Ver todo →» → «Lo que va descubriendo»: 4 temas en 2 columnas (orden fijo Ahorrar, Gastar bien, Compartir, Ganar; «Ya empezaron» en azul suave o «Todavía no empiezan») → «¿Qué pueden hacer ahora?» + siguiente actividad sugerida + «Ver la actividad».
+- Contexto (solo el nombre) → tarjeta menta del momento destacado (ceja, título, relato, «Lo contó Mamá · ayer», «Ver más →») → resumen «3 cosas contadas · 3 conversaciones» + «Ver todo →» (no se muestra si todo está en 0) → «Lo que va descubriendo»: 4 temas en 2 columnas (orden fijo Ahorrar, Gastar bien, Compartir, Ganar; «Ya empezaron» en azul suave; los no empezados sin etiqueta) → «¿Qué pueden hacer ahora?» + título de la siguiente actividad + «Ver la actividad».
 - *Sin momentos*: la tarjeta invita («Cuenten lo que vean» + «Contar algo que pasó»). Sin temas por empezar: texto + «Abrir Biblioteca».
 - Con texto grande o pantalla de 320 dp: temas en 1 columna.
 
@@ -155,7 +154,22 @@ Cada pantalla indica su **ruta en el prototipo** (para abrirla directo), el **ar
 - En el último paso: «Ya terminamos». Después: ceja «YA LA HICIERON · TEMA», tarjeta menta «¡Terminaron «Actividad»!» y «Ver «Siguiente»». Cada paso muestra «N min».
 
 ### El chanchito · conectado (semilla semana)
-- Tarjeta menta «Conectado» + «Todo bien: está prendido y conectado al WiFi de la casa.». Batería «52% · Ahora», WiFi «Conectado a…», volumen editable. Sin avisos de «lo último que sabemos».
+- Tarjeta menta «Conectado». Batería «52% · Ahora», WiFi «Conectado a…», volumen editable. Sin avisos de «lo último que sabemos».
 
 ### El chanchito · nunca conectado · 05
-- Tarjeta «Conecten su chanchito» + «Mientras tanto, pueden llevar aquí la cuenta de su plata…» + «Conectar el chanchito» (→ Conectar este celular). Sin «Intentar otra vez» ni «Sin conexión».
+- Tarjeta «Conecten su chanchito» + «Conectar el chanchito» (→ Conectar este celular). Sin «Intentar otra vez» ni «Sin conexión».
+
+## Menos texto (auditoría por carga visual)
+
+Regla general (ver `03-diseno/sistema-de-diseno/documentacion/lenguaje.md`, principio 5): cada pantalla muestra título, datos y acciones. Se quitaron:
+
+- **Subtítulos que repiten el título**: «Lo que Sofía va a meter a su chanchito», «Sofía va a guardar S/ 10.00», «Un cuento para escuchar juntos», «Escojan lo que quieran…», «Aprendan a ahorrar juntos…».
+- **Ayudas permanentes al pie**: «Todavía no cambia nada», «Recién cambia cuando toques el botón», «Lo verás en Alcancía», «Se guarda con la fecha de hoy».
+- **Frases para tranquilizar**: «No es tarea», «Es opcional», «No es una nota para nadie», «Sin notas ni comparar con nadie».
+- **Resúmenes que repiten lo elegido**: antes de confirmar queda solo «Así quedaría S/ X».
+- **Descripciones de filas obvias**: «Cuentos, misiones y juegos», «Su nombre», «Para manejar el chanchito desde aquí».
+- **Secciones vacías**: sin movimientos no aparece «Lo último que entró y salió»; con todo en 0 no aparece el conteo de Progreso.
+- **Reproductor sin audio**: los cuentos del celular se leen con «Leer en voz alta»; el reproductor queda solo para el cuento que suena en el chanchito.
+- **Datos que no existen**: si el chanchito nunca se conectó, Batería, WiFi y Volumen no muestran valores; invitan a conectarlo.
+
+Se mantienen: los errores junto al campo, las confirmaciones antes de borrar o salir, y lo que cambia lo que la persona decide.

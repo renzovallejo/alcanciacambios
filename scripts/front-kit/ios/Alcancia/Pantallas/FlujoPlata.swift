@@ -43,23 +43,14 @@ struct CuantoPantalla: View {
     var body: some View {
         let error = errorDeMonto(monto, flujo: flujo, saldo: saldo, metaOrigen: metaOrigen)
         let c = centimos(monto)
-        PantallaTarea(titulo: tf(flujo, "titulo"), alAtras: alCerrar, cerrar: true, ayudaPie: t("flujo.pieCuanto")) {
+        PantallaTarea(titulo: tf(flujo, "titulo"), alAtras: alCerrar, cerrar: true) {
             Boton(texto: t("comun.continuar"), habilitado: error == nil) { tocado = true; if error == nil { alContinuar() } }
         } contenido: {
             IndicadorPasos(actual: 1, etiquetas: pasos(flujo))
             Titulo(texto: tf(flujo, "pregunta"))
-            Text(tf(flujo, "sub", ["nombre": nombre])).alcanciaText(AlcanciaType.cuerpo).foregroundStyle(AlcanciaColor.textoSecundario)
-            CajaDato(etiqueta: t("flujo.ahoraTieneAhorrado"), valor: Dinero.soles(saldo))
-            CampoMonto(valor: Binding(get: { monto }, set: { tocado = true; monto = $0 }), etiqueta: t("flujo.cuanto"), ayuda: t("flujo.tocaMonto"), error: tocado ? error : nil)
-            Text(t("flujo.rapido")).alcanciaText(AlcanciaType.cuerpo).foregroundStyle(AlcanciaColor.textoSecundario)
+            CampoMonto(valor: Binding(get: { monto }, set: { tocado = true; monto = $0 }), etiqueta: t("flujo.cuanto"), error: tocado ? error : nil)
             MontosRapidos(valores: Catalogo.montosRapidos, elegido: c) { v in tocado = false; monto = String(format: "%d.%02d", v / 100, v % 100) }
-            if let c, error == nil {
-                HStack {
-                    Text(t("flujo.asiQuedaria")).alcanciaText(AlcanciaType.cuerpo).foregroundStyle(AlcanciaColor.textoSecundario)
-                    Spacer()
-                    Text(Dinero.soles(saldo + (flujo == .entrada ? c : -c))).alcanciaText(AlcanciaType.seccion).foregroundStyle(AlcanciaColor.principal)
-                }
-            }
+            if let c, error == nil { Proyeccion(flujo: flujo, saldo: saldo, centimos: c) }
         }
     }
 }
@@ -72,7 +63,7 @@ struct EleccionMeta: View {
     var body: some View {
         Text(tf(flujo, "paraMeta")).alcanciaText(AlcanciaType.seccion).accessibilityAddTraits(.isHeader)
         VStack(spacing: AlcanciaDimen.space8) {
-            OpcionFila(titulo: t("flujo.ningunaMeta"), icono: Ic.wallet, elegida: elegida == nil, subtitulo: tf(flujo, "sinMeta"), conRadio: false) { elegida = nil }
+            OpcionFila(titulo: t("flujo.ningunaMeta"), icono: Ic.wallet, elegida: elegida == nil, conRadio: false) { elegida = nil }
             ForEach(metas.filter { flujo == .entrada ? !$0.usada : $0.guardado > 0 }) { g in
                 OpcionFila(titulo: g.nombre, icono: g.icono, elegida: elegida == g.id,
                            subtitulo: t("meta.deObjetivo", ["guardado": Dinero.soles(g.guardado), "objetivo": Dinero.soles(g.objetivo)]), conRadio: false) { elegida = g.id }
@@ -81,12 +72,19 @@ struct EleccionMeta: View {
     }
 }
 
-private func resumen(_ f: Flujo, _ c: Int, _ saldo: Int, motivo: String, quien: String?, meta: String?) -> [(String, String)] {
-    var filas = [(t("flujo.revisarCuanto"), Dinero.soles(c)), (t("flujo.revisarPorQue"), motivo)]
-    if let quien { filas.append((t("flujo.revisarQuien"), quien)) }
-    filas.append((t("flujo.revisarMeta"), meta ?? t("comun.ninguna")))
-    filas.append((t("flujo.asiQuedaria"), Dinero.soles(saldo + (f == .entrada ? c : -c))))
-    return filas
+/// «Así quedaría S/ X» antes de confirmar (lo elegido ya está a la vista: no se repite en un resumen).
+struct Proyeccion: View {
+    let flujo: Flujo
+    let saldo: Int
+    let centimos: Int
+    var body: some View {
+        HStack {
+            Text(t("flujo.asiQuedaria")).alcanciaText(AlcanciaType.cuerpo).foregroundStyle(AlcanciaColor.textoSecundario)
+            Spacer()
+            Text(Dinero.soles(saldo + (flujo == .entrada ? centimos : -centimos))).alcanciaText(AlcanciaType.seccion).foregroundStyle(AlcanciaColor.principal)
+        }
+        .accessibilityElement(children: .combine)
+    }
 }
 
 /// Paso 2 · ¿De dónde salió? / ¿En qué la va a usar? · /saldo/motivo · capturas 54, 60. En salidas aquí mismo se confirma.
@@ -106,19 +104,15 @@ struct MotivoPantalla: View {
     var body: some View {
         let valido = motivo != nil && (motivo != "otro" || !detalle.trimmingCharacters(in: .whitespaces).isEmpty)
         let entrada = flujo == .entrada
-        PantallaTarea(titulo: tf(flujo, "titulo"), alAtras: alAtras, ayudaPie: t(entrada ? "flujo.pieDeDonde" : "flujo.pieRevisar")) {
+        PantallaTarea(titulo: tf(flujo, "titulo"), alAtras: alAtras) {
             Boton(texto: entrada ? t("comun.continuar") : tf(flujo, "confirmar"), habilitado: valido, cargando: enviando, accion: alContinuar)
         } contenido: {
             IndicadorPasos(actual: 2, etiquetas: pasos(flujo))
             Titulo(texto: tf(flujo, "deDonde"))
-            Text(tf(flujo, "resumen", ["monto": Dinero.soles(centimos), "nombre": nombre])).alcanciaText(AlcanciaType.cuerpo).foregroundStyle(AlcanciaColor.textoSecundario)
             GrillaOpciones(opciones: entrada ? Catalogo.motivosEntrada : Catalogo.motivosSalida, elegida: motivo, texto: { t("motivos.\($0.id)") }) { motivo = $0.id }
             if motivo == "otro" { CampoTexto(valor: $detalle, etiqueta: t("flujo.otroCampo")) }
             EleccionMeta(flujo: flujo, metas: metas, elegida: $meta)
-            if !entrada && valido, let motivo {
-                Text(t("flujo.resumen")).alcanciaText(AlcanciaType.seccion)
-                ListaResumen(filas: resumen(flujo, centimos, saldo, motivo: motivo == "otro" ? detalle : t("motivos.\(motivo)"), quien: nil, meta: metas.first { $0.id == meta }?.nombre))
-            }
+            if !entrada && valido { Proyeccion(flujo: flujo, saldo: saldo, centimos: centimos) }
         }
     }
 }
@@ -141,22 +135,18 @@ struct QuienPantalla: View {
 
     var body: some View {
         let valido = quien != nil && (quien != "otro" || !nombreOtro.trimmingCharacters(in: .whitespaces).isEmpty)
-        PantallaTarea(titulo: t("flujo.in.titulo"), alAtras: alAtras, ayudaPie: t("flujo.pieRevisar")) {
+        PantallaTarea(titulo: t("flujo.in.titulo"), alAtras: alAtras) {
             Boton(texto: t("flujo.in.confirmar"), habilitado: valido, cargando: enviando, accion: alConfirmar)
         } contenido: {
             IndicadorPasos(actual: 3, etiquetas: pasos(.entrada))
             Titulo(texto: t("quien.titulo"))
-            Text(t("quien.sub")).alcanciaText(AlcanciaType.cuerpo).foregroundStyle(AlcanciaColor.textoSecundario)
             VStack(spacing: AlcanciaDimen.space8) {
                 ForEach(Catalogo.quienEnvia) { p in
                     OpcionFila(titulo: t("quien.\(p.id)"), icono: p.icono, elegida: quien == p.id, subtitulo: relacionAdmin == p.id ? t("quien.admin") : nil) { quien = p.id }
                 }
             }
             if quien == "otro" { CampoTexto(valor: $nombreOtro, etiqueta: t("quien.otroCampo"), ejemplo: t("quien.otroEjemplo"), maximo: 30) }
-            if valido, let quien {
-                Text(t("flujo.resumen")).alcanciaText(AlcanciaType.seccion)
-                ListaResumen(filas: resumen(.entrada, centimos, saldo, motivo: motivoTexto, quien: quien == "otro" ? nombreOtro : t("quien.\(quien)"), meta: metaNombre))
-            }
+            if valido { Proyeccion(flujo: .entrada, saldo: saldo, centimos: centimos) }
         }
     }
 }
@@ -178,7 +168,7 @@ struct ListoPantalla: View {
     @State private var recordatorio = 0 // 0 = pregunta, 1 = sí, -1 = no
 
     var body: some View {
-        PantallaTarea(titulo: tf(flujo, "titulo"), ayudaPie: t("flujo.pieListo")) {
+        PantallaTarea(titulo: tf(flujo, "titulo")) {
             Boton(texto: t("flujo.volverAlcancia"), accion: alVolver)
         } contenido: {
             IndicadorPasos(actual: pasos(flujo).count, etiquetas: pasos(flujo))

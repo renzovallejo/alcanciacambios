@@ -16,7 +16,7 @@ fun probarFlujo() = runComposeUiTest {
     toca("Agregar plata"); ve("¿Cuánto va a guardar?"); ve("Paso 1 de 4")
     toca("Continuar"); ve("¿De dónde salió esta plata?")
     toca("Continuar"); ve("¿Quién le envía?"); ve("Administra la cuenta")
-    toca("Abuela"); ve("Quién envía")
+    toca("Abuela"); ve("Así quedaría")
     toca("Otro pariente"); onNodeWithText("Sí, guardar", useUnmergedTree = true).onParent().assertIsNotEnabled()
     toca("Abuela"); onNodeWithText("Sí, guardar", useUnmergedTree = true).onParent().assertIsEnabled()
     toca("Sí, guardar"); ve("¡Listo, ya se guardó!"); ve("S/ 35.00")

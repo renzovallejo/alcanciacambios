@@ -28,7 +28,7 @@ Hola 👋 Este paquete trae todo lo necesario para llevar a la **app Android e i
 | `02-especificacion/` | Pantallas, flujos, reglas de negocio, estados, animaciones, accesibilidad, notas por plataforma y criterios de aceptación. |
 | `03-diseno/tokens/` | Colores, medidas, tipografía y animación listos: `android/AlcanciaTokens.kt` (Compose), `ios/AlcanciaTokens.swift` (SwiftUI), `res/values/*.xml` y `tokens.json` (Flutter / RN). |
 | `03-diseno/sistema-de-diseno/` | Sistema de diseño completo: editable de Pencil, guía de lenguaje (`documentacion/lenguaje.md`), componentes, referencias v3.3. |
-| `04-assets/` | Fuente Inter (con `res/font/inter.ttf`), 51 iconos Lucide en SVG, mascota por densidad (`drawable-*dpi` y `Mascota.imageset`). |
+| `04-assets/` | Fuente Inter (con `res/font/inter.ttf`), 51 iconos Lucide en SVG, mascota por densidad (`drawable-*dpi` y `Mascota.imageset`) e **ícono de la app** (`icono-app/`: maestro 1024, Google Play, launcher Android adaptativo, AppIcon iOS, web). |
 | `05-textos/` | Todos los textos de la app: `android/res/values/strings.xml`, `ios/es.lproj/Localizable.strings(.stringsdict)`, `es.json` y `claves.md` (tabla para buscar un texto). |
 | `06-datos/` | Modelos (`Modelos.kt`, `Modelos.swift`), contenido educativo (`contenido.json`), estados de ejemplo (`semillas/`) y casos de prueba de dinero. |
 | `07-referencias/` | 60 capturas de todas las pantallas y estados + 5 videos de flujos y animaciones. Índice en `07-referencias/README.md`. |
@@ -39,6 +39,7 @@ Hola 👋 Este paquete trae todo lo necesario para llevar a la **app Android e i
 ## Lo más importante de esta versión
 
 - **Al cargar plata se guarda el motivo y de quién viene** (Mamá, Papá, Abuela, Abuelo, Tío o tía, Otro pariente). Ver `02-especificacion/flujos.md`.
+- **Menos texto en pantalla** (auditoría de carga visual) y **nuevo ícono de la app** (`04-assets/icono-app/`).
 - Revisión por tipos de usuario (anotar rápido, corregir y borrar, recordatorio, ideas de 1 minuto, voz, cierre de actividad…): §5 de `01-QUE-CAMBIA.md` y épica 6 del backlog.
 
 ## Tres reglas que no se negocian

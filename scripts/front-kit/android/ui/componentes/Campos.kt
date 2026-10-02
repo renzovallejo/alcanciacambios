@@ -38,16 +38,15 @@ import pe.alcancia.ui.theme.AlcanciaType
 /**
  * Campo de monto grande (36 sp, prefijo «S/», teclado decimal).
  * Al enfocarlo se selecciona todo: se escribe encima sin borrar a mano.
- * [error] aparece debajo, junto al campo; si es null se muestra [ayuda].
+ * [etiqueta] no se ve (el título de la pantalla ya pregunta «¿Cuánto…?»), pero la lee el lector de pantalla. [error] aparece debajo.
  */
 @Composable
-fun CampoMonto(valor: String, onCambio: (String) -> Unit, etiqueta: String, ayuda: String, error: String?, modifier: Modifier = Modifier) {
+fun CampoMonto(valor: String, onCambio: (String) -> Unit, etiqueta: String, error: String?, modifier: Modifier = Modifier) {
     var campo by remember { mutableStateOf(TextFieldValue(valor)) }
     if (campo.text != valor) campo = TextFieldValue(valor, TextRange(valor.length))
     val forma = RoundedCornerShape(AlcanciaDimen.Radius14)
     val color = if (error != null) AlcanciaExtra.Error else AlcanciaColor.Principal
     Column(modifier, verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text(etiqueta, style = AlcanciaType.boton)
         Row(
             Modifier.fillMaxWidth().defaultMinSize(minHeight = 72.dp).clip(forma)
                 .background(if (error != null) AlcanciaColor.FondoRojo else AlcanciaColor.Base)
@@ -67,7 +66,8 @@ fun CampoMonto(valor: String, onCambio: (String) -> Unit, etiqueta: String, ayud
                     .semantics { contentDescription = etiqueta; if (error != null) error(error) },
             )
         }
-        Text(error ?: ayuda, style = AlcanciaType.secundario, color = if (error != null) AlcanciaExtra.Error else AlcanciaColor.TextoSecundario)
+        // Sin ayuda permanente: solo el error, junto al campo.
+        if (error != null) Text(error, style = AlcanciaType.secundario, color = AlcanciaExtra.Error)
     }
 }
 

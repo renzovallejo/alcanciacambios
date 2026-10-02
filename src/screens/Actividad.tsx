@@ -21,7 +21,6 @@ export function Actividad() {
   const finished = state.finishedTopics.includes(topic) && state.activeTopic !== topic;
   const next = nextActivity(state.finishedTopics, topic);
 
-  const ultimo = t('actividad.ultimoPaso').split('{enlace}');
   const start = () => { dispatch({ type: 'startActivity', topic }); nav(stepPath(act.steps[0], topic, 1)); };
 
   return (
@@ -34,7 +33,6 @@ export function Actividad() {
           <p className="body">{act.blurb}</p>
         </section>
         <h2 className="section-title">{t('actividad.loQueVan')}</h2>
-        <p className="muted small">{t('actividad.loQueVanTexto')}</p>
         <ol className="plain list steps-list">
           {act.steps.map((s, i) => (
             <li key={s.id}>
@@ -52,7 +50,6 @@ export function Actividad() {
         )}
         {started && !finished && cur === act.steps.length - 1 && (
           <>
-            <p className="alert-box ok">{ultimo[0]}<Link to="/progreso" className="inline-link">{t('actividad.verOtroTema')}</Link>{ultimo[1]}</p>
             <Button variant="secondary" block onClick={() => dispatch({ type: 'finishActivity', topic })}><Icon name="check" size={18} />{t('actividad.terminar')}</Button>
           </>
         )}
@@ -60,13 +57,12 @@ export function Actividad() {
           // Cierre: se celebra sin puntaje y se propone la siguiente.
           <section className="card card-mint appear" role="status">
             <h2 className="moment-title"><Icon name="party-popper" size={20} /> {t('actividad.terminada', { actividad: act.title })}</h2>
-            <p className="muted">{next ? t('actividad.terminadaTexto') : t('actividad.terminadaTodas')}</p>
+            {!next && <p className="muted">{t('actividad.terminadaTodas')}</p>}
             {next && <LinkButton to={`/actividad/${next.topic}`} variant="secondary" block>{t('actividad.verSiguiente', { actividad: next.title })}</LinkButton>}
           </section>
         )}
-        {!started && <p className="note"><Icon name="info" size={18} />{t('actividad.noLaEmpieza')}</p>}
       </div>
-      <ActionFooter helper={t(started ? 'actividad.pieEmpezada' : 'actividad.pieNueva')}>
+      <ActionFooter>
         {started
           ? <LinkButton to={stepPath(act.steps[cur], topic, cur + 1)} block>{t('actividad.seguir')}</LinkButton>
           : <Button block onClick={start}>{t('actividad.empezar')}</Button>}

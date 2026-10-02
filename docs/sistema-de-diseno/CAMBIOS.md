@@ -2,6 +2,10 @@
 
 ## v3.4.1 · Revisión por tipos de usuario
 
+**Ícono de la app:** nuevo ícono «Chanchito» (`assets/icono-app/`, ver su LEEME): maestro de 1024 px y variantes para web, Android e iOS generadas desde él.
+
+**Menos texto:** auditoría de las versiones de primer día y de una semana: −39 % y −23 % de palabras en pantalla. Se quitaron subtítulos explicativos, ayudas al pie, frases tranquilizadoras y resúmenes que repetían lo elegido. Regla nueva en `documentacion/lenguaje.md`.
+
 **Lenguaje:** se deja de usar «anotar» (no es tan común en Perú). Plata: «guardar / sacar» («Sí, guardar», «¡Listo, ya se guardó!», «Lo que entró y salió»). Momentos: «contar» («Contar algo que pasó», «3 cosas contadas»). Se quitan los avisos «no mueve plata de verdad».
 
 Componentes nuevos (todos con tokens existentes; ver capturas en el paquete para desarrollo):

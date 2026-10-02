@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ícono adaptativo generado desde el maestro de 1024 px (scripts/icono-app/generar.py). -->
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@mipmap/ic_launcher_fondo" />
+    <foreground android:drawable="@mipmap/ic_launcher_frente" />
+</adaptive-icon>

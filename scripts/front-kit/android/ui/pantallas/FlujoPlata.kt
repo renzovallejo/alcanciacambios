@@ -63,23 +63,14 @@ fun CuantoPantalla(flujo: Flujo, nombre: String, saldo: Int, monto: String, onMo
     val error = errorDeMonto(monto, flujo, saldo, metaOrigen)
     val centimos = (validarMonto(monto) as? Monto.Ok)?.centimos
     PantallaTarea(
-        tf(flujo, "titulo"), onCerrar, cerrar = true, ayudaPie = t("flujo.pieCuanto"),
+        tf(flujo, "titulo"), onCerrar, cerrar = true,
         pie = { Boton(t("comun.continuar"), { tocado = true; if (error == null) onContinuar() }, Modifier.fillMaxWidth(), habilitado = error == null) },
     ) {
         IndicadorPasos(1, pasos(flujo))
         Titulo(tf(flujo, "pregunta"))
-        Text(tf(flujo, "sub", "nombre" to nombre), style = AlcanciaType.cuerpo, color = AlcanciaColor.TextoSecundario)
-        CajaDato(t("flujo.ahoraTieneAhorrado"), formatoSoles(saldo))
-        CampoMonto(monto, { tocado = true; onMonto(it) }, t("flujo.cuanto"), t("flujo.tocaMonto"), if (tocado) error else null)
-        Text(t("flujo.rapido"), style = AlcanciaType.cuerpo, color = AlcanciaColor.TextoSecundario)
+        CampoMonto(monto, { tocado = true; onMonto(it) }, t("flujo.cuanto"), if (tocado) error else null)
         MontosRapidos(Catalogo.MONTOS_RAPIDOS, centimos, { tocado = false; onMonto("%d.%02d".format(it / 100, it % 100)) })
-        if (centimos != null && error == null) {
-            val despues = saldo + if (flujo == Flujo.Entrada) centimos else -centimos
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                Text(t("flujo.asiQuedaria"), style = AlcanciaType.cuerpo, color = AlcanciaColor.TextoSecundario, modifier = Modifier.weight(1f))
-                Text(formatoSoles(despues), style = AlcanciaType.seccion, color = AlcanciaColor.Principal)
-            }
-        }
+        if (centimos != null && error == null) Proyeccion(flujo, saldo, centimos)
     }
 }
 
@@ -88,7 +79,7 @@ fun CuantoPantalla(flujo: Flujo, nombre: String, saldo: Int, monto: String, onMo
 fun EleccionMeta(flujo: Flujo, metas: List<MetaUi>, elegida: String?, onElegir: (String?) -> Unit) {
     Text(tf(flujo, "paraMeta"), style = AlcanciaType.seccion, modifier = Modifier.semantics { heading() })
     Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(AlcanciaDimen.Space8)) {
-        OpcionFila(t("flujo.ningunaMeta"), Ic.Wallet, elegida == null, { onElegir(null) }, subtitulo = tf(flujo, "sinMeta"), conRadio = false)
+        OpcionFila(t("flujo.ningunaMeta"), Ic.Wallet, elegida == null, { onElegir(null) }, conRadio = false)
         metas.filter { if (flujo == Flujo.Entrada) !it.usada else it.guardado > 0 }.forEach { g ->
             OpcionFila(g.nombre, g.icono, elegida == g.id, { onElegir(g.id) }, subtitulo = t("meta.deObjetivo", "guardado" to formatoSoles(g.guardado), "objetivo" to formatoSoles(g.objetivo)), conRadio = false)
         }
@@ -106,29 +97,25 @@ fun MotivoPantalla(
     val valido = motivo != null && (motivo != "otro" || detalle.isNotBlank())
     val entrada = flujo == Flujo.Entrada
     PantallaTarea(
-        tf(flujo, "titulo"), onAtras, ayudaPie = t(if (entrada) "flujo.pieDeDonde" else "flujo.pieRevisar"),
+        tf(flujo, "titulo"), onAtras,
         pie = { Boton(if (entrada) t("comun.continuar") else tf(flujo, "confirmar"), onContinuar, Modifier.fillMaxWidth(), habilitado = valido, cargando = enviando) },
     ) {
         IndicadorPasos(2, pasos(flujo))
         Titulo(tf(flujo, "deDonde"))
-        Text(tf(flujo, "resumen", "monto" to formatoSoles(centimos), "nombre" to nombre), style = AlcanciaType.cuerpo, color = AlcanciaColor.TextoSecundario)
         GrillaOpciones(if (entrada) Catalogo.MOTIVOS_ENTRADA else Catalogo.MOTIVOS_SALIDA, motivo, { t("motivos.${it.id}") }, { onMotivo(it.id) })
         if (motivo == "otro") CampoTexto(detalle, onDetalle, t("flujo.otroCampo"))
         EleccionMeta(flujo, metas, meta, onMeta)
-        if (!entrada && valido) {
-            Text(t("flujo.resumen"), style = AlcanciaType.seccion)
-            ListaResumen(resumen(flujo, centimos, saldo, t("motivos.$motivo").takeIf { motivo != "otro" } ?: detalle, null, metas.find { it.id == meta }?.nombre))
-        }
+        if (!entrada && valido) Proyeccion(flujo, saldo, centimos)
     }
 }
 
+/** «Así quedaría S/ X» antes de confirmar (lo elegido ya está a la vista: no se repite en un resumen). */
 @Composable
-private fun resumen(flujo: Flujo, c: Int, saldo: Int, motivo: String, quien: String?, meta: String?) = buildList {
-    add(t("flujo.revisarCuanto") to formatoSoles(c))
-    add(t("flujo.revisarPorQue") to motivo)
-    if (quien != null) add(t("flujo.revisarQuien") to quien)
-    add(t("flujo.revisarMeta") to (meta ?: t("comun.ninguna")))
-    add(t("flujo.asiQuedaria") to formatoSoles(saldo + if (flujo == Flujo.Entrada) c else -c))
+fun Proyeccion(flujo: Flujo, saldo: Int, centimos: Int) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Text(t("flujo.asiQuedaria"), style = AlcanciaType.cuerpo, color = AlcanciaColor.TextoSecundario, modifier = Modifier.weight(1f))
+        Text(formatoSoles(saldo + if (flujo == Flujo.Entrada) centimos else -centimos), style = AlcanciaType.seccion, color = AlcanciaColor.Principal)
+    }
 }
 
 /**
@@ -143,22 +130,18 @@ fun QuienPantalla(
 ) {
     val valido = quien != null && (quien != "otro" || nombreOtro.isNotBlank())
     PantallaTarea(
-        t("flujo.in.titulo"), onAtras, ayudaPie = t("flujo.pieRevisar"),
+        t("flujo.in.titulo"), onAtras,
         pie = { Boton(t("flujo.in.confirmar"), onConfirmar, Modifier.fillMaxWidth(), habilitado = valido, cargando = enviando) },
     ) {
         IndicadorPasos(3, pasos(Flujo.Entrada))
         Titulo(t("quien.titulo"))
-        Text(t("quien.sub"), style = AlcanciaType.cuerpo, color = AlcanciaColor.TextoSecundario)
         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(AlcanciaDimen.Space8)) {
             Catalogo.QUIEN_ENVIA.forEach { p ->
                 OpcionFila(t("quien.${p.id}"), p.icono, quien == p.id, { onQuien(p.id) }, subtitulo = if (relacionAdmin == p.id) t("quien.admin") else null)
             }
         }
         if (quien == "otro") CampoTexto(nombreOtro, onNombreOtro, t("quien.otroCampo"), ejemplo = t("quien.otroEjemplo"), maximo = 30)
-        if (valido) {
-            Text(t("flujo.resumen"), style = AlcanciaType.seccion)
-            ListaResumen(resumen(Flujo.Entrada, centimos, saldo, motivoTexto, if (quien == "otro") nombreOtro else t("quien.$quien"), metaNombre))
-        }
+        if (valido) Proyeccion(Flujo.Entrada, saldo, centimos)
     }
 }
 
@@ -174,7 +157,7 @@ fun ListoPantalla(
 ) {
     var moneda by remember { mutableStateOf(false) }
     var recordatorio by remember { mutableStateOf(if (diaRecordatorio != null) 0 else -1) } // 0 = pregunta, 1 = sí, -1 = nada
-    PantallaTarea(tf(flujo, "titulo"), onAtras = null, ayudaPie = t("flujo.pieListo"), pie = { Boton(t("flujo.volverAlcancia"), onVolver, Modifier.fillMaxWidth()) }) {
+    PantallaTarea(tf(flujo, "titulo"), onAtras = null, pie = { Boton(t("flujo.volverAlcancia"), onVolver, Modifier.fillMaxWidth()) }) {
         val p = pasos(flujo)
         IndicadorPasos(p.size, p)
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(AlcanciaDimen.Space12)) {

@@ -70,7 +70,7 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 - **H8.** Dado una meta lograda con plata, cuando toco «Usar esta plata», entonces Sacar plata viene con la meta y su monto; al anotar, la meta pasa a «Logradas» con «Ya la usaron».
 - **H9.** Dado que borro una meta, entonces lo que lleva ahorrado no cambia.
 - **H10.** Dado un momento, cuando lo edito o lo borro, entonces el cambio se ve en Progreso (y al borrar, «Deshacer» lo recupera).
-- **H11.** Dado una cuenta nueva, entonces Alcancía dice para qué sirve y muestra «Conectar chanchito», nunca «Sin conexión».
+- **H11.** Dado una cuenta nueva, entonces Alcancía muestra «Conectar chanchito» (nunca «Sin conexión»), sin sección de movimientos vacía, y Batería/WiFi/Volumen no muestran datos inventados.
 - **H12.** Dado «Quién acompaña» = Mamá, cuando abro «Contar algo que pasó», entonces «¿Quién lo vio?» dice «Mamá».
 - **H13.** Dado que anoto «Su propina de la semana» sin recordatorio, entonces el paso final ofrece «¿Te recordamos los {día}…?»; si acepto, ese día (sin propina anotada) Alcancía muestra el aviso y llega una notificación local.
 - **H14.** Dado un cuento, cuando toco «Versión de 1 minuto», entonces cambia el texto; «Leer en voz alta» lo lee con la voz del celular o avisa si no se puede.
@@ -79,6 +79,7 @@ Formato **Dado / Cuando / Entonces**. Salen del comportamiento del prototipo: la
 - **H17.** Dado «¡Listo!» al agregar, cuando el niño toca el chanchito, entonces la moneda cae y aparece «¡Clin! Adentro.» (opcional, no bloquea).
 - **H18.** Dado entradas en los últimos 7 días, entonces el saldo muestra «Esta semana: +S/ X» y «Lo que entró y salió» se agrupa por mes con lo que entró y salió.
 - **H20.** Dado *semana*, entonces Alcancía dice «Conectado» y los ajustes del chanchito muestran la tarjeta verde «Conectado», batería «Ahora» y volumen editable.
+- **H21.** Dado cualquier pantalla, entonces no hay subtítulos que repitan el título, ayudas permanentes al pie ni resúmenes de lo recién elegido (ver «Menos texto» en `pantallas.md`).
 - **H19.** En ninguna pantalla aparece un aviso de que la app no mueve plata de verdad (las familias ya lo saben).
 
 ## G. Generales
