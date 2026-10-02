@@ -1,6 +1,8 @@
 # Mascota «Chanchito»
 
-**Fuente vectorial:** `chanchito.svg` (585 × 576, fondo transparente, solo el chanchito, margen parejo de 4 a cada lado).
+**Fuente vectorial:** `chanchito.svg` (proporción 585 × 576, fondo transparente, solo el chanchito, margen parejo de 4 a cada lado).
+
+- Sin ancho ni alto fijos: se adapta al espacio donde se abre o se coloca y queda centrado (vista previa de macOS, navegador, Figma). Si una herramienta pide tamaño, usar 585 × 576 o múltiplos.
 
 - Lienzo desde 0, 0 (`viewBox="0 0 585 576"`). El archivo original tenía `viewBox="192 216 608 600"`: el navegador lo respetaba, pero muchos visores y apps de diseño ignoran ese desplazamiento y el dibujo se corría a la izquierda con espacio vacío. Se corrigió moviendo el contenido, sin cambiar el dibujo (comparado píxel a píxel con el original).
 - Se quitaron los metadatos de procedencia (C2PA) que no hacen falta para usarlo.
