@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { BackBar, Button } from '../components/ui';
 import { ActionFooter } from './Saldo';
 import { newId, useStore } from '../lib/store';
@@ -13,12 +13,14 @@ export default function NuevaMeta() {
   const [touched, setTouched] = useState(false);
   const parsed = parseAmount(target);
   const first = state.goals.length === 0;
+  const [qs] = useSearchParams();
+  const back = qs.get('volver');
 
   const save = () => {
     setTouched(true);
     if (!name.trim() || !parsed.ok) return;
     dispatch({ type: 'addGoal', goal: { id: newId('g'), name: name.trim(), icon: 'target', savedMinor: 0, targetMinor: parsed.money.minorUnits } });
-    nav(first ? '/' : '/metas', { replace: true });
+    nav(back && back.startsWith('/') ? back : first ? '/' : '/metas', { replace: true });
   };
 
   return (

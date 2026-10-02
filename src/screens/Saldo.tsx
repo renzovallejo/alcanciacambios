@@ -204,7 +204,8 @@ export function SaldoRevisar() {
     if (busy) return; // sin envíos duplicados
     setBusy(true);
     dispatch({ type: 'confirm', amountMinor: parsed.money.minorUnits, reason, goalId: state.draft.goalId, author: c.author });
-    nav(`${c.base}/listo`, { replace: true });
+    const reached = kind === 'in' && goal && goal.savedMinor < goal.targetMinor && goal.savedMinor + parsed.money.minorUnits >= goal.targetMinor;
+    nav(`${c.base}/listo`, { replace: true, state: { reachedGoal: reached ? goal.name : null } });
   };
 
   return (
@@ -234,14 +235,18 @@ export function SaldoListo() {
   const kind = useKind();
   const c = COPY[kind];
   const { state } = useStore();
+  const reachedGoal = (useLocation().state as { reachedGoal?: string | null } | null)?.reachedGoal;
   return (
     <div className="task">
       <div className="task-scroll">
         <Steps current={4} label="Listo" />
         <div className="center-col">
-          <span className="tile tile-verde big"><Icon name="circle-check" size={40} /></span>
+          <span className="tile tile-verde big pop"><Icon name="circle-check" size={40} /></span>
           <h1 className="title center">{c.done}</h1>
           <p className="muted center">El saldo de práctica de {state.childName} ahora es {formatMoney(state.balanceMinor)}.</p>
+          {reachedGoal && (
+            <p className="alert-box ok reached-note" role="status"><Icon name="party-popper" size={20} />¡Llegaron a la meta «{reachedGoal}»!</p>
+          )}
         </div>
       </div>
       <ActionFooter helper="Puedes ver el movimiento en Alcancía.">

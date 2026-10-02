@@ -1,8 +1,11 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, type ReactNode } from 'react';
 import type { Id, Observation, Topic } from '../domain';
 
+/** Observación con título opcional (dato editable según el DS). */
+export type Moment = Observation & { title?: string };
+
 export interface Goal { id: Id; name: string; icon: 'book-open' | 'puzzle' | 'target'; savedMinor: number; targetMinor: number }
-export interface Movement { id: Id; kind: 'in' | 'out'; label: string; author: string; at: string; amountMinor: number; reason?: string; goalName?: string }
+export interface Movement { id: Id; kind: 'in' | 'out'; label: string; author: string; at: string; amountMinor: number; reason?: string; goalId?: Id; goalName?: string }
 export type FlowKind = 'in' | 'out';
 export interface FlowReason { reason: string; detail?: string }
 export interface Draft { kind: FlowKind; amountInput: string; reason: FlowReason | null; goalId: Id | null }
@@ -14,7 +17,7 @@ export interface AppState {
   goals: Goal[];
   movements: Movement[];
   draft: Draft;
-  observations: Observation[];
+  observations: Moment[];
   conversations: Conversation[];
   celebrations: Celebration[];
   startedTopics: Topic[];
@@ -34,11 +37,11 @@ export const exampleState = (): AppState => ({
     { id: 'g2', name: 'Rompecabezas', icon: 'puzzle', savedMinor: 400, targetMinor: 4000 },
   ],
   movements: [
-    { id: 'm1', kind: 'in', label: 'Ingreso registrado', author: 'Mamá', at: daysAgo(0), amountMinor: 1000 },
+    { id: 'm1', kind: 'in', label: 'Ingreso registrado', author: 'Mamá', at: daysAgo(0), amountMinor: 1000, goalId: 'g1', goalName: 'Libro ilustrado' },
     { id: 'm2', kind: 'in', label: 'Ingreso registrado', author: 'Mamá', at: daysAgo(1), amountMinor: 500 },
   ],
   draft: emptyDraft(),
-  observations: [{ id: 'o1', childId: 'c1', narrative: 'Sofía decidió guardar sus monedas para el libro que quiere.', authorId: 'mama', authorDisplayName: 'Mamá', recordedAt: '2026-10-01T10:00:00Z', topic: 'ahorrar' }],
+  observations: [{ id: 'o1', title: 'Un pequeño gran paso', childId: 'c1', narrative: 'Sofía decidió guardar sus monedas para el libro que quiere.', authorId: 'mama', authorDisplayName: 'Mamá', recordedAt: '2026-10-01T10:00:00Z', topic: 'ahorrar' }],
   conversations: [{ id: 'c1', title: 'Compara precios antes de comprar', recordedAt: '2026-10-01T18:00:00Z' }],
   celebrations: [],
   startedTopics: ['ahorrar'],
@@ -57,7 +60,7 @@ type Action =
   | { type: 'confirm'; amountMinor: number; reason: FlowReason; goalId: Id | null; author: string }
   | { type: 'addGoal'; goal: Goal }
   | { type: 'setName'; name: string }
-  | { type: 'addObservation'; observation: Observation }
+  | { type: 'addObservation'; observation: Moment }
   | { type: 'addConversation'; conversation: Conversation }
   | { type: 'addCelebration'; celebration: Celebration }
   | { type: 'startActivity'; topic: Topic }
@@ -81,7 +84,7 @@ function reducer(s: AppState, a: Action): AppState {
       const goals = s.goals.map((g) => (g.id === a.goalId ? { ...g, savedMinor: Math.max(0, g.savedMinor + sign * a.amountMinor) } : g));
       const movement: Movement = {
         id: `m${Date.now()}`, kind: s.draft.kind, label: s.draft.kind === 'in' ? 'Ingreso registrado' : 'Salida registrada', author: a.author,
-        at: new Date().toISOString(), amountMinor: sign * a.amountMinor, reason: reasonLabel(a.reason), goalName: goal?.name,
+        at: new Date().toISOString(), amountMinor: sign * a.amountMinor, reason: reasonLabel(a.reason), goalId: goal?.id, goalName: goal?.name,
       };
       return { ...s, balanceMinor: s.balanceMinor + sign * a.amountMinor, goals, movements: [movement, ...s.movements], draft: emptyDraft() };
     }

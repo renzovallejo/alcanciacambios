@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BackBar, ChildContext, ConnectionStatus, AccessRow, Icon, LinkButton, Mascota, ScreenHeader } from '../components/ui';
 import { useStore } from '../lib/store';
-import { ACTIVITIES, GAMES, MISSIONS, STORIES, TOPIC_LABEL, type StepRef } from '../lib/content';
+import { ACTIVITIES, GAMES, MISSIONS, STEP_ICON, STORIES, TOPIC_LABEL, type StepRef } from '../lib/content';
 
 export function Aprender() {
   const { state } = useStore();
@@ -26,7 +26,7 @@ export function Aprender() {
           <Mascota size={64} />
         </div>
         {topic && (
-          <div className="now"><Icon name="book-open" size={20} /><span>Ahora: {step.title.charAt(0).toLowerCase() + step.title.slice(1)}</span></div>
+          <div className="now"><Icon name={STEP_ICON[step.kind]} size={20} /><span>Ahora: {step.title.charAt(0).toLowerCase() + step.title.slice(1)}</span></div>
         )}
         <LinkButton to={`/actividad/${act.topic}`} block>{topic ? 'Continuar actividad' : 'Conocer la actividad'}</LinkButton>
       </section>
@@ -85,12 +85,13 @@ export function Biblioteca() {
       <BackBar label="Aprender" to="/aprender" />
       <h1 className="title">Biblioteca</h1>
       <p className="muted">{c.sub}</p>
-      <div className="segmented" role="tablist" aria-label="Formato">
+      <div className="segmented" role="tablist" aria-label="Formato" style={{ ['--i' as string]: FORMATS.findIndex((f) => f.id === format) }}>
+        <span className="seg-pill" aria-hidden="true" />
         {FORMATS.map((f) => (
           <button key={f.id} role="tab" aria-selected={format === f.id} className={format === f.id ? 'on' : ''} onClick={() => setFormat(f.id)}>{f.label}</button>
         ))}
       </div>
-      <section className={`card ${c.card} feature`}>
+      <section key={format} className={`card ${c.card} feature swap`}>
         <div className="eyebrow">{c.eyebrow}</div>
         <div className="feature-top">
           <h2 className="feature-title">{c.title}</h2>
@@ -109,7 +110,7 @@ export function Biblioteca() {
         </label>
       </div>
       {items.length === 0 ? <p className="muted">No hay {format === 'juegos' ? 'juegos de rol' : format} para este tema todavía.</p> : (
-        <ul className="plain list">
+        <ul key={format + topic} className="plain list swap">
           {items.map((i) => (
             <li key={i.title}>
               <AccessRow to={i.to} icon={c.icon} tone={c.tone} title={i.title} description={i.meta} />

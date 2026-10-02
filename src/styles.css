@@ -49,7 +49,7 @@ h2, .section-title { font-size: var(--ds-font-18); line-height: var(--ds-line-18
 .btn-secondary { background: #fff; color: var(--principal); border-color: var(--principal); }
 .btn-tertiary { background: transparent; color: var(--principal); font-size: var(--ds-font-14); min-height: var(--ds-touch-min); }
 .btn:disabled { background: var(--borde); color: var(--texto-secundario); border-color: transparent; cursor: not-allowed; }
-.btn:active:not(:disabled) { filter: brightness(1.2); }
+.btn:active:not(:disabled) { filter: brightness(1.15); }
 .btn-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ds-space-12); }
 .btn-pair .btn { padding: 0 var(--ds-space-8); }
 
@@ -92,7 +92,9 @@ h2, .section-title { font-size: var(--ds-font-18); line-height: var(--ds-line-18
 /* Navegación inferior */
 .tabbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; display: flex; justify-content: space-around; gap: 8px; padding: var(--ds-space-8) var(--ds-space-8) max(var(--ds-space-12), env(safe-area-inset-bottom)); background: #fff; border-top: var(--ds-border-width) solid var(--borde); z-index: 10; }
 .tab { flex: 1; min-height: 52px; border-radius: var(--ds-radius-14); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: var(--ds-font-12); color: var(--texto-secundario); }
-.tab.active { background: var(--fondo-azul); color: var(--principal); font-weight: var(--ds-weight-semibold); }
+.tab { position: relative; z-index: 1; }
+.tab.active { color: var(--principal); font-weight: var(--ds-weight-semibold); }
+.tab-pill { position: absolute; top: var(--ds-space-8); left: var(--ds-space-8); height: 52px; width: calc((100% - 16px - 16px) / 3); border-radius: var(--ds-radius-14); background: var(--fondo-azul); transform: translateX(calc(var(--i) * (100% + 8px))); }
 
 /* Aprender / Biblioteca */
 .feature { display: flex; flex-direction: column; gap: var(--ds-space-12); padding: var(--ds-space-20); }
@@ -102,7 +104,10 @@ h2, .section-title { font-size: var(--ds-font-18); line-height: var(--ds-line-18
 .back-link { display: inline-flex; align-items: center; gap: 4px; align-self: flex-start; background: none; border: 0; padding: 0; min-height: 44px; color: var(--principal); font-weight: var(--ds-weight-medium); font-size: var(--ds-font-15); }
 .segmented { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: var(--ds-radius-14); background: var(--fondo-azul); }
 .segmented button { min-height: 44px; border: 0; border-radius: var(--ds-radius-12); background: transparent; color: var(--principal); font-weight: var(--ds-weight-semibold); font-size: var(--ds-font-13); }
-.segmented button.on { background: var(--principal); color: #fff; }
+.segmented { position: relative; }
+.segmented button { position: relative; z-index: 1; }
+.segmented button.on { color: #fff; }
+.seg-pill { position: absolute; top: 4px; left: 4px; bottom: 4px; width: calc((100% - 8px - 8px) / 3); border-radius: var(--ds-radius-12); background: var(--principal); transform: translateX(calc(var(--i) * (100% + 4px))); }
 .badge-white { width: 48px; height: 48px; border-radius: var(--ds-radius-12); background: #fff; color: var(--principal); display: inline-flex; align-items: center; justify-content: center; }
 .select-link { position: relative; display: inline-flex; align-items: center; gap: 4px; color: var(--principal); font-weight: var(--ds-weight-semibold); font-size: var(--ds-font-13); min-height: 44px; }
 .select-link select { appearance: none; border: 0; background: transparent; color: inherit; font: inherit; padding: 0 20px 0 0; min-height: 44px; }
@@ -170,7 +175,7 @@ h2, .section-title { font-size: var(--ds-font-18); line-height: var(--ds-line-18
 .alert-box { background: var(--fondo-naranja); border-radius: var(--ds-radius-12); padding: var(--ds-space-12); font-size: var(--ds-font-14); }
 .talk { display: flex; gap: var(--ds-space-12); align-items: flex-start; color: var(--texto-secundario); font-size: var(--ds-font-15); } .talk .icon { color: var(--secundario); }
 
-@media (prefers-reduced-motion: no-preference) { .btn, .tab, .reason, .quick button { transition: background-color .15s, color .15s; } }
+
 
 /* Pantallas añadidas */
 .bullets { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: var(--ds-font-15); line-height: var(--ds-line-15); }
@@ -190,3 +195,71 @@ select.text-field { background: #fff; }
 input[type=range] { width: 100%; accent-color: var(--principal); }
 .context-name { min-height: 44px; }
 .talk.card { align-items: flex-start; }
+
+/* Auditoría 2: elementos añadidos */
+h1:focus { outline: none; }
+.task-title { font-size: var(--ds-font-18); line-height: var(--ds-line-18); font-weight: var(--ds-weight-semibold); }
+.conn { min-height: 44px; }
+.conn.off { color: var(--texto-secundario); }
+.goal.reached { border-color: transparent; background: var(--fondo-verde); }
+.goal.reached .pct { color: var(--principal); }
+.goal-hero { display: flex; flex-direction: column; gap: var(--ds-space-12); }
+.goal-hero-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.amount-sm { font-size: var(--ds-font-26); line-height: var(--ds-line-26); font-weight: var(--ds-weight-semibold); color: var(--principal); }
+.bar.big { height: 10px; border-radius: 5px; } .bar.big div { border-radius: 5px; }
+.goal-hero .body { display: flex; gap: 6px; align-items: center; }
+.step-num.past { background: var(--fondo-verde); border-color: transparent; color: var(--principal); }
+.inline-link { color: var(--principal); font-weight: var(--ds-weight-semibold); text-decoration: underline; }
+.nf { min-height: 70dvh; padding-top: var(--ds-space-32); }
+.reached-note { display: flex; gap: 8px; align-items: center; margin-top: var(--ds-space-8); }
+.spinner { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; margin-right: 8px; display: inline-block; }
+.moment-quote { font-weight: var(--ds-weight-regular); font-size: var(--ds-font-16); line-height: var(--ds-line-16); }
+
+/* ---------- Animación: solo si la persona no pidió movimiento reducido ---------- */
+@keyframes fade-up { from { opacity: 0; transform: translateY(8px); } }
+@keyframes slide-in { from { opacity: 0; transform: translateX(16px); } }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes grow-x { from { transform: scaleX(0); } }
+@keyframes pop { 0% { transform: scale(.4); opacity: 0; } 60% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes ring { from { box-shadow: 0 0 0 0 rgba(20, 28, 122, .25); } to { box-shadow: 0 0 0 18px rgba(20, 28, 122, 0); } }
+@keyframes hop { 0%, 100% { transform: translateY(0); } 35% { transform: translateY(-10px) rotate(-4deg); } 65% { transform: translateY(0) rotate(2deg); } }
+@keyframes wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } }
+@keyframes highlight { from { background-color: var(--fondo-verde); } to { background-color: transparent; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes shine { from { box-shadow: inset 0 0 0 2px rgba(255,255,255,.55); } to { box-shadow: inset 0 0 0 2px rgba(255,255,255,0); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Transiciones de pantalla: las pestañas suben suave; las tareas entran de lado (subpantalla). */
+  .page-enter { animation: fade-up .22s ease-out both; }
+  .task-enter .task { animation: slide-in .24s cubic-bezier(.2, .8, .2, 1) both; }
+  /* Pestaña y formato activos: la píldora se desliza al destino. */
+  .tab-pill, .seg-pill { transition: transform .28s cubic-bezier(.2, .8, .2, 1); }
+  .tab, .segmented button { transition: color .2s; }
+  /* Contenido que cambia de formato o filtro en Biblioteca. */
+  .swap { animation: fade-up .2s ease-out both; }
+  /* Barras de avance: crecen hasta el valor real al aparecer. */
+  .bar div, .progress-track div { transform-origin: left; animation: grow-x .7s cubic-bezier(.2, .8, .2, 1) both; }
+  .steps .seg i { transition: background-color .35s; }
+  /* Respuesta táctil. */
+  .btn, .quick button, .reason, .row, .topic, .card.goal { transition: transform .12s, background-color .15s, color .15s, border-color .15s; }
+  .btn:active:not(:disabled), .quick button:active, .reason:active, .topic:active, .card.goal:active { transform: scale(.98); }
+  .quick button.on .icon, .reason.on .icon { animation: pop .28s ease-out both; }
+  .spinner { animation: spin .8s linear infinite; }
+  /* Saldo que cambió: el número cuenta y el chanchito da un saltito. */
+  .balance.changed { animation: shine 1.2s ease-out .1s both; }
+  .mascota.hop { animation: hop .7s ease-in-out .15s both; }
+  /* Movimiento recién registrado. */
+  .row.is-new { animation: highlight 1.6s ease-out .3s both; border-radius: var(--ds-radius-12); }
+  /* Confirmaciones: el icono aparece con un pequeño rebote y un pulso. */
+  .tile.big.pop { animation: pop .45s cubic-bezier(.2, .9, .3, 1.3) both, ring 1s ease-out .35s both; }
+  .appear, .reached-note { animation: fade-up .25s ease-out both; }
+  .reached-note { animation-delay: .35s; }
+  /* Chanchito buscando conexión. */
+  .device-status.connecting .mascota { animation: wiggle .5s ease-in-out infinite; }
+  /* Mapa de temas en cascada. */
+  .stagger > li { animation: fade-up .25s ease-out both; }
+  .stagger > li:nth-child(2) { animation-delay: .04s; } .stagger > li:nth-child(3) { animation-delay: .08s; } .stagger > li:nth-child(4) { animation-delay: .12s; }
+  .options { animation: fade-up .18s ease-out both; }
+  .check { transition: transform .15s; } .check:checked { transform: scale(1.1); }
+  .play { transition: transform .12s; } .play:active { transform: scale(.94); }
+}

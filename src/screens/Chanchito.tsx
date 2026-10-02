@@ -4,6 +4,7 @@ import { BackBar, Button, Icon, IconTile, LinkButton, Mascota } from '../compone
 import { ActionFooter } from './Saldo';
 import { Link } from 'react-router-dom';
 import { exampleState, firstDayState, useStore } from '../lib/store';
+import { DEVICE, isConnected } from '../lib/device';
 
 type Conn = 'disconnected' | 'connecting' | 'error';
 
@@ -22,8 +23,8 @@ export default function Chanchito() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title={`El chanchito de ${state.childName}`} to="/" />
-        <section className="card card-cream device-status" aria-live="polite">
+        <BackBar title={`El chanchito de ${state.childName}`} heading />
+        <section className={`card card-cream device-status ${conn}`} aria-live="polite">
           <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{title}</h2><p className="muted">{text}</p></div></div>
           <Button block loading={conn === 'connecting'} onClick={retry}>Reintentar conexión</Button>
         </section>
@@ -31,9 +32,9 @@ export default function Chanchito() {
         <h2 className="section-title">Dispositivo</h2>
         <p className="muted small">Los datos no se actualizan sin conexión.</p>
         <ul className="plain list">
-          <Row to="bateria" icon="battery-medium" title="Batería y energía" desc="52% · Último dato recibido" />
-          <Row to="wifi" icon="wifi" title="Red WiFi" desc="CREMA VOLTEADA 2.4G · guardada" />
-          <Row to="sonido" icon="volume-2" title="Voz y sonido" desc="Volumen 10% · Último ajuste conocido" />
+          <Row to="bateria" icon="battery-medium" title="Batería y energía" desc={`${DEVICE.battery.value}% · ${isConnected() ? 'Ahora' : 'Último dato recibido'}`} />
+          <Row to="wifi" icon="wifi" title="Red WiFi" desc={`${DEVICE.savedWifiName} · guardada`} />
+          <Row to="sonido" icon="volume-2" title="Voz y sonido" desc={`Volumen ${DEVICE.volume.value}% · Último ajuste conocido`} />
           <Row to="emparejar" icon="bluetooth" title="Emparejar este celular" desc="Para usarla desde este celular." />
         </ul>
 
@@ -70,9 +71,9 @@ function Offline({ children }: { children?: React.ReactNode }) {
 export function Bateria() {
   return (
     <div className="task"><div className="task-scroll">
-      <BackBar title="Batería y energía" />
-      <div className="info-box"><span>Último dato recibido</span><strong>52%</strong></div>
-      <div className="bar" role="progressbar" aria-valuenow={52} aria-valuemin={0} aria-valuemax={100} aria-label="Batería"><div style={{ width: '52%' }} /></div>
+      <BackBar title="Batería y energía" heading />
+      <div className="info-box"><span>Último dato recibido</span><strong>{DEVICE.battery.value}%</strong></div>
+      <div className="bar" role="progressbar" aria-valuenow={DEVICE.battery.value} aria-valuemin={0} aria-valuemax={100} aria-label="Batería"><div style={{ width: `${DEVICE.battery.value}%` }} /></div>
       <p className="muted small">Sin fecha de lectura disponible.</p>
       <Offline>Conecta el chanchito para ver la batería actual.</Offline>
       <h2 className="section-title">Consejos</h2>
@@ -84,8 +85,8 @@ export function Bateria() {
 export function Wifi() {
   return (
     <div className="task"><div className="task-scroll">
-      <BackBar title="Red WiFi" />
-      <div className="info-box"><span>Red guardada</span><strong>CREMA VOLTEADA 2.4G</strong></div>
+      <BackBar title="Red WiFi" heading />
+      <div className="info-box"><span>Red guardada</span><strong>{DEVICE.savedWifiName}</strong></div>
       <Offline>Para cambiar de red, primero conecta el chanchito.</Offline>
       <Button block variant="secondary" disabled>Cambiar de red</Button>
       <h2 className="section-title">Para reconectar</h2>
@@ -97,10 +98,10 @@ export function Wifi() {
 export function Sonido() {
   return (
     <div className="task"><div className="task-scroll">
-      <BackBar title="Voz y sonido" />
-      <div className="info-box"><span>Último volumen conocido</span><strong>10%</strong></div>
+      <BackBar title="Voz y sonido" heading />
+      <div className="info-box"><span>Último volumen conocido</span><strong>{DEVICE.volume.value}%</strong></div>
       <label htmlFor="vol" className="field-label">Volumen</label>
-      <input id="vol" type="range" min={0} max={100} value={10} disabled aria-describedby="vol-ayuda" readOnly />
+      <input id="vol" type="range" min={0} max={100} value={DEVICE.volume.value} disabled aria-describedby="vol-ayuda" readOnly />
       <p id="vol-ayuda" className="muted small">Un cambio de volumen solo se aplica cuando el chanchito confirme.</p>
       <Offline>No se puede cambiar el volumen sin conexión.</Offline>
     </div></div>
@@ -124,8 +125,8 @@ export function Emparejar() {
         <BackBar title="Emparejar este celular" />
         <h1 className="title">Usa el chanchito desde este celular</h1>
         <ol className="bullets num"><li>Enciende el chanchito y acércalo.</li><li>Activa el Bluetooth de este celular.</li><li>Toca «Buscar chanchito» y elígelo en la lista.</li></ol>
-        {s === 'unsupported' && <p className="alert-box" role="alert">Este navegador no permite emparejar por Bluetooth. Prueba con Chrome en Android.</p>}
-        {s === 'notfound' && <p className="alert-box" role="alert">No se completó el emparejamiento. Revisa que esté encendido y cerca, y vuelve a intentar.</p>}
+        {s === 'unsupported' && <p className="alert-box appear" role="alert">Este navegador no permite emparejar por Bluetooth. Prueba con Chrome en Android.</p>}
+        {s === 'notfound' && <p className="alert-box appear" role="alert">No se completó el emparejamiento. Revisa que esté encendido y cerca, y vuelve a intentar.</p>}
         <p className="note"><Icon name="info" size={18} />El emparejamiento requiere confirmar los permisos del dispositivo.</p>
       </div>
       <ActionFooter><Button block loading={s === 'searching'} onClick={search}>Buscar chanchito</Button></ActionFooter>
@@ -142,7 +143,7 @@ export function Perfil() {
   return (
     <div className="task">
       <div className="task-scroll">
-        <BackBar title={`Perfil de ${state.childName}`} />
+        <BackBar title={`Perfil de ${state.childName}`} heading />
         <label htmlFor="nombre" className="field-label">Nombre</label>
         <input id="nombre" className="text-field" maxLength={30} value={name} onChange={(e) => setName(e.target.value)} />
         {touched && !name.trim() && <p className="small error" role="alert">Escribe un nombre.</p>}
@@ -157,7 +158,7 @@ export function Perfiles() {
   const { state } = useStore();
   return (
     <>
-      <BackBar title="Persona" />
+      <BackBar label="Volver" />
       <h1 className="title">¿Con quién estás?</h1>
       <p className="muted">Siempre verás a quién se aplica cada acción.</p>
       <ul className="plain list">

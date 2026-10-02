@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { BackBar, Icon, IconTile, LinkButton } from '../components/ui';
+import { BackBar, Icon, LinkButton } from '../components/ui';
 import { useStore } from '../lib/store';
-import { formatMoney, percent } from '../lib/money';
+import { formatMoney } from '../lib/money';
 import { friendlyDate } from '../lib/dates';
-import { MovementRow } from './Home';
+import { GoalCard, MovementRow } from './Home';
 
 export function AllGoals() {
   const { state } = useStore();
@@ -12,17 +12,7 @@ export function AllGoals() {
       <BackBar label="Alcancía" to="/" />
       <h1 className="title">Metas de ahorro</h1>
       <ul className="plain stack-8">
-        {state.goals.map((g) => {
-          const pct = percent(g.savedMinor, g.targetMinor);
-          return (
-            <li key={g.id} className="card goal">
-              <IconTile icon={g.icon} tone="azul" size={36} />
-              <div className="goal-body"><strong>{g.name}</strong><span className="meta">{formatMoney(g.savedMinor)} de {formatMoney(g.targetMinor)}</span></div>
-              <span className="pct">{pct}%</span>
-              <div className="bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`Avance de ${g.name}`}><div style={{ width: `${pct}%` }} /></div>
-            </li>
-          );
-        })}
+        {state.goals.map((g) => <li key={g.id}><GoalCard g={g} /></li>)}
       </ul>
       {state.goals.length === 0 && <p className="muted">Aún no hay metas.</p>}
       <LinkButton to="/meta/nueva" variant="secondary" block>Crear nueva meta</LinkButton>

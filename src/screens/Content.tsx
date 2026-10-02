@@ -78,11 +78,11 @@ export function Cuento() {
         <div className="player">
           <button className="skip" disabled={!hasAudio} onClick={() => seek(-10)} aria-label="Retroceder 10 segundos"><Icon name="rotate-ccw" size={24} /><span>10 s</span></button>
           <button className="play" onClick={toggle} aria-label={audioState === 'playing' ? 'Pausar' : 'Reproducir'} aria-busy={audioState === 'loading'}>
-            <Icon name={audioState === 'playing' ? 'x' : 'play'} size={28} />
+            <Icon name={audioState === 'playing' ? 'pause' : 'play'} size={28} />
           </button>
           <button className="skip" disabled={!hasAudio} onClick={() => seek(10)} aria-label="Adelantar 10 segundos"><Icon name="rotate-cw" size={24} /><span>10 s</span></button>
         </div>
-        {audioState === 'error' && <p className="alert-box" role="alert">{errMsg}</p>}
+        {audioState === 'error' && <p className="alert-box appear" role="alert">{errMsg}</p>}
         <p className="talk"><Icon name="messages-square" size={22} />Después, conversen: {story.questions[0].charAt(0).toLowerCase() + story.questions[0].slice(1)}</p>
       </div>
       <ActionFooter>
@@ -122,7 +122,7 @@ export function Guia() {
           <li>Pregunta «¿por qué?» con curiosidad, sin corregir.</li>
           <li>Puedes dejarlo para otro día sin ninguna penalización.</li>
         </ul>
-        {saved && <p className="alert-box ok" role="status">Conversación registrada. ¡Gracias por acompañar!</p>}
+        {saved && <p className="alert-box ok appear" role="status">Conversación registrada. ¡Gracias por acompañar!</p>}
       </div>
       <ActionFooter helper="Registrarla es opcional y no evalúa a nadie.">
         <Button block variant={saved ? 'secondary' : 'primary'} onClick={save} disabled={saved}>{saved ? 'Conversación registrada' : 'Registrar que conversamos'}</Button>
@@ -154,7 +154,7 @@ export function Mision() {
           {m.steps.map((st, i) => (
             <li key={st}>
               <label className="check-row">
-                <input type="checkbox" checked={!!checked[i]} onChange={() => setChecked({ ...checked, [i]: !checked[i] })} />
+                <input type="checkbox" className="check" checked={!!checked[i]} onChange={() => setChecked({ ...checked, [i]: !checked[i] })} />
                 <span>{st}</span>
               </label>
             </li>
@@ -162,7 +162,7 @@ export function Mision() {
         </ul>
       </div>
       <ActionFooter helper="Registrar un momento es opcional.">
-        <LinkButton to="/momento/nuevo" block>Registrar un momento</LinkButton>
+        <LinkButton to={`/momento/nuevo?tema=${m.topic}`} block>Registrar un momento</LinkButton>
         <LinkButton to="/biblioteca" variant="tertiary" block>Volver a Biblioteca</LinkButton>
       </ActionFooter>
     </div>
@@ -193,7 +193,7 @@ export function Juego() {
         <ul className="bullets">{g.roles.map((x) => <li key={x}>{x}</li>)}</ul>
         <h2 className="section-title">Para conversar después</h2>
         <ul className="plain stack-8">{g.questions.map((q) => (<li key={q} className="card card-cream talk"><Icon name="messages-square" size={22} />{q}</li>))}</ul>
-        {saved && <p className="alert-box ok" role="status">Conversación registrada.</p>}
+        {saved && <p className="alert-box ok appear" role="status">Conversación registrada.</p>}
       </div>
       <ActionFooter helper="Registrarla es opcional y no evalúa a nadie.">
         <Button block onClick={save} disabled={saved}>{saved ? 'Conversación registrada' : 'Registrar que conversamos'}</Button>

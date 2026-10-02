@@ -9,6 +9,8 @@ import NuevaMeta from './screens/NuevaMeta';
 import Chanchito, { Bateria, CerrarSesion, Emparejar, Perfil, Perfiles, SesionCerrada, Sonido, Wifi } from './screens/Chanchito';
 import { Cuento, Guia, Juego, Mision } from './screens/Content';
 import { Actividad, Tema } from './screens/Actividad';
+import GoalDetail from './screens/Goal';
+import NotFound from './screens/NotFound';
 
 export default function App() {
   return (
@@ -24,6 +26,8 @@ export default function App() {
         <Route path="movimientos" element={<AllMovements />} />
         <Route path="movimiento/:id" element={<MovementDetail />} />
         <Route path="perfiles" element={<Perfiles />} />
+        <Route path="meta/:id" element={<GoalDetail />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
       <Route element={<TaskLayout />}>
         {(['saldo', 'salida'] as const).map((b) => [
@@ -50,7 +54,6 @@ export default function App() {
         <Route path="momento/nuevo" element={<NuevoMomento />} />
         <Route path="momento/:id" element={<MomentoDetalle />} />
         <Route path="celebrar" element={<Celebrar />} />
-        <Route path="*" element={<Home />} />
       </Route>
     </Routes>
   );

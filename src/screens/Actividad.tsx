@@ -35,7 +35,7 @@ export function Actividad() {
           {act.steps.map((s, i) => (
             <li key={s.id}>
               <Link to={stepPath(s, topic, i + 1)} className="row">
-                <span className={`step-num ${started && i === cur ? 'on' : ''}`}>{i + 1}</span>
+                <span className={`step-num ${started && i === cur ? 'on' : ''} ${started && i < cur ? 'past' : ''}`}>{started && i < cur ? <Icon name="check" size={14} /> : i + 1}</span>
                 <span className="row-text"><strong>{s.title}</strong>{started && i === cur && <span className="muted small">Paso actual</span>}</span>
                 <Icon name="chevron-right" size={18} className="muted" />
               </Link>
@@ -44,6 +44,9 @@ export function Actividad() {
         </ol>
         {started && cur < act.steps.length - 1 && (
           <Button variant="secondary" block onClick={() => dispatch({ type: 'advanceStep', topic, total: act.steps.length })}>Pasar al siguiente paso</Button>
+        )}
+        {started && cur === act.steps.length - 1 && (
+          <p className="alert-box ok">Están en el último paso. Pueden repetir cualquier paso o <Link to="/progreso" className="inline-link">explorar otro tema</Link> cuando quieran.</p>
         )}
         {!started && <p className="note"><Icon name="info" size={18} />Mirar la actividad no la inicia. Empieza cuando tú lo decidas.</p>}
       </div>
@@ -83,7 +86,7 @@ export function Tema() {
           ))}
         </ul>
       )}
-      <LinkButton to="/momento/nuevo" variant="secondary" block>Registrar un momento</LinkButton>
+      <LinkButton to={`/momento/nuevo?tema=${topic}`} variant="secondary" block>Registrar un momento</LinkButton>
       <h2 className="section-title">Actividad</h2>
       <div className="card card-violet feature">
         <h3 className="feature-title">{act.title}</h3>

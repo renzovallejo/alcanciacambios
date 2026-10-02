@@ -1,8 +1,21 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChildContext, ConnectionStatus, Icon, IconTile, LinkButton, Mascota, ScreenHeader } from '../components/ui';
-import { useStore, type Movement } from '../lib/store';
+import { ChildContext, ConnectionStatus, Icon, IconTile, LinkButton, Mascota, ScreenHeader, useCountUp } from '../components/ui';
+import { useStore, type Goal, type Movement } from '../lib/store';
 import { friendlyDate } from '../lib/dates';
 import { formatMoney, percent } from '../lib/money';
+
+// Último estado visto en esta sesión, para animar solo lo que cambió.
+let seenBalance: number | null = null;
+let seenMovement: string | null | undefined;
+
+/** Movimientos agregados desde la última vez que se vio Alcancía en esta sesión. */
+function newMovementIds(movements: Movement[]): string[] {
+  if (seenMovement === undefined) return [];
+  if (seenMovement === null) return movements.map((m) => m.id);
+  const idx = movements.findIndex((m) => m.id === seenMovement);
+  return idx === -1 ? [] : movements.slice(0, idx).map((m) => m.id);
+}
 
 export default function Home() {
   const { state } = useStore();
@@ -10,17 +23,22 @@ export default function Home() {
   const firstDay = balanceMinor === 0 && goals.length === 0 && movements.length === 0;
   const shownGoals = goals.slice(0, 2); // orden estable, sin reordenar por porcentaje
   const shownMoves = movements.slice(0, 2);
+  const changed = (seenBalance ?? balanceMinor) !== balanceMinor;
+  const shown = useCountUp(balanceMinor, 'balance');
+  const newIds = new Set(newMovementIds(movements));
+  useEffect(() => () => { seenBalance = balanceMinor; seenMovement = movements[0]?.id ?? null; }, [balanceMinor, movements]);
 
   return (
     <>
       <ScreenHeader title="Alcancía" />
-      <ChildContext name={childName} status={<ConnectionStatus text={firstDay ? 'Conectada' : 'Conectada · hace 2 min'} />} />
+      <ChildContext name={childName} status={<ConnectionStatus />} />
 
-      <section className="balance" aria-label="Saldo de práctica">
-        <Mascota size={64} />
+      <section className={`balance ${changed ? 'changed' : ''}`} aria-label="Saldo de práctica">
+        <Mascota size={64} className={changed ? 'hop' : ''} />
         <div>
           <div className="eyebrow on-dark">DINERO AHORRADO</div>
-          <div className="amount">{formatMoney(balanceMinor)}</div>
+          <div className="amount" aria-hidden="true">{formatMoney(shown)}</div>
+          <span className="sr-only" aria-live="polite">{formatMoney(balanceMinor)}</span>
         </div>
       </section>
 
@@ -49,23 +67,7 @@ export default function Home() {
       ) : (
         <ul className="stack-8 plain">
           {shownGoals.map((g) => {
-            const pct = percent(g.savedMinor, g.targetMinor);
-            return (
-              <li key={g.id}>
-                <Link to="/metas" className="card goal">
-                  <IconTile icon={g.icon} tone={g.icon === 'puzzle' ? 'naranja' : 'azul'} size={36} />
-                  <div className="goal-body">
-                    <strong>{g.name}</strong>
-                    <span className="meta">{formatMoney(g.savedMinor)} de {formatMoney(g.targetMinor)}</span>
-                  </div>
-                  <span className="pct">{pct}%</span>
-                  <Icon name="chevron-right" size={16} className="muted" />
-                  <div className="bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`Avance de ${g.name}`}>
-                    <div style={{ width: `${pct}%` }} />
-                  </div>
-                </Link>
-              </li>
-            );
+            return <li key={g.id}><GoalCard g={g} /></li>;
           })}
         </ul>
       )}
@@ -84,19 +86,38 @@ export default function Home() {
         </div>
       ) : (
         <ul className="plain list">
-          {shownMoves.map((m) => <MovementRow key={m.id} m={m} />)}
+          {shownMoves.map((m) => <MovementRow key={m.id} m={m} isNew={newIds.has(m.id)} />)}
         </ul>
       )}
     </>
   );
 }
 
-export function MovementRow({ m }: { m: Movement }) {
+export function GoalCard({ g }: { g: Goal }) {
+  const pct = percent(g.savedMinor, g.targetMinor);
+  const reached = g.savedMinor >= g.targetMinor;
+  return (
+    <Link to={`/meta/${g.id}`} className={`card goal ${reached ? 'reached' : ''}`}>
+      <IconTile icon={reached ? 'circle-check' : g.icon} tone={reached ? 'verde' : g.icon === 'puzzle' ? 'naranja' : 'azul'} size={36} />
+      <div className="goal-body">
+        <strong>{g.name}</strong>
+        <span className="meta">{formatMoney(g.savedMinor)} de {formatMoney(g.targetMinor)}</span>
+      </div>
+      <span className="pct">{reached ? 'Lograda' : `${pct}%`}</span>
+      <Icon name="chevron-right" size={16} className="muted" />
+      <div className="bar" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`Avance de ${g.name}: ${pct}%`}>
+        <div style={{ width: `${pct}%` }} />
+      </div>
+    </Link>
+  );
+}
+
+export function MovementRow({ m, isNew = false }: { m: Movement; isNew?: boolean }) {
   const out = m.kind === 'out';
   const when = friendlyDate(m.at);
   return (
     <li>
-      <Link to={`/movimiento/${m.id}`} className="row">
+      <Link to={`/movimiento/${m.id}`} className={`row ${isNew ? 'is-new' : ''}`}>
         <span className={out ? "out-ic" : ""}><IconTile icon="arrow-up" tone={out ? "naranja" : "verde"} /></span>
         <span className="row-text">
           <strong>{m.label}</strong>

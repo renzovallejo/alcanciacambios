@@ -5,10 +5,12 @@ import { ActionFooter } from './Saldo';
 import { ACTIVITIES, TOPIC_ICON, TOPIC_LABEL, TOPIC_ORDER } from '../lib/content';
 import { newId, useStore } from '../lib/store';
 import { friendlyDate } from '../lib/dates';
-import type { Observation, Topic } from '../domain';
+import type { Topic } from '../domain';
+import type { Moment } from '../lib/store';
 
-const byRecent = (a: Observation, b: Observation) => new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime();
-const valid = (o: Observation) => !Number.isNaN(new Date(o.recordedAt).getTime());
+const byRecent = (a: Moment, b: Moment) => new Date(b.recordedAt).getTime() - new Date(a.recordedAt).getTime();
+const valid = (o: Moment) => !Number.isNaN(new Date(o.recordedAt).getTime());
+const thisWeek = (iso: string) => Date.now() - new Date(iso).getTime() < 7 * 86_400_000;
 
 export default function Progreso() {
   const { state } = useStore();
@@ -27,7 +29,7 @@ export default function Progreso() {
       {featured ? (
         <section className="card card-mint moment">
           <div className="feature-top">
-            <div><div className="eyebrow">ESTA SEMANA</div><h2 className="moment-title">Un pequeño gran paso</h2></div>
+            <div><div className="eyebrow">{thisWeek(featured.recordedAt) ? 'ESTA SEMANA' : 'MOMENTO RECIENTE'}</div><h2 className="moment-title">{featured.title ?? `Un momento de ${state.childName}`}</h2></div>
             <Mascota size={64} />
           </div>
           <p className="body">{featured.narrative}</p>
@@ -53,7 +55,7 @@ export default function Progreso() {
       </div>
 
       <h2 className="section-title">Lo que va descubriendo</h2>
-      <ul className="plain topics">
+      <ul className="plain topics stagger">
         {TOPIC_ORDER.map((t) => {
           const started = state.startedTopics.includes(t);
           return (
@@ -98,11 +100,12 @@ export function MomentoDetalle() {
         <BackBar title="Momento" />
         <section className="card card-mint moment">
           <div className="eyebrow">{o.topic ? TOPIC_LABEL[o.topic].toUpperCase() : 'MOMENTO'}</div>
+          <h1 className="moment-title">{o.title ?? `Un momento de ${state.childName}`}</h1>
           <p className="moment-quote">{o.narrative}</p>
           <span className="muted small">Observado por {o.authorDisplayName}{date ? ` · ${date}` : ''}</span>
         </section>
         <p className="note"><Icon name="info" size={18} />Es una observación de quien acompaña, no una evaluación.</p>
-        {cel.length > 0 && (<><h2 className="section-title">Mensajes de celebración</h2><ul className="plain stack-8">{cel.map((c) => <li key={c.id} className="card card-cream">{c.message}</li>)}</ul></>)}
+        {cel.length > 0 && (<><h2 className="section-title">Mensajes de celebración</h2><ul className="plain stack-8">{cel.map((c) => <li key={c.id} className="card card-cream appear"><Icon name="party-popper" size={18} /> {c.message}</li>)}</ul></>)}
       </div>
       <ActionFooter helper="Celebrar es opcional.">
         <LinkButton to={`/celebrar?m=${o.id}`} variant="secondary" block>Celebrar este momento</LinkButton>
@@ -114,9 +117,12 @@ export function MomentoDetalle() {
 export function NuevoMomento() {
   const { state, dispatch } = useStore();
   const nav = useNavigate();
+  const [qs] = useSearchParams();
+  const preset = qs.get('tema');
+  const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [author, setAuthor] = useState('');
-  const [topic, setTopic] = useState<Topic | ''>('');
+  const [topic, setTopic] = useState<Topic | ''>(preset && (TOPIC_ORDER as string[]).includes(preset) ? (preset as Topic) : '');
   const [touched, setTouched] = useState(false);
   const [busy, setBusy] = useState(false);
   const ok = text.trim().length > 0 && author.trim().length > 0;
@@ -126,7 +132,7 @@ export function NuevoMomento() {
     if (!ok || busy) return;
     setBusy(true);
     const id = newId('o');
-    dispatch({ type: 'addObservation', observation: { id, childId: 'c1', narrative: text.trim(), authorId: author.trim(), authorDisplayName: author.trim(), recordedAt: new Date().toISOString(), topic: topic || undefined } });
+    dispatch({ type: 'addObservation', observation: { id, title: title.trim() || undefined, childId: 'c1', narrative: text.trim(), authorId: author.trim(), authorDisplayName: author.trim(), recordedAt: new Date().toISOString(), topic: topic || undefined } });
     nav(`/momento/${id}`, { replace: true });
   };
 
@@ -139,6 +145,8 @@ export function NuevoMomento() {
         <label htmlFor="mom-texto" className="field-label">Lo que ocurrió</label>
         <textarea id="mom-texto" className="text-field area" rows={4} maxLength={280} value={text} onChange={(e) => setText(e.target.value)} />
         {touched && !text.trim() && <p className="small error" role="alert">Escribe qué ocurrió.</p>}
+        <label htmlFor="mom-titulo" className="field-label">Título (opcional)</label>
+        <input id="mom-titulo" className="text-field" maxLength={40} placeholder="Por ejemplo: Un pequeño gran paso" value={title} onChange={(e) => setTitle(e.target.value)} />
         <label htmlFor="mom-autor" className="field-label">Observado por</label>
         <input id="mom-autor" className="text-field" maxLength={30} placeholder="Tu nombre o relación" value={author} onChange={(e) => setAuthor(e.target.value)} />
         {touched && !author.trim() && <p className="small error" role="alert">Indica quién lo observó.</p>}
@@ -177,7 +185,7 @@ export function Celebrar() {
       <div className="task">
         <div className="task-scroll">
           <div className="center-col">
-            <span className="tile tile-naranja big"><Icon name="party-popper" size={40} /></span>
+            <span className="tile tile-naranja big pop"><Icon name="party-popper" size={40} /></span>
             <h1 className="title center">Mensaje guardado</h1>
             <p className="muted center">«{message}»</p>
           </div>

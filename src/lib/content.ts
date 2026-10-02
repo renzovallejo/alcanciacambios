@@ -65,7 +65,7 @@ export interface Activity { topic: Topic; title: string; blurb: string; steps: S
 
 export const ACTIVITIES: Record<Topic, Activity> = {
   ahorrar: { topic: 'ahorrar', title: 'Fijar una meta de ahorro', blurb: 'Conversen cómo acercarse a esa primera meta.',
-    steps: [{ kind: 'story', id: 's-planifica', title: 'Un cuento para conversar' }, { kind: 'mission', id: 'm-monedas', title: 'Separar las monedas' }, { kind: 'action', id: 'meta', title: 'Crear la meta juntos', to: '/meta/nueva' }] },
+    steps: [{ kind: 'story', id: 's-planifica', title: 'Un cuento para conversar' }, { kind: 'mission', id: 'm-monedas', title: 'Separar las monedas' }, { kind: 'action', id: 'meta', title: 'Crear la meta juntos', to: '/meta/nueva?volver=/actividad/ahorrar' }] },
   'gastar-bien': { topic: 'gastar-bien', title: 'Comparar antes de comprar', blurb: 'Descubran por qué conviene mirar antes de elegir.',
     steps: [{ kind: 'story', id: 's-compara', title: 'Un cuento para conversar' }, { kind: 'game', id: 'g-necesito', title: 'Juego: ¿lo necesito o lo quiero?' }, { kind: 'mission', id: 'm-compara', title: 'Comparar en dos lugares' }] },
   compartir: { topic: 'compartir', title: 'Elegir algo para compartir', blurb: 'Piensen juntos en qué les gustaría compartir.',
@@ -80,3 +80,5 @@ export const stepPath = (s: StepRef, topic: Topic, n: number): string =>
 export const findStory = (id: string) => STORIES.find((s) => s.id === id);
 export const findMission = (id: string) => MISSIONS.find((s) => s.id === id);
 export const findGame = (id: string) => GAMES.find((s) => s.id === id);
+
+export const STEP_ICON: Record<StepRef['kind'], string> = { story: 'book-open', mission: 'flag', game: 'messages-square', action: 'target' };

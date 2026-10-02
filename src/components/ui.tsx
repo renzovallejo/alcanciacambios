@@ -1,5 +1,6 @@
-import { useState, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { useEffect, useState, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Link, useNavigate, type LinkProps } from 'react-router-dom';
+import { isConnected } from '../lib/device';
 import mascota1 from '../assets/mascota/mascota-1x.png';
 import mascota2 from '../assets/mascota/mascota-2x.png';
 import mascota3 from '../assets/mascota/mascota-3x.png';
@@ -28,7 +29,7 @@ export function Button({ variant = 'primary', loading, block, disabled, children
   return (
     <button {...rest} disabled={disabled || loading} aria-busy={loading || undefined}
       className={`btn btn-${variant} ${block ? 'btn-block' : ''} ${className}`}>
-      {loading ? 'Procesando…' : children}
+      {loading ? <><span className="spinner" aria-hidden="true" />Procesando…</> : children}
     </button>
   );
 }
@@ -82,13 +83,20 @@ export function ChildContext({ name, status }: { name: string; status?: ReactNod
   );
 }
 
-export function ConnectionStatus({ text = 'Conectada' }: { text?: string }) {
-  return <span className="conn"><Icon name="wifi" size={16} />{text}</span>;
+/** Estado de conexión del chanchito: icono + texto, enlaza a sus ajustes. */
+export function ConnectionStatus() {
+  const on = isConnected();
+  return (
+    <Link to="/chanchito" className={`conn ${on ? '' : 'off'}`} aria-label={`Chanchito: ${on ? 'conectada' : 'sin conexión'}. Ver ajustes`}>
+      <Icon name="wifi" size={16} />{on ? 'Conectada' : 'Sin conexión'}
+    </Link>
+  );
 }
 
-export function BackBar({ label, to, icon = 'arrow-left', title, onBack }: { label?: string; to?: string; icon?: 'arrow-left' | 'x'; title?: string; onBack?: () => void }) {
+export function BackBar({ label, to, icon = 'arrow-left', title, onBack, heading = false }: { label?: string; to?: string; icon?: 'arrow-left' | 'x'; title?: string; onBack?: () => void; heading?: boolean }) {
   const nav = useNavigate();
-  const go = () => (onBack ? onBack() : to ? nav(to) : nav(-1));
+  const canGoBack = ((window.history.state as { idx?: number } | null)?.idx ?? 0) > 0;
+  const go = () => (onBack ? onBack() : to ? nav(to) : canGoBack ? nav(-1) : nav('/'));
   if (label) {
     return (
       <button className="back-link" onClick={go}><Icon name="chevron-left" size={18} />{label}</button>
@@ -97,10 +105,33 @@ export function BackBar({ label, to, icon = 'arrow-left', title, onBack }: { lab
   return (
     <div className="task-bar">
       <button className="icon-btn" onClick={go} aria-label={icon === 'x' ? 'Cerrar' : 'Volver'}><Icon name={icon} size={22} /></button>
-      <span>{title}</span>
+      {heading ? <h1 className="task-title">{title}</h1> : <span>{title}</span>}
     </div>
   );
 }
+
+/** Anima un número desde el último valor mostrado (solo visual; el valor real se anuncia de inmediato). */
+export function useCountUp(target: number, key: string, duration = 700): number {
+  const start = lastShown.get(key) ?? target;
+  const [v, setV] = useState(start);
+  useEffect(() => {
+    lastShown.set(key, target);
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (start === target || reduce) { setV(target); return; }
+    let raf = 0; const t0 = performance.now();
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - t0) / duration);
+      const e = 1 - Math.pow(1 - k, 3);
+      setV(Math.round(start + (target - start) * e));
+      if (k < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target]);
+  return v;
+}
+const lastShown = new Map<string, number>();
 
 export function useToggle(initial = false): [boolean, () => void] {
   const [v, setV] = useState(initial);
