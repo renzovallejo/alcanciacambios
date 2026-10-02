@@ -25,7 +25,7 @@ export default function Chanchito() {
     <div className="task">
       <div className="task-scroll">
         <BackBar title={t('chanchito.titulo', { nombre: state.childName })} heading />
-        <section className={`card card-cream device-status ${conn}`} aria-live="polite">
+        <section className={`card card-cream device-status conn-${conn}`} aria-live="polite">
           <div className="device-top"><Mascota size={64} /><div><h2 className="device-title">{title}</h2><p className="muted">{text}</p></div></div>
           <Button block loading={conn === 'connecting'} onClick={retry}>{t('chanchito.intentar')}</Button>
         </section>

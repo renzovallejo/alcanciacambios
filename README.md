@@ -16,6 +16,15 @@ npm test        # pruebas unitarias
 npm run build   # compilación (tipos + Vite)
 ```
 
+## Paquete para el equipo móvil (Android / iOS)
+
+```bash
+npm run build && npm run handoff:capturas   # capturas y videos de referencia
+npm run handoff                             # arma entrega/alcancia-dev-handoff-v3.4.zip
+```
+
+Incluye tokens para Compose y SwiftUI, `strings.xml` y `Localizable.strings` generados desde `src/i18n/es.json`, assets por densidad, modelos Kotlin/Swift, contenido, semillas, casos de prueba, especificación, capturas, videos y backlog. Documentación fuente en `scripts/handoff/docs/`.
+
 ## Pendiente
 
 No hay archivo de audio, hardware del chanchito, cuentas de usuario ni backend: la app lo dice claramente en cada pantalla donde aplica.

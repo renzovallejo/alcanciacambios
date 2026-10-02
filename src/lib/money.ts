@@ -15,22 +15,25 @@ export const MAX_AMOUNT_MINOR = 100_000; // S/ 1,000.00 (límite provisional de 
 
 export type ParseResult =
   | { ok: true; money: Money }
-  | { ok: false; error: string };
+  /** code = clave del catálogo (dinero.errorVacio…), igual en Android e iOS. */
+  | { ok: false; code: string; error: string };
+
+const fail = (code: string, params?: Record<string, string>): ParseResult => ({ ok: false, code: `dinero.${code}`, error: t(`dinero.${code}`, params) });
 
 /** Valida texto de importe: positivo, hasta 2 decimales, sin NaN ni separadores ambiguos. Sin coma flotante. */
 export function parseAmount(input: string): ParseResult {
   const text = input.trim().replace(/^S\/\s*/i, '');
-  if (text === '') return { ok: false, error: t('dinero.errorVacio') };
-  if (/[,]/.test(text) && /\./.test(text)) return { ok: false, error: t('dinero.errorSeparador') };
+  if (text === '') return fail('errorVacio');
+  if (/[,]/.test(text) && /\./.test(text)) return fail('errorSeparador');
   const normalized = text.replace(',', '.');
   if (!/^\d+(\.\d{0,2})?$/.test(normalized)) {
-    if (/^\d+\.\d{3,}$/.test(normalized)) return { ok: false, error: t('dinero.errorDecimales') };
-    return { ok: false, error: t('dinero.errorFormato') };
+    if (/^\d+\.\d{3,}$/.test(normalized)) return fail('errorDecimales');
+    return fail('errorFormato');
   }
   const [whole, frac = ''] = normalized.split('.');
   const minor = Number(whole) * 100 + Number(frac.padEnd(2, '0'));
-  if (minor <= 0) return { ok: false, error: t('dinero.errorCero') };
-  if (minor > MAX_AMOUNT_MINOR) return { ok: false, error: t('dinero.errorMaximo', { monto: formatMoney(MAX_AMOUNT_MINOR) }) };
+  if (minor <= 0) return fail('errorCero');
+  if (minor > MAX_AMOUNT_MINOR) return fail('errorMaximo', { monto: formatMoney(MAX_AMOUNT_MINOR) });
   return { ok: true, money: pen(minor) };
 }
 

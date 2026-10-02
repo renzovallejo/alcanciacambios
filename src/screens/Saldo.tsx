@@ -43,8 +43,8 @@ function useValidatedAmount(kind: FlowKind) {
   const parsed = parseAmount(state.draft.amountInput);
   if (!parsed.ok || kind === 'in') return parsed;
   const goal = state.goals.find((g) => g.id === state.draft.goalId);
-  if (parsed.money.minorUnits > state.balanceMinor) return { ok: false as const, error: t('dinero.errorNoAlcanza', { monto: formatMoney(state.balanceMinor) }) };
-  if (goal && parsed.money.minorUnits > goal.savedMinor) return { ok: false as const, error: t('dinero.errorMetaNoAlcanza', { meta: goal.name, monto: formatMoney(goal.savedMinor) }) };
+  if (parsed.money.minorUnits > state.balanceMinor) return { ok: false as const, code: 'dinero.errorNoAlcanza', error: t('dinero.errorNoAlcanza', { monto: formatMoney(state.balanceMinor) }) };
+  if (goal && parsed.money.minorUnits > goal.savedMinor) return { ok: false as const, code: 'dinero.errorMetaNoAlcanza', error: t('dinero.errorMetaNoAlcanza', { meta: goal.name, monto: formatMoney(goal.savedMinor) }) };
   return parsed;
 }
 
