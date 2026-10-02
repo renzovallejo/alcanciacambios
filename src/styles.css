@@ -65,8 +65,8 @@ h2, .section-title { font-size: var(--ds-font-18); line-height: var(--ds-line-18
 .card-cream { background: var(--fondo-naranja); border-color: transparent; }
 .card-violet { background: var(--fondo-violeta); border-color: transparent; }
 .card-mint { background: var(--fondo-verde); border-color: transparent; }
-/* Saldo en la versión clara del azul: fondo suave, número en azul principal. */
-.balance { background: var(--fondo-azul); color: var(--texto); border: var(--ds-border-width) solid #DDE2F8; border-radius: var(--ds-radius-16); padding: var(--ds-space-20); display: flex; align-items: center; gap: var(--ds-space-16); }
+/* Saldo en la versión clara del azul, sin borde: fondo suave, número en azul principal. */
+.balance { background: var(--fondo-azul); color: var(--texto); border-radius: var(--ds-radius-16); padding: var(--ds-space-20); display: flex; align-items: center; gap: var(--ds-space-16); }
 .balance .amount { color: var(--principal); }
 .amount { font-size: var(--ds-font-36); line-height: var(--ds-line-36); font-weight: var(--ds-weight-semibold); }
 .empty-goal { display: flex; flex-direction: column; gap: var(--ds-space-12); padding: var(--ds-space-16); }

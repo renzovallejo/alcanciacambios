@@ -6,7 +6,7 @@
 
 **Mascota en vector:** `assets/mascota/chanchito.svg`, con fondo transparente, lienzo desde 0, 0 y recorte justo (antes se corría a la izquierda en algunos visores).
 
-**Tarjeta «Lleva ahorrado»:** pasa del azul principal lleno a su versión clara: fondo `fondo-azul` (#F5F7FE) con borde #DDE2F8, monto en `principal` y etiquetas en `texto-secundario`. Más liviana en la portada; el azul fuerte queda para el botón principal.
+**Tarjeta «Lleva ahorrado»:** pasa del azul principal lleno a su versión clara: fondo `fondo-azul` (#F5F7FE) sin borde, monto en `principal` y etiquetas en `texto-secundario`. Más liviana en la portada; el azul fuerte queda para el botón principal.
 
 **Menos texto:** auditoría de las versiones de primer día y de una semana: −39 % y −23 % de palabras en pantalla. Se quitaron subtítulos explicativos, ayudas al pie, frases tranquilizadoras y resúmenes que repetían lo elegido. Regla nueva en `documentacion/lenguaje.md`.
 

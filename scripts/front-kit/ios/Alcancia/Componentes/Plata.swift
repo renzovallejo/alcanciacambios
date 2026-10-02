@@ -40,7 +40,6 @@ struct TarjetaSaldo: View {
         }
         .padding(AlcanciaDimen.space20)
         .background(RoundedRectangle(cornerRadius: AlcanciaDimen.radius16).fill(AlcanciaColor.fondoAzul))
-        .overlay(RoundedRectangle(cornerRadius: AlcanciaDimen.radius16).strokeBorder(Color(hex: 0xDDE2F8), lineWidth: AlcanciaDimen.borderWidth))
         .onAppear {
             mostrado = Double(saldoAnterior ?? saldo)
             if let saldoAnterior, saldoAnterior != saldo {

@@ -65,7 +65,7 @@ fun TarjetaSaldo(nombre: String, saldo: Int, modifier: Modifier = Modifier, sald
     LaunchedEffect(saldo) { if (reducir) mostrado.snapTo(saldo.toFloat()) else mostrado.animateTo(saldo.toFloat(), tween(AlcanciaMotion.ConteoMs, easing = EaseOutCubic)) }
     val cambio = saldoAnterior != saldo
     Row(
-        modifier.fillMaxWidth().clip(RoundedCornerShape(AlcanciaDimen.Radius16)).background(AlcanciaColor.FondoAzul).border(AlcanciaDimen.BorderWidth, Color(0xFFDDE2F8), RoundedCornerShape(AlcanciaDimen.Radius16)).padding(AlcanciaDimen.Space20)
+        modifier.fillMaxWidth().clip(RoundedCornerShape(AlcanciaDimen.Radius16)).background(AlcanciaColor.FondoAzul).padding(AlcanciaDimen.Space20)
             .semantics(mergeDescendants = true) { contentDescription = t0(nombre, saldo); liveRegion = LiveRegionMode.Polite },
         horizontalArrangement = Arrangement.spacedBy(AlcanciaDimen.Space16), verticalAlignment = Alignment.CenterVertically,
     ) {
