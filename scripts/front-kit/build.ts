@@ -82,6 +82,8 @@ copy(join(tmp, 'ios', 'es.lproj', 'Localizable.stringsdict'), join(I, 'Recursos'
 for (const [w, ps] of [['regular', 'Regular'], ['medium', 'Medium'], ['semibold', 'SemiBold']]) copy(join(FUENTES, `inter_${w}.ttf`), join(I, 'Recursos', 'Fuentes', `Inter-${ps}.ttf`));
 copy(join(DS, 'assets', 'fuentes', 'OFL-Inter.txt'), join(I, 'Recursos', 'Fuentes', 'OFL-Inter.txt'));
 copy(join(DS, 'assets', 'fuentes', 'OFL-Inter.txt'), join(A, 'res', 'font', 'OFL-Inter.txt'));
+copy(join(DS, 'assets', 'mascota', 'chanchito.svg'), join(OUT, 'mascota-vector', 'chanchito.svg'));
+copy(join(DS, 'assets', 'mascota', 'LEEME.md'), join(OUT, 'mascota-vector', 'LEEME.md'));
 rmSync(tmp, { recursive: true, force: true });
 
 // Capturas: las del kit (Compose renderizado) y las de la web para comparar.

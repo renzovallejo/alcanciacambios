@@ -314,5 +314,7 @@ export function exportAssets(out: string) {
     info: { author: 'xcode', version: 1 },
   }, null, 2));
   copyDir(join(DS, 'assets', 'icono-app'), join(out, 'icono-app'));
+  copy(join(DS, 'assets', 'mascota', 'chanchito.svg'), join(out, 'mascota', 'chanchito.svg'));
+  copy(join(DS, 'assets', 'mascota', 'LEEME.md'), join(out, 'mascota', 'LEEME.md'));
   return { iconos: icons.length };
 }
