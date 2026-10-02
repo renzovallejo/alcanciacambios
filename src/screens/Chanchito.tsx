@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { BackBar, Button, Icon, IconTile, LinkButton, Mascota } from '../components/ui';
 import { ActionFooter } from './Saldo';
 import { Link } from 'react-router-dom';
-import { exampleState, firstDayState, useStore } from '../lib/store';
+import { firstDayState, seedIsEmpty, seedState, useStore } from '../lib/store';
 import { DEVICE, isConnected } from '../lib/device';
 
 type Conn = 'disconnected' | 'connecting' | 'error';
@@ -44,8 +44,8 @@ export default function Chanchito() {
         <div className="center foot-links">
           <Link to="/sesion/cerrar" className="link">Cerrar sesión</Link>
           <p className="muted small">PiggyBank IoT · v2.4.0</p>
-          <button className="link small" onClick={() => { if (window.confirm('Se van a poner otra vez los datos de ejemplo. ¿Seguro?')) dispatch({ type: 'reset', state: exampleState() }); }}>Poner datos de ejemplo</button>
-          <button className="link small" onClick={() => { if (window.confirm('Se va a borrar todo para empezar desde cero. ¿Seguro?')) dispatch({ type: 'reset', state: firstDayState() }); }}>Empezar desde cero</button>
+          <button className="link small" onClick={() => { if (window.confirm('Todo volverá a como estaba al abrir la demo. ¿Seguro?')) dispatch({ type: 'reset', state: seedState() }); }}>Reiniciar la demo</button>
+          {!seedIsEmpty && <button className="link small" onClick={() => { if (window.confirm('Se va a borrar todo para empezar desde cero. ¿Seguro?')) dispatch({ type: 'reset', state: firstDayState() }); }}>Empezar desde cero</button>}
         </div>
       </div>
     </div>

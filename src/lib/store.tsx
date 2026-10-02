@@ -53,6 +53,52 @@ export const firstDayState = (): AppState => ({
   ...exampleState(), balanceMinor: 0, goals: [], movements: [], observations: [], conversations: [], celebrations: [], startedTopics: [], activeTopic: null, activityStep: {},
 });
 
+/** Fecha de hace n días a una hora local fija, para que la semana se vea natural. */
+const dayAt = (n: number, hour: number) => { const d = new Date(Date.now() - n * 86_400_000); d.setHours(hour, 0, 0, 0); return d.toISOString(); };
+
+/** Una semana de uso real: metas, entradas y salidas, momentos, conversaciones y felicitaciones coherentes entre sí. */
+export const weekState = (): AppState => ({
+  childName: 'Sofía',
+  balanceMinor: 2500, // 10 + 2 + 5 − 3 − 2 + 2 + 1 + 10
+  goals: [
+    { id: 'g1', name: 'Libro de dinosaurios', icon: 'book-open', savedMinor: 1200, targetMinor: 3000 },
+    { id: 'g2', name: 'Pelota de fútbol', icon: 'target', savedMinor: 1000, targetMinor: 2000 },
+  ],
+  movements: [
+    { id: 'w8', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(0, 18), amountMinor: 1000, reason: 'Su propina de la semana', goalId: 'g2', goalName: 'Pelota de fútbol' },
+    { id: 'w7', kind: 'in', label: 'Guardó plata', author: 'Abuela', at: dayAt(1, 19), amountMinor: 100, reason: 'Se portó bien' },
+    { id: 'w6', kind: 'in', label: 'Guardó plata', author: 'Papá', at: dayAt(2, 17), amountMinor: 200, reason: 'Ayudó en casa', goalId: 'g1', goalName: 'Libro de dinosaurios' },
+    { id: 'w5', kind: 'out', label: 'Sacó plata', author: 'Mamá', at: dayAt(3, 16), amountMinor: -200, reason: 'Hizo un regalo' },
+    { id: 'w4', kind: 'out', label: 'Sacó plata', author: 'Mamá', at: dayAt(4, 18), amountMinor: -300, reason: 'Se compró algo' },
+    { id: 'w3', kind: 'in', label: 'Guardó plata', author: 'Tío Jorge', at: dayAt(5, 13), amountMinor: 500, reason: 'Le dieron propina' },
+    { id: 'w2', kind: 'in', label: 'Guardó plata', author: 'Papá', at: dayAt(6, 18), amountMinor: 200, reason: 'Ayudó en casa' },
+    { id: 'w1', kind: 'in', label: 'Guardó plata', author: 'Mamá', at: dayAt(7, 10), amountMinor: 1000, reason: 'Su propina de la semana', goalId: 'g1', goalName: 'Libro de dinosaurios' },
+  ],
+  draft: emptyDraft(),
+  observations: [
+    { id: 'o3', title: 'Pensó en su hermanito', childId: 'c1', narrative: 'Dijo que quiere guardar un sol para comprarle algo a su hermanito por su cumple.', authorId: 'abuela', authorDisplayName: 'Abuela', recordedAt: dayAt(1, 20), topic: 'compartir' },
+    { id: 'o2', title: 'Comparó antes de comprar', childId: 'c1', narrative: 'Antes de comprar sus figuritas, preguntó si en la otra bodega estaban más baratas.', authorId: 'mama', authorDisplayName: 'Mamá', recordedAt: dayAt(4, 19), topic: 'gastar-bien' },
+    { id: 'o1', title: 'Contó sola sus monedas', childId: 'c1', narrative: 'Contó sola sus monedas antes de meterlas al chanchito, ¡y no se equivocó!', authorId: 'papa', authorDisplayName: 'Papá', recordedAt: dayAt(6, 19), topic: 'ahorrar' },
+  ],
+  conversations: [
+    { id: 'c3', title: '¿Lo necesito o lo quiero?', recordedAt: dayAt(3, 20) },
+    { id: 'c2', title: 'Compara precios antes de comprar', recordedAt: dayAt(4, 20) },
+    { id: 'c1', title: 'Planifica y ahorra para una meta', recordedAt: dayAt(6, 20) },
+  ],
+  celebrations: [
+    { id: 'k2', message: '¡Qué chévere cómo lo pensaste!', observationId: 'o2', recordedAt: dayAt(4, 20) },
+    { id: 'k1', message: '¡Qué orgullo, lo hiciste muy bien!', observationId: 'o1', recordedAt: dayAt(6, 20) },
+  ],
+  startedTopics: ['ahorrar', 'gastar-bien'],
+  activeTopic: 'gastar-bien',
+  activityStep: { ahorrar: 2, 'gastar-bien': 1 },
+});
+
+/** Datos iniciales según el despliegue: VITE_SEED=vacio | semana (por defecto, ejemplo de las referencias). */
+const SEED = import.meta.env.VITE_SEED as string | undefined;
+export const seedState = (): AppState => (SEED === 'vacio' ? firstDayState() : SEED === 'semana' ? weekState() : exampleState());
+export const seedIsEmpty = SEED === 'vacio';
+
 type Action =
   | { type: 'draft'; patch: Partial<Draft> }
   | { type: 'startDraft'; kind: FlowKind }
@@ -108,9 +154,9 @@ const KEY = 'alcancia:v2';
 function load(): AppState {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) return { ...exampleState(), ...JSON.parse(raw) };
+    if (raw) return { ...seedState(), ...JSON.parse(raw) };
   } catch { /* almacenamiento no disponible: se usa el estado de ejemplo */ }
-  return exampleState();
+  return seedState();
 }
 
 interface Ctx { state: AppState; dispatch: (a: Action) => void }
