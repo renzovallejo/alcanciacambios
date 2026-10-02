@@ -30,4 +30,4 @@ Los valores están en `03-diseno/tokens/` (`AlcanciaMotion`, `AlcanciaEasing`). 
 
 **Curvas** (`cubic-bezier`): standard `0.2, 0, 0, 1` · decelerate `0, 0, 0.2, 1` · emphasized `0.2, 0.8, 0.2, 1` · overshoot `0.2, 0.9, 0.3, 1.3`.
 
-**Háptica (opcional, recomendada)**: toque ligero al confirmar «Sí, anotar» y al completar una meta (`HapticFeedbackType.LongPress` / `UINotificationFeedbackGenerator().notificationOccurred(.success)`). Nunca en errores de validación.
+**Háptica (opcional, recomendada)**: toque ligero al confirmar «Sí, guardar» y al completar una meta (`HapticFeedbackType.LongPress` / `UINotificationFeedbackGenerator().notificationOccurred(.success)`). Nunca en errores de validación.

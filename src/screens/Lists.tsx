@@ -36,7 +36,7 @@ export function AllGoals() {
   );
 }
 
-/** Todo lo anotado, por mes, con lo que entró y salió en cada uno. */
+/** Lo que entró y salió, por mes, con lo que entró y salió en cada uno. */
 export function AllMovements() {
   const { state } = useStore();
   const months: { key: string; label: string; items: Movement[] }[] = [];

@@ -11,7 +11,7 @@ flowchart LR
   end
   A --> M[Sus metas] --> MD[Detalle de meta]
   A --> MD
-  A --> L[Todo lo anotado] --> LD[Detalle] --> LE([Corregir])
+  A --> L[Lo que entró y salió] --> LD[Detalle] --> LE([Corregir])
   MD --> ME([Editar meta])
   MD -->|Usar esta plata| F2
   A --> F1([Agregar plata])
@@ -21,10 +21,10 @@ flowchart LR
   B --> BI[Biblioteca] --> CU([Cuento]) & MI([Misión]) & JU([Juego])
   B --> AC([Actividad]) --> CU & MI & JU & NM
   CU --> GU([Para conversar])
-  B & C --> AN([Anotar algo que pasó]) --> MO([Lo que pasó]) --> FE([Felicitar])
+  B & C --> AN([Contar algo que pasó]) --> MO([Lo que pasó]) --> FE([Felicitar])
   B --> FE
   C --> TE[Tema] --> AC
-  C --> AV[Todo lo anotado · Progreso]
+  C --> AV[Todo lo que han contado · Progreso]
   C --> AC
   A & B & C --> CH([El chanchito]) --> BA([Batería]) & WI([WiFi]) & VO([Volumen]) & EM([Conectar celular]) & PE([Perfil]) & SE([Cerrar sesión])
   CH --> QA([Quién acompaña]) & RE([Recordatorio de propina])
@@ -36,8 +36,8 @@ flowchart LR
 
 ## Agregar plata / Sacar plata
 
-**Agregar plata (4 pasos):** Cuánto → ¿De dónde salió? (motivo + meta) → **¿Quién le envía?** (+ resumen y «Sí, anotar») → ¡Listo!
-**Sacar plata (3 pasos):** Cuánto → ¿En qué la va a usar? (motivo + meta de origen + resumen y «Sí, anotar») → ¡Listo!
+**Agregar plata (4 pasos):** Cuánto → ¿De dónde salió? (motivo + meta) → **¿Quién le envía?** (+ resumen y «Sí, guardar») → ¡Listo!
+**Sacar plata (3 pasos):** Cuánto → ¿En qué la va a usar? (motivo + meta de origen + resumen y «Sí, guardar») → ¡Listo!
 
 ```mermaid
 stateDiagram-v2
@@ -47,9 +47,9 @@ stateDiagram-v2
   Cuanto --> [*]: ✕ (confirma si ya eligió algo)
   DeDonde --> Cuanto: ← (conserva el borrador)
   DeDonde --> Quien: Continuar · solo agregar
-  DeDonde --> Listo: Sí, anotar · solo sacar
+  DeDonde --> Listo: Sí, guardar · solo sacar
   Quien --> DeDonde: ←
-  Quien --> Listo: Sí, anotar (un solo envío; «Otro pariente» exige nombre)
+  Quien --> Listo: Sí, guardar (un solo envío; «Otro pariente» exige nombre)
   Listo --> [*]: Volver a Alcancía (sin poder volver atrás)
 ```
 
@@ -98,7 +98,7 @@ stateDiagram-v2
 
 ```mermaid
 flowchart LR
-  X[Aprender / Tema / Misión / Progreso vacío] --> N([Anotar algo que pasó])
+  X[Aprender / Tema / Misión / Progreso vacío] --> N([Contar algo que pasó])
   N -->|Guardar| D([Lo que pasó])
   D -->|Mandarle un mensajito| F([Felicitar])
   F -->|Guardar| OK[¡Mensajito guardado!] -->|Volver| D

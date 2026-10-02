@@ -233,7 +233,7 @@ export function SaldoMotivo() {
         </ActionFooter>
       ) : (
         <ActionFooter helper={t('flujo.pieRevisar')}>
-          <Button block disabled={!valid} loading={busy} onClick={confirm}>{t('flujo.confirmar')}</Button>
+          <Button block disabled={!valid} loading={busy} onClick={confirm}>{tf(kind, 'confirmar')}</Button>
         </ActionFooter>
       )}
     </div>
@@ -279,7 +279,7 @@ export function SaldoQuien() {
         {valid && <><h2 className="section-title">{t('flujo.resumen')}</h2><Summary kind="in" amountMinor={parsed.money.minorUnits} /></>}
       </div>
       <ActionFooter helper={t('flujo.pieRevisar')}>
-        <Button block disabled={!valid} loading={busy} onClick={confirm}>{t('flujo.confirmar')}</Button>
+        <Button block disabled={!valid} loading={busy} onClick={confirm}>{tf('in', 'confirmar')}</Button>
       </ActionFooter>
     </div>
   );
@@ -307,7 +307,7 @@ export function SaldoListo() {
         <Steps kind={kind} current={STEPS[kind].length} />
         <div className="center-col">
           <span className="tile tile-verde big pop"><Icon name="circle-check" size={40} /></span>
-          <h1 className="title center">{t('flujo.listo')}</h1>
+          <h1 className="title center">{tf(kind, 'listo')}</h1>
           <p className="muted center">{tf(kind, 'ahora', { nombre: state.childName, monto: formatMoney(state.balanceMinor) })}</p>
           {loc?.reachedGoal && (
             <p className="alert-box ok reached-note" role="status"><Icon name="party-popper" size={20} />{t('flujo.metaAlcanzada', { meta: loc.reachedGoal })}</p>

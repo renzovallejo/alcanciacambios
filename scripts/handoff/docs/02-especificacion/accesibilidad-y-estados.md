@@ -20,7 +20,7 @@
 
 | Estado | Cómo se ve | No confundir con |
 |---|---|---|
-| **Cero** (primer día) | «S/ 0.00» + «Anotar su primera plata» | Cargando o error: **no** mostrar S/ 0.00 si todavía no se sabe el saldo |
+| **Cero** (primer día) | «S/ 0.00» + «Guardar su primera plata» | Cargando o error: **no** mostrar S/ 0.00 si todavía no se sabe el saldo |
 | **Vacío** | Icono + «Todavía no…» + qué aparecerá ahí | Error. Nunca filas de ejemplo ni gráficos vacíos |
 | **Cargando** (cuando haya backend) | Esqueleto o indicador; sin números | Cero |
 | **Error de datos** (cuando haya backend) | Rosa + causa + «Intentar otra vez»; conservar lo escrito | Vacío |
@@ -35,7 +35,7 @@
 
 | Área | Probar |
 |---|---|
-| Dinero | Vacío, 0, negativo, letras, 3 decimales, coma y punto, S/ 1,000.01, monto válido, doble toque en «Sí, anotar», sacar más de lo ahorrado, sacar más de lo de la meta |
+| Dinero | Vacío, 0, negativo, letras, 3 decimales, coma y punto, S/ 1,000.01, monto válido, doble toque en «Sí, guardar», sacar más de lo ahorrado, sacar más de lo de la meta |
 | Flujo | Volver del paso 2 al 1 conserva todo; «✕» con cambios pide confirmar; «Otra cosa» sin texto no deja continuar; motivo largo crece en alto; sin metas solo muestra «Ninguna meta en especial» |
 | Metas | Completar una meta (aviso + «¡Logrado!»); meta lograda sin botón de agregar; más de 2 metas en Alcancía |
 | Actividades | Abrir sin empezar no cambia Progreso; «Empezar» sí; avanzar hasta el último paso |

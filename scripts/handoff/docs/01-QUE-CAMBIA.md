@@ -19,16 +19,16 @@ Todos los textos pasan a **español peruano familiar** («plata», «propina», 
 |---|---|---|---|
 | ✏️ | Alcancía (con datos) | «Registrar salida» → **«Sacar plata»** con flujo propio. Metas abren su detalle. Meta completa muestra «¡Logrado!». Saldo con conteo animado al volver de anotar. Estado de conexión real (ver §3). | 13, 58 |
 | ✏️ | Alcancía (primer día) | Solo textos y estado de conexión. | 01 |
-| 🆕 | Agregar plata · paso 3 «¿Quién le envía?» | Mamá, Papá, Abuela, Abuelo, Tío o tía, Otro pariente (pide nombre). Quien administra la cuenta dice «Administra la cuenta». Debajo, resumen y «Sí, anotar». | 55 |
+| 🆕 | Agregar plata · paso 3 «¿Quién le envía?» | Mamá, Papá, Abuela, Abuelo, Tío o tía, Otro pariente (pide nombre). Quien administra la cuenta dice «Administra la cuenta». Debajo, resumen y «Sí, guardar». | 55 |
 | 🆕 | Agregar plata · paso 4 «¡Listo!» | Confirmación, aviso si se completó una meta, moneda para que el niño la meta al chanchito, oferta de recordatorio. | 56, 57 |
-| 🆕 | **Sacar plata** (3 pasos) | Cuánto → En qué (con resumen y «Sí, anotar») → Listo. Motivos propios y validación «No le alcanza». | 59, 60, 11 |
+| 🆕 | **Sacar plata** (3 pasos) | Cuánto → En qué (con resumen y «Sí, guardar») → Listo. Motivos propios y validación «No le alcanza». | 59, 60, 11 |
 | 🆕 | Sus metas (lista) | Todas las metas en orden estable + «Poner otra meta». | 14, 12 |
 | 🆕 | Detalle de meta | Avance, «Le faltan…», plata guardada para esa meta, «Agregar plata a esta meta». | 15, 10 |
 | 🆕 | Poner meta | Nombre + costo. Al venir de una actividad, vuelve a la actividad. | 04, 20 |
-| 🆕 | Todo lo anotado + detalle | Lista completa de entradas y salidas, y su detalle. | 16–19 |
+| 🆕 | Lo que entró y salió + detalle | Lista completa de entradas y salidas, y su detalle. | 16–19 |
 | ✏️ | Aprender | El estado «Para empezar / En curso» sale de la actividad realmente empezada, no de si hay plata. | 02, 21 |
 | ✏️ | Biblioteca | Pestaña «Juegos» (antes «Juegos de rol»). Cada elemento abre su contenido. El filtro de tema se conserva al cambiar de formato. | 22–24 |
-| 🆕 | Misión | Materiales, pasos marcables (no es tarea), «Anotar cómo les fue». | 27 |
+| 🆕 | Misión | Materiales, pasos marcables (no es tarea), «Contar cómo les fue». | 27 |
 | 🆕 | Juego | Escenario, roles, preguntas, «Ya lo conversamos». | 28 |
 | ✏️ | Cuento | Abre cualquier cuento. Icono real de pausa. Error recuperable si no hay audio. | 25, 50, 51 |
 | 🆕 | Para conversar (guía) | Preguntas + consejos + «Ya lo conversamos» (opcional). | 26 |
@@ -36,9 +36,9 @@ Todos los textos pasan a **español peruano familiar** («plata», «propina», 
 | ✏️ | Progreso | Todo sale de datos reales: momento más reciente, conteos con plural, estado de cada tema, siguiente actividad sugerida. Estado vacío propio. | 31, 03 |
 | 🆕 | Tema | Lo anotado en ese tema + su actividad. | 32 |
 | 🆕 | Lo que pasó (momento) | Detalle + mensajitos recibidos + «Mandarle un mensajito». | 33 |
-| 🆕 | Anotar algo que pasó | Qué pasó, título opcional, quién lo vio, tema opcional. | 35 |
+| 🆕 | Contar algo que pasó | Qué pasó, título opcional, quién lo vio, tema opcional. | 35 |
 | 🆕 | Felicitar | 4 frases o una propia. | 36 |
-| 🆕 | Todo lo anotado (Progreso) | Cosas que pasaron, conversaciones y mensajitos. | 34 |
+| 🆕 | Todo lo que han contado (Progreso) | Cosas que pasaron, conversaciones y mensajitos. | 34 |
 | ✏️ | El chanchito (ajustes) | Cada fila abre su pantalla. Estado «Conectando…» y error recuperable. | 37, 52, 05 |
 | 🆕 | Batería / WiFi / Volumen / Conectar este celular / Perfil | Datos «lo último que sabemos»; cambios bloqueados sin conexión; perfil edita el nombre. | 38–42 |
 | 🆕 | Selector de persona | Al tocar el nombre. Hoy una sola persona. | 46 |
@@ -52,7 +52,7 @@ Los números de la columna «Ref.» son las capturas de `07-referencias/pantalla
 - **Meta alcanzada**: al confirmar plata que completa una meta, aviso en el paso 4 y «¡Logrado!» en la tarjeta.
 - **Salidas**: no se puede sacar más de lo ahorrado ni más de lo que tiene la meta de origen.
 - **Actividades**: «Empezar» marca el tema como «Ya empezaron». Abrir el detalle o un paso no cambia nada.
-- **Progreso**: el momento destacado es el más reciente con fecha válida; si fue hace más de 7 días, la etiqueta dice «LO ÚLTIMO QUE ANOTARON» en lugar de «ESTA SEMANA».
+- **Progreso**: el momento destacado es el más reciente con fecha válida; si fue hace más de 7 días, la etiqueta dice «LO ÚLTIMO QUE CONTARON» en lugar de «ESTA SEMANA».
 - Detalle completo: `02-especificacion/reglas-de-negocio.md`.
 
 ## 4. Animaciones 🆕
@@ -65,7 +65,7 @@ Salió de revisar los flujos con familias muy digitales y poco digitales, con y 
 
 | # | Cambio | Dónde | Ref. |
 |---|---|---|---|
-| 1 | **De quién viene la plata.** Agregar plata pregunta «¿Quién le envía?» y lo guarda en el movimiento (`senderId`, `senderName`). Las listas muestran quién envió (en entradas) y el detalle separa «Le envió» de «Lo anotó». | Agregar plata, listas, detalle | 55, 18 |
+| 1 | **De quién viene la plata.** Agregar plata pregunta «¿Quién le envía?» y lo guarda en el movimiento (`senderId`, `senderName`). Las listas muestran quién envió (en entradas) y el detalle separa «Le envió» de «Lo hizo». | Agregar plata, listas, detalle | 55, 18 |
 | 2 | **Anotar rápido.** Motivo, meta y quién envía vienen marcados de la última vez. El monto se selecciona entero al tocarlo. Metas como tarjetas a la vista, no desplegable. | Alcancía, Agregar/Sacar | 13, 54 |
 | 3 | **Retomar lo que quedó a medias.** Si salen del flujo sin anotar, Alcancía ofrece «Seguir» o «Descartar». | Alcancía | 08 |
 | 4 | **Corregir y borrar** movimientos, metas y momentos, con «Deshacer» durante 6 s. Nunca se permite dejar plata en negativo: se avisa en vez de guardar. Borrar una meta no borra plata. | Detalle de movimiento, meta y momento | 17–20 |
@@ -79,7 +79,7 @@ Salió de revisar los flujos con familias muy digitales y poco digitales, con y 
 | 12 | **Más contenido**: 2 cuentos (compartir, ganar), 1 misión (ganar), 1 juego (ahorrar). La Biblioteca lista todo. | Biblioteca | 22–24 |
 | 13 | **Cierre de actividad**: «Ya terminamos» en el último paso, celebración sin puntaje y siguiente actividad sugerida. | Actividad, Aprender | 45 |
 | 14 | **El niño participa**: en «¡Listo!» puede tocar el chanchito para «meter la moneda». Es opcional y no bloquea nada. | Agregar plata · Listo | 57 |
-| 15 | **Ahorro en el tiempo**: «Esta semana: +S/ X» en el saldo y «Todo lo anotado» agrupado por mes con lo que entró y salió. | Alcancía, Todo lo anotado | 13, 16 |
+| 15 | **Ahorro en el tiempo**: «Esta semana: +S/ X» en el saldo y «Lo que entró y salió» agrupado por mes con lo que entró y salió. | Alcancía, Lo que entró y salió | 13, 16 |
 
 ## 6. Qué falta decidir (fuera de este paquete)
 

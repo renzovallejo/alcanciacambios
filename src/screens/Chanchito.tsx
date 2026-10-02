@@ -271,7 +271,7 @@ export function Acompana() {
   );
 }
 
-/** Día de la propina: ese día Alcancía muestra un aviso para anotarla. */
+/** Día de la propina: ese día Alcancía muestra un aviso para guardarla. */
 export function Recordatorio() {
   const { state, dispatch } = useStore();
   const nav = useNavigate();

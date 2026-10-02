@@ -129,7 +129,7 @@ export function MomentoDetalle() {
   );
 }
 
-/** Anotar algo que pasó, o editarlo con /momento/:id/editar. «¿Quién lo vio?» viene con quien acompaña. */
+/** Contar algo que pasó, o editarlo con /momento/:id/editar. «¿Quién lo vio?» viene con quien acompaña. */
 export function NuevoMomento() {
   const { state, dispatch } = useStore();
   const nav = useNavigate();

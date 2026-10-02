@@ -36,7 +36,7 @@ describe('catálogo de textos (es.json)', () => {
 
   it('interpola variables y plurales', () => {
     expect(t('flujo.in.ahora', { nombre: 'Sofía', monto: 'S/ 25.00' })).toBe('Ahora Sofía lleva ahorrado S/ 25.00.');
-    expect(tn('progreso.cosas', 1)).toBe('1 cosa anotada');
-    expect(tn('progreso.cosas', 3)).toBe('3 cosas anotadas');
+    expect(tn('progreso.cosas', 1)).toBe('1 cosa contada');
+    expect(tn('progreso.cosas', 3)).toBe('3 cosas contadas');
   });
 });

@@ -21,11 +21,11 @@ export interface Movement {
 }
 export type FlowKind = 'in' | 'out';
 export interface FlowReason { reason: string; detail?: string }
-/** active = la persona empezó a anotar y no terminó (para ofrecer retomarlo). */
+/** active = la persona empezó a guardar o sacar plata y no terminó (para ofrecer retomarlo). */
 export interface Draft { kind: FlowKind; amountInput: string; reason: FlowReason | null; goalId: Id | null; senderId?: string | null; senderName?: string; active?: boolean }
 export interface Conversation { id: Id; title: string; recordedAt: string }
 export interface Celebration { id: Id; message: string; observationId?: Id; recordedAt: string }
-/** Lo último anotado por tipo, para recordar motivo, meta y quién envía. */
+/** Lo último que entró o salió, por tipo, para recordar motivo, meta y quién envía. */
 export interface LastEntry { amountMinor: number; reason: FlowReason; goalId: Id | null; senderId?: string | null; senderName?: string }
 /** Quien administra la cuenta en este celular. relation = id de SENDERS (mama, papa…). */
 export interface Caregiver { name: string; relation?: string }

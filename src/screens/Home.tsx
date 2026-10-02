@@ -33,7 +33,7 @@ export default function Home() {
   const draftMoney = draft.active ? Number.parseFloat(draft.amountInput) : NaN;
 
   const resume = () => nav(draft.kind === 'in' ? '/saldo/importe' : '/salida/importe');
-  const anotarPropina = () => {
+  const guardarPropina = () => {
     dispatch({ type: 'clearDraft' });
     dispatch({ type: 'startDraft', kind: 'in' });
     dispatch({ type: 'draft', patch: { reason: { reason: 'mesada' } } });
@@ -74,7 +74,7 @@ export default function Home() {
         <div className="banner">
           <Icon name="bell" size={20} />
           <span>{t('alcancia.recordatorio', { dia: dayName(today) })}</span>
-          <Button variant="secondary" onClick={anotarPropina}>{t('alcancia.recordatorioBoton')}</Button>
+          <Button variant="secondary" onClick={guardarPropina}>{t('alcancia.recordatorioBoton')}</Button>
         </div>
       )}
 

@@ -37,15 +37,15 @@ Mamás, papás, abuelas, tíos y cualquier persona que acompaña a un niño o ni
 | agregar plata / guardar | agregar saldo, ingresar, depositar, recargar | |
 | sacar plata | registrar salida, retirar, egreso | |
 | cuánto, el monto | importe, cantidad, valor | |
-| anotar, apuntar | registrar, ingresar datos | |
-| lo que anotaron, todo lo anotado | movimientos, historial, registros | |
+| guardar / sacar (plata), contar (lo que pasó) | anotar, registrar, ingresar datos | «Anotar» no es tan común en Perú (v3.4.1) |
+| lo que entró y salió | lo anotado, movimientos, historial, registros | |
 | guardó plata / sacó plata | ingreso registrado / salida registrada | |
 | ¿de dónde salió esta plata? | motivo, origen | |
 | ¿es para alguna meta? | destino del saldo | |
 | ninguna meta en especial | sin meta | |
 | así quedaría | después de confirmar, proyección | |
-| sí, anotar | confirmar y agregar | |
-| ¡listo, ya está anotado! | saldo agregado, operación exitosa | |
+| sí, guardar / sí, sacar | sí, anotar, confirmar y agregar | |
+| ¡listo, ya se guardó! / ¡listo, ya se sacó! | ya está anotado, saldo agregado, operación exitosa | |
 | su propina de la semana | mesada | En Perú «propina» es la plata semanal |
 | le dieron propina | propina (a secas, ambiguo) | Plata suelta que le dio alguien |
 | por su cumple | cumpleaños | |
@@ -55,7 +55,7 @@ Mamás, papás, abuelas, tíos y cualquier persona que acompaña a un niño o ni
 | seguir con la actividad | continuar actividad | |
 | ver la actividad | explorar actividad | |
 | ya empezaron / todavía no empiezan | actividad iniciada / por explorar | |
-| anotar algo que pasó | registrar un momento | |
+| contar algo que pasó | anotar algo que pasó, registrar un momento | |
 | lo contó Mamá | observado por Mamá | |
 | ver más / ver todo | ver momento / ver avances | |
 | felicitar, un mensajito | celebrar un logro | |
@@ -95,17 +95,17 @@ Dan cariño y son muy peruanos, pero sin exagerar. Máximo uno por frase.
 | Componente | Regla | Ejemplo |
 |---|---|---|
 | Botón principal | Verbo + objeto, de 1 a 4 palabras | «Agregar plata», «Poner su primera meta», «Seguir con la actividad» |
-| Botón de confirmación | «Sí» + verbo | «Sí, anotar» |
+| Botón de confirmación | «Sí» + verbo | «Sí, guardar» |
 | Título de tarea | Pregunta directa | «¿Cuánto va a guardar?», «¿De dónde salió esta plata?» |
 | Ayuda bajo un campo | Una frase con lo que puede hacer | «Toca el monto para cambiarlo.» |
-| Texto al pie de la acción | Qué pasa (o no) al tocar | «Todavía no se anota nada.», «Recién se anota cuando toques el botón.» |
+| Texto al pie de la acción | Qué pasa (o no) al tocar | «Todavía no cambia nada.», «Recién cambia cuando toques el botón.» |
 | Error | Qué pasó + qué hacer, sin culpa | «No le alcanza: ahora tiene S/ 15.00.», «Escribe un monto como 10 o 10.50.» |
-| Estado vacío | «Todavía no…» + qué aparecerá | «Todavía no hay nada anotado. Cuando agreguen o saquen plata, aparecerá aquí.» |
-| Éxito | Breve y alegre, con el dato real | «¡Listo, ya está anotado!» + «Ahora Sofía lleva ahorrado S/ 25.00.» |
+| Estado vacío | «Todavía no…» + qué aparecerá | «Todavía no ha entrado ni salido plata. Cuando agreguen o saquen plata, aparecerá aquí.» |
+| Éxito | Breve y alegre, con el dato real | «¡Listo, ya se guardó!» + «Ahora Sofía lleva ahorrado S/ 25.00.» |
 | Meta lograda | Celebrar el hecho, no a la persona | «¡Ya juntaron todo para «Libro ilustrado»!», «¡Logrado!» |
 | Sin conexión | Estado + instrucción concreta | «Sin conexión. Préndelo y revisa el WiFi de la casa.» |
 | Dato viejo | Decir que no está al día | «52% · lo último que sabemos» |
-| Confirmar salida | Pregunta clara | «Si sales ahora, no se anotará nada. ¿Quieres salir?» |
+| Confirmar salida | Pregunta clara | «Si sales ahora, no cambia nada. ¿Quieres salir?» |
 
 ## Opciones de «¿De dónde salió esta plata?»
 
@@ -126,7 +126,7 @@ Los ids de `contratos/dominio.ts` no cambian; solo cambia el texto que se muestr
 
 - Lo que vio la familia es «algo que pasó», no una evaluación: «Lo contó Mamá · 1 oct».
 - Estados de los temas: «Ya empezaron» o «Todavía no empiezan». Nunca «domina», «aprendió» ni porcentajes.
-- Conteos discretos: «1 cosa anotada · 1 conversación».
+- Conteos discretos: «1 cosa contada · 1 conversación».
 - Felicitar es voluntario: «Es solo un mensaje bonito, no una nota.»
 
 ## Antes de publicar un texto
@@ -134,7 +134,7 @@ Los ids de `contratos/dominio.ts` no cambian; solo cambia el texto que se muestr
 - [ ] ¿Lo diría así una mamá, papá o abuela en Lima, Arequipa o Piura?
 - [ ] ¿Se entiende sin saber de finanzas?
 - [ ] ¿Tiene una sola idea y entra en dos líneas a 320 dp?
-- [ ] ¿Usa el glosario (plata, anotar, propina…) y no la columna «Evitar»?
+- [ ] ¿Usa el glosario (plata, guardar, contar, propina…) y no la columna «Evitar»?
 - [ ] ¿Deja claro que es un apunte y no plata de verdad, cuando se habla de dinero?
 - [ ] ¿Evita evaluar al niño y evita suponer quién acompaña?
 - [ ] ¿El monto usa el formato «S/ 10.00»?

@@ -2,6 +2,8 @@
 
 ## v3.4.1 · Revisión por tipos de usuario
 
+**Lenguaje:** se deja de usar «anotar» (no es tan común en Perú). Plata: «guardar / sacar» («Sí, guardar», «¡Listo, ya se guardó!», «Lo que entró y salió»). Momentos: «contar» («Contar algo que pasó», «3 cosas contadas»). Se quitan los avisos «no mueve plata de verdad».
+
 Componentes nuevos (todos con tokens existentes; ver capturas en el paquete para desarrollo):
 
 - **Tarjeta de opción con radio** (`.reason.wide` + `.radio-dot`): «¿Quién le envía?», metas en el flujo, días del recordatorio. Subtítulo opcional («Administra la cuenta»).

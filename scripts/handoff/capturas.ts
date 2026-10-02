@@ -72,12 +72,12 @@ async function main() {
       await page.fill('#monto', '7'); await ir(page, '/'); await foto(page, 'alcancia-borrador', 'vacío', 'Lo que quedó a medias se ofrece para seguir');
       await ctx.close();
     }
-    /* ---------- día de la propina, todavía sin anotar ---------- */
+    /* ---------- día de la propina, todavía sin guardar ---------- */
     {
       const w = weekState();
       const sinHoy: AppState = { ...w, balanceMinor: w.balanceMinor - 1000, movements: w.movements.filter((m) => m.id !== 'w8'), goals: w.goals.map((g) => (g.id === 'g2' ? { ...g, savedMinor: 0 } : g)) };
       const { ctx, page } = await pagina(b, sinHoy);
-      await ir(page, '/'); await foto(page, 'alcancia-recordatorio-propina', 'semana', 'Hoy es el día de su propina y no la anotaron');
+      await ir(page, '/'); await foto(page, 'alcancia-recordatorio-propina', 'semana', 'Hoy es el día de su propina y todavía no la guardaron');
       await ctx.close();
     }
     /* ---------- meta lograda: usar la plata ---------- */
@@ -87,7 +87,7 @@ async function main() {
       const { ctx, page } = await pagina(b, lograda);
       await ir(page, '/meta/g1'); await foto(page, 'meta-lograda-usar-plata', 'ejemplo', '«Usar esta plata» trae meta y monto');
       await tocar(page, 'Usar esta plata'); await tocar(page, 'Continuar'); await foto(page, 'sacar-de-meta-lograda', 'ejemplo', undefined, false);
-      await tocar(page, 'Sí, anotar'); await ir(page, '/metas'); await foto(page, 'metas-logradas-aparte', 'ejemplo');
+      await tocar(page, 'Sí, '); await ir(page, '/metas'); await foto(page, 'metas-logradas-aparte', 'ejemplo');
       await ir(page, '/chanchito'); await foto(page, 'chanchito-sin-conexion', 'ejemplo', 'Ya se conectó antes, ahora no');
       await tocar(page, 'Intentar otra vez'); await page.waitForTimeout(1700); await foto(page, 'chanchito-error-conexion', 'ejemplo');
       await ctx.close();
@@ -106,8 +106,8 @@ async function main() {
       const mas: [string, string, string?][] = [
         ['/cuento/s-compara?a=gastar-bien&p=1', 'cuento'], ['/guia/s-compara', 'guia-para-conversar'], ['/mision/m-monedas', 'mision'],
         ['/juego/g-tienda', 'juego'], ['/actividad/gastar-bien', 'actividad-en-curso'], ['/actividad/compartir', 'actividad-sin-empezar', 'Abrir no la inicia'],
-        ['/progreso', 'progreso'], ['/tema/ahorrar', 'tema'], ['/momento/o1', 'momento-detalle'], ['/avances', 'todo-lo-anotado'],
-        ['/momento/nuevo', 'anotar-algo-que-paso'], ['/celebrar?m=o1', 'felicitar'], ['/chanchito', 'chanchito-ajustes', 'Conectado (demo de una semana)'],
+        ['/progreso', 'progreso'], ['/tema/ahorrar', 'tema'], ['/momento/o1', 'momento-detalle'], ['/avances', 'todo-lo-contado'],
+        ['/momento/nuevo', 'contar-algo-que-paso'], ['/celebrar?m=o1', 'felicitar'], ['/chanchito', 'chanchito-ajustes', 'Conectado (demo de una semana)'],
         ['/chanchito/bateria', 'chanchito-bateria'], ['/chanchito/wifi', 'chanchito-wifi'], ['/chanchito/sonido', 'chanchito-volumen'],
         ['/chanchito/emparejar', 'chanchito-conectar-celular'], ['/chanchito/perfil', 'perfil'],
         ['/chanchito/acompana', 'quien-acompana'], ['/chanchito/recordatorio', 'recordatorio-propina'], ['/actividad/ahorrar', 'actividad-terminada', 'Cierre sin puntaje + siguiente'], ['/perfiles', 'selector-de-persona'],
@@ -120,7 +120,7 @@ async function main() {
       await ir(page, '/saldo/importe'); await page.fill('#monto', '10'); await foto(page, 'agregar-1-cuanto', 'semana', undefined, false);
       await tocar(page, 'Continuar'); await foto(page, 'agregar-2-de-donde', 'semana', 'Motivo y meta recordados', false);
       await tocar(page, 'Continuar'); await foto(page, 'agregar-3-quien-envia', 'semana', '¿Quién le envía? + resumen', false);
-      await tocar(page, 'Sí, anotar'); await foto(page, 'agregar-4-listo-meta-lograda', 'semana', 'La pelota llega a S/ 20 de S/ 20', false);
+      await tocar(page, 'Sí, '); await foto(page, 'agregar-4-listo-meta-lograda', 'semana', 'La pelota llega a S/ 20 de S/ 20', false);
       await page.locator('.coin-btn').click(); await foto(page, 'agregar-4-nino-mete-moneda', 'semana', 'Gesto opcional para el niño', false);
       await ir(page, '/'); await foto(page, 'alcancia-meta-lograda', 'semana');
       // Flujo sacar plata
@@ -135,14 +135,14 @@ async function main() {
       ['agregar-plata', weekState(), async (p) => {
         await ir(p, '/'); await p.waitForTimeout(800); await tocar(p, 'Agregar plata'); await p.waitForTimeout(600);
         await tocar(p, 'S/ 5'); await p.waitForTimeout(500); await tocar(p, 'Continuar'); await tocar(p, 'Ayudó en casa'); await p.waitForTimeout(500);
-        await tocar(p, 'Continuar'); await p.waitForTimeout(700); await tocar(p, 'Abuela'); await p.waitForTimeout(500); await tocar(p, 'Sí, anotar'); await p.waitForTimeout(1200);
+        await tocar(p, 'Continuar'); await p.waitForTimeout(700); await tocar(p, 'Abuela'); await p.waitForTimeout(500); await tocar(p, 'Sí, '); await p.waitForTimeout(1200);
         await p.locator('.coin-btn').click(); await p.waitForTimeout(1500);
         await tocar(p, 'Volver a Alcancía'); await p.waitForTimeout(2500);
       }],
       ['meta-lograda', weekState(), async (p) => {
         await ir(p, '/meta/g2'); await p.waitForTimeout(900); await tocar(p, 'Agregar plata a esta meta'); await p.fill('#monto', '10'); await p.waitForTimeout(500);
         await tocar(p, 'Continuar'); await tocar(p, 'Su propina de la semana'); await tocar(p, 'Continuar'); await p.waitForTimeout(500);
-        await tocar(p, 'Sí, anotar'); await p.waitForTimeout(2000); await tocar(p, 'Volver a Alcancía'); await p.waitForTimeout(2500);
+        await tocar(p, 'Sí, '); await p.waitForTimeout(2000); await tocar(p, 'Volver a Alcancía'); await p.waitForTimeout(2500);
       }],
       ['navegacion-y-biblioteca', weekState(), async (p) => {
         await ir(p, '/'); await p.waitForTimeout(800); await tocar(p, 'Aprender'); await p.waitForTimeout(800);
@@ -150,8 +150,8 @@ async function main() {
         await p.getByRole('tab', { name: 'Misiones' }).click(); await p.waitForTimeout(800); await p.getByRole('tab', { name: 'Juegos' }).click(); await p.waitForTimeout(800);
         await p.getByRole('tab', { name: 'Cuentos' }).click(); await p.waitForTimeout(800); await p.getByRole('link', { name: 'Progreso' }).click(); await p.waitForTimeout(1500);
       }],
-      ['anotar-y-felicitar', weekState(), async (p) => {
-        await ir(p, '/aprender'); await p.waitForTimeout(600); await tocar(p, 'Anotar algo que pasó');
+      ['contar-y-felicitar', weekState(), async (p) => {
+        await ir(p, '/aprender'); await p.waitForTimeout(600); await tocar(p, 'Contar algo que pasó');
         await p.fill('#mom-titulo', 'Ahorró para la pelota'); await p.fill('#mom-texto', 'Decidió no comprar dulces para guardar para su pelota.'); await p.fill('#mom-autor', 'Papá');
         await p.waitForTimeout(500); await p.getByRole('button', { name: 'Guardar', exact: true }).click(); await p.waitForTimeout(900);
         await tocar(p, 'Mandarle un mensajito'); await tocar(p, '¡Qué chévere'); await p.waitForTimeout(400); await p.getByRole('button', { name: 'Guardar', exact: true }).click(); await p.waitForTimeout(1500);
@@ -188,7 +188,7 @@ Datos: **vacío** = cuenta nueva (06-datos/semillas/vacio.json); **semana** = un
 | \`videos/agregar-plata.webm\` | Flujo de 4 pasos con «¿Quién le envía?», check con rebote, moneda que cae al chanchito, regreso con conteo del saldo y movimiento nuevo resaltado |
 | \`videos/meta-lograda.webm\` | Agregar a una meta hasta completarla: aviso «¡Ya juntaron todo…!» y estado «¡Logrado!» |
 | \`videos/navegacion-y-biblioteca.webm\` | Píldora de pestañas y de formatos deslizándose, transición entre pantallas |
-| \`videos/anotar-y-felicitar.webm\` | Anotar algo que pasó y mandar un mensajito |
+| \`videos/contar-y-felicitar.webm\` | Contar algo que pasó y mandar un mensajito |
 | \`videos/chanchito-sin-conexion.webm\` | «Intentar otra vez» → Conectando… → error recuperable |
 
 Los .webm se abren en Chrome, Firefox o VLC.
